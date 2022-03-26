@@ -8,52 +8,20 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RetroGames
+namespace RetroGames.Player
 {
-	public class Playerx
+	public class PlayerPassword
 	{
-		readonly SecureString securePassword = new SecureString();
-		public string FirstName { get; set; } = "";
-		public string LastName { get; set; } = "";
-		public string Email { get; set; } = "";
 		public string Password { get; set; } = "";
-		public string LoginName { get; set; } = "";
-		public bool IsLoggedIn { get; set; } = false;
-		public bool IsRegistered { get; set; } = false;
+		readonly SecureString securePassword = new SecureString();
 		public bool IsPasswordValid { get; set; } = false;
 		public bool IsPasswordEncrypted { get; set; } = false;
-		public bool IsEmailValid { get; set; } = false;
-		public char PressedKey { get; set; } = ' ';
-		
-		public string GetPlayerFirstName()
-		{
-			string firstName = Console.ReadLine();
-			
-			FirstName = firstName;
-			
-			return FirstName;
-		}
-		public string GetPlayerLastName()
-		{
-			string lastName = Console.ReadLine();
 
-			LastName = lastName;
-
-			return LastName;
-		}
-		public string GetPlayerLoginName()
-		{
-			string loginName = Console.ReadLine();
-
-			LoginName = loginName;
-
-			return LoginName;
-		}
 		public string GetPlayerPassword()
 		{
 			SecureString password = ConvertPasswordToSecure();
 			string passWordConvert = new NetworkCredential(string.Empty, password).Password;
-			
+
 			Password = passWordConvert;
 
 			ValidatePassword();
@@ -157,42 +125,5 @@ namespace RetroGames
 
 			return securePassword;
 		}
-
-		public string GetPlayerEmail()
-		{
-			string email = Console.ReadLine();
-
-			Email = email;
-
-			ValidateEmail();
-
-			return Email;
-		}
-
-		
-
-		public bool ValidateEmail()
-		{
-			Regex emailRegEx = new Regex(Settings.Default.EmailRegEx);
-			while (!emailRegEx.Match(Email).Success)
-			{
-				Console.WriteLine("E-mail address not match the requirements! \n"
-					+ "Please add a valid e-mail address! \n");
-				Email = Console.ReadLine();
-			}
-
-			IsEmailValid = true;
-
-			return IsEmailValid;
-		}
-		public bool RegistrationSuccess()
-		{
-			return IsRegistered;
-		}
-		public bool LoginSuccess()
-		{
-			return IsLoggedIn;
-		}
-
 	}
 }

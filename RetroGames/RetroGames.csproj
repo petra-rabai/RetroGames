@@ -44,11 +44,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Player.cs" />
+    <Compile Include="Player\PlayerEmail.cs" />
+    <Compile Include="Player\PlayerFirstName.cs" />
+    <Compile Include="Player\PlayerLastName.cs" />
+    <Compile Include="Player\PlayerLogin.cs" />
+    <Compile Include="Player\PlayerLoginName.cs" />
+    <Compile Include="Player\PlayerPassword.cs" />
+    <Compile Include="Player\PlayerRegistration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

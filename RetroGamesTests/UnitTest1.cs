@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using RetroGames.Player;
 
 namespace RetroGamesTests
 {
