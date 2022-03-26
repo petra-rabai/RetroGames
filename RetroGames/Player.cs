@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,10 @@ namespace RetroGames
 
 		public bool ValidatePassword()
 		{
+			string passWordConvert = new NetworkCredential(string.Empty, securePassword).Password;
+
+			Password = passWordConvert;
+
 			return IsPasswordValid;
 		}
 		public bool ValidateEmail()
