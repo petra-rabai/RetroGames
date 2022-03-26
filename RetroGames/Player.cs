@@ -50,8 +50,8 @@ namespace RetroGames
 		public string GetPlayerPassword()
 		{
 			SecureString password = ConvertPasswordToSecure();
-
-			Password = password.ToString();
+			ValidatePassword();
+			
 
 			return Password;
 		}
