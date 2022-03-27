@@ -43,26 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drive.cs" />
-    <Compile Include="EmailValidation.cs" />
-    <Compile Include="GameDirectory.cs" />
-    <Compile Include="GameFile.cs" />
-    <Compile Include="IDrive.cs" />
-    <Compile Include="IEmailValidation.cs" />
-    <Compile Include="IGameDirectory.cs" />
-    <Compile Include="IGameFile.cs" />
-    <Compile Include="IInstallation.cs" />
-    <Compile Include="ILogin.cs" />
-    <Compile Include="Installation.cs" />
-    <Compile Include="IPasswordEncrypter.cs" />
-    <Compile Include="IPasswordValidation.cs" />
-    <Compile Include="IPlayer.cs" />
-    <Compile Include="IRegistration.cs" />
-    <Compile Include="IUser.cs" />
-    <Compile Include="Login.cs" />
-    <Compile Include="PasswordEncrypter.cs" />
-    <Compile Include="PasswordValidation.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Game\Drive.cs" />
+    <Compile Include="Person\EmailValidation.cs" />
+    <Compile Include="Game\GameDirectory.cs" />
+    <Compile Include="Game\GameFile.cs" />
+    <Compile Include="Game\IDrive.cs" />
+    <Compile Include="Person\IEmailValidation.cs" />
+    <Compile Include="Game\IGameDirectory.cs" />
+    <Compile Include="Game\IGameFile.cs" />
+    <Compile Include="Game\IInstallation.cs" />
+    <Compile Include="Person\ILogin.cs" />
+    <Compile Include="Game\Installation.cs" />
+    <Compile Include="Person\IPasswordEncrypter.cs" />
+    <Compile Include="Person\IPasswordValidation.cs" />
+    <Compile Include="Person\IPlayer.cs" />
+    <Compile Include="Person\IRegistration.cs" />
+    <Compile Include="Person\IUser.cs" />
+    <Compile Include="Person\Login.cs" />
+    <Compile Include="Person\PasswordEncrypter.cs" />
+    <Compile Include="Person\PasswordValidation.cs" />
+    <Compile Include="Person\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GameSettings.Designer.cs">
@@ -70,8 +70,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>GameSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Registration.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Person\Registration.cs" />
+    <Compile Include="Person\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -80,5 +80,6 @@
       <LastGenOutput>GameSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
