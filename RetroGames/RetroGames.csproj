@@ -51,6 +51,7 @@
     <Compile Include="IEmailValidation.cs" />
     <Compile Include="IGameDirectory.cs" />
     <Compile Include="IGameFile.cs" />
+    <Compile Include="IInstallation.cs" />
     <Compile Include="ILogin.cs" />
     <Compile Include="Installation.cs" />
     <Compile Include="IPasswordEncrypter.cs" />
