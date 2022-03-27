@@ -3,6 +3,6 @@
 	public interface IRegistration
 	{
 		bool IsRegistered { get; set; }
-		bool RegistrationSuccess();
+		bool RegistrationSuccess(GameFile gameFile);
 	}
 }

@@ -3,6 +3,8 @@
 	public interface IGameFile
 	{
 		string GameFilePath { get; set; }
-		bool IsGameFileExist { get; set; }
+		string UserFilePath { get; set; }
+		string LogFilePath { get; set; }
+		bool IsGameFilesExist { get; set; }
 	}
 }

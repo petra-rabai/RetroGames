@@ -20,14 +20,14 @@ namespace RetroGames
 		private string email;
 		private char saveDecesion;
 
-		public bool RegistrationSuccess()
+		public bool RegistrationSuccess(GameFile gameFile)
 		{
-			RegistrationForm();
+			RegistrationForm(gameFile);
 
 			return IsRegistered;
 		}
 
-		private void RegistrationForm()
+		private void RegistrationForm(GameFile gameFile)
 		{
 			FormTitle();
 			FormFirstName();
@@ -43,7 +43,7 @@ namespace RetroGames
 			email = Player.GetPlayerEmail();
 			FromSave();
 			saveDecesion = Player.GetPlayerKeyFromConsole();
-			SaveDecesionCheck();
+			SaveDecesionCheck(gameFile);
 			
 		}
 
@@ -138,11 +138,11 @@ namespace RetroGames
 			return formContent;
 		}
 
-		private void SaveDecesionCheck()
+		private void SaveDecesionCheck(GameFile gameFile)
 		{
 			if (saveDecesion == 'Y')
 			{
-				SaveData();
+				SaveData(gameFile);
 
 				IsRegistered = true;
 			}
@@ -162,9 +162,9 @@ namespace RetroGames
 			email.Remove(0, email.Length);
 		}
 
-		private void SaveData()
+		private void SaveData(GameFile gameFile)
 		{
-			string Path = Settings.Default.UserDirectory;
+			string Path = GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
 			string data = "\n**********************"
 				 + "\n"
 				 + "Name: "
@@ -180,8 +180,11 @@ namespace RetroGames
 				 + email
 				 + "\n"
 				 + "**********************";
-
-			File.AppendAllText(Path,data); 
+			if (Directory.Exists(gameFile.UserFilePath))
+			{
+				File.AppendAllText(Path, data);
+			}
+			 
 		}
 	}
 }

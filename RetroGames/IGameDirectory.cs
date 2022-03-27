@@ -3,6 +3,8 @@
 	public interface IGameDirectory
 	{
 		string GameDirectoryPath { get; set; }
-		bool IsGameDirectoryExist { get; set; }
+		string UserDirectoryPath { get; set; }
+		string LogDirectoryPath { get; set; }
+		bool IsGameDirectoiesExist { get; set; }
 	}
 }
