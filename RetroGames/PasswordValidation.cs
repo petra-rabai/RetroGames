@@ -29,7 +29,7 @@ namespace RetroGames
 
 		private bool ValidatePassword()
 		{
-			Regex PasswordRegEx = new Regex(Settings.Default.PasswordRegEx);
+			Regex PasswordRegEx = new Regex(GameSettings.Default.PasswordRegEx);
 			while (!PasswordRegEx.Match(Password).Success)
 			{
 				string passwordError = GetPasswordError();

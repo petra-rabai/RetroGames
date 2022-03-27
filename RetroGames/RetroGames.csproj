@@ -43,9 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drive.cs" />
     <Compile Include="EmailValidation.cs" />
+    <Compile Include="GameDirectory.cs" />
+    <Compile Include="GameFile.cs" />
+    <Compile Include="IDrive.cs" />
     <Compile Include="IEmailValidation.cs" />
+    <Compile Include="IGameDirectory.cs" />
+    <Compile Include="IGameFile.cs" />
     <Compile Include="ILogin.cs" />
+    <Compile Include="Installation.cs" />
     <Compile Include="IPasswordEncrypter.cs" />
     <Compile Include="IPasswordValidation.cs" />
     <Compile Include="IPlayer.cs" />
@@ -57,19 +64,19 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="Properties\GameSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
+      <DependentUpon>GameSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Registration.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Properties\Settings.settings">
+    <None Include="Properties\GameSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <LastGenOutput>GameSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

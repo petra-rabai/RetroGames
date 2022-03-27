@@ -26,7 +26,7 @@ namespace RetroGames
 
 		private bool ValidateEmail()
 		{
-			Regex emailRegEx = new Regex(Settings.Default.EmailRegEx);
+			Regex emailRegEx = new Regex(GameSettings.Default.EmailRegEx);
 			while (!emailRegEx.Match(Email).Success)
 			{
 				Console.WriteLine("E-mail address not match the requirements! \n"

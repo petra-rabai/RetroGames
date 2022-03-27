@@ -164,7 +164,7 @@ namespace RetroGames
 
 		private void SaveData()
 		{
-			string Path = Settings.Default.UserPath;
+			string Path = Settings.Default.UserDirectory;
 			string data = "\n**********************"
 				 + "\n"
 				 + "Name: "
