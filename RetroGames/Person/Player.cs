@@ -79,7 +79,7 @@ namespace RetroGames
 			return Password;
 		}
 
-		public bool RegistrationSuccess()
+		public bool RegistrationSuccess(GameFile gameFile)
 		{
 			IsRegistered = Registration.IsRegistered;
 
