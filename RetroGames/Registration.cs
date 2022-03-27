@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetroGames.Player
+namespace RetroGames
 {
-	public class PlayerLogin
+	public class Registration : IRegistration
 	{
+		public bool IsRegistered { get; set; } = false;
 	}
 }

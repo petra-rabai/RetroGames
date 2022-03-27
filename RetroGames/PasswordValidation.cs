@@ -8,14 +8,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RetroGames.Player
+namespace RetroGames
 {
-	public class PlayerPassword
+	public class PasswordValidation : IPasswordValidation
 	{
+		public bool IsPasswordValid { get; set; } = false;
 		public string Password { get; set; } = "";
 		readonly SecureString securePassword = new SecureString();
-		public bool IsPasswordValid { get; set; } = false;
-		public bool IsPasswordEncrypted { get; set; } = false;
 
 		public string GetPlayerPassword()
 		{
@@ -25,13 +24,10 @@ namespace RetroGames.Player
 			Password = passWordConvert;
 
 			ValidatePassword();
-
-			Password = EncryptString(Password);
-
 			return Password;
 		}
 
-		public bool ValidatePassword()
+		private bool ValidatePassword()
 		{
 			Regex PasswordRegEx = new Regex(Settings.Default.PasswordRegEx);
 			while (!PasswordRegEx.Match(Password).Success)
@@ -50,7 +46,7 @@ namespace RetroGames.Player
 			return IsPasswordValid;
 		}
 
-		public string GetPasswordError()
+		private string GetPasswordError()
 		{
 			Regex hasNumber = new Regex(@"[0-9]+");
 			Regex hasUpperChar = new Regex(@"[A-Z]+");
@@ -88,17 +84,7 @@ namespace RetroGames.Player
 			return passwordError;
 		}
 
-		public string EncryptString(string plaintext)
-		{
-			byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(plaintext);
-			string encryptedtext = Convert.ToBase64String(b);
-
-			IsPasswordEncrypted = true;
-
-			return encryptedtext;
-		}
-
-		public SecureString ConvertPasswordToSecure()
+		private SecureString ConvertPasswordToSecure()
 		{
 			while (true)
 			{
@@ -125,5 +111,14 @@ namespace RetroGames.Player
 
 			return securePassword;
 		}
+
+
+
+
+
+
+
+
+
 	}
 }

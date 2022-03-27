@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RetroGames.Player
+namespace RetroGames
 {
-	public class PlayerEmail
+	public class EmailValidation : IEmailValidation
 	{
 		public string Email { get; set; } = "";
 		public bool IsEmailValid { get; set; } = false;
@@ -24,7 +24,7 @@ namespace RetroGames.Player
 			return Email;
 		}
 
-		public bool ValidateEmail()
+		private bool ValidateEmail()
 		{
 			Regex emailRegEx = new Regex(Settings.Default.EmailRegEx);
 			while (!emailRegEx.Match(Email).Success)
@@ -38,6 +38,5 @@ namespace RetroGames.Player
 
 			return IsEmailValid;
 		}
-
 	}
 }

@@ -4,18 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace RetroGames
 {
-	internal class Program
+	public class Login : ILogin
 	{
-		static void Main(string[] args)
-		{
-			Player player = new Player();
-			
-			
+		public bool IsLoggedIn { get; set; } = false;
 
-
-		}
 	}
 }
