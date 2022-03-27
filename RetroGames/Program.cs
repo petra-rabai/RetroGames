@@ -11,10 +11,7 @@ namespace RetroGames
 	{
 		static void Main(string[] args)
 		{
-			Player player = new Player();
 			
-			
-
 
 		}
 	}

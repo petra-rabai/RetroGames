@@ -8,5 +8,8 @@
     <Setting Name="EmailRegEx" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\\A(?:[a-z0-9!#$%&amp;\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&amp;\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\\Z</Value>
     </Setting>
+    <Setting Name="UserPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\RetroGames\\User\\User.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
