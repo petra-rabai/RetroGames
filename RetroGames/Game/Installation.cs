@@ -13,50 +13,17 @@ namespace RetroGames
 		public string GameFilePath { get; set; }
 		public string UserFilePath { get; set; }
 		public string LogFilePath { get; set; }
-		public bool IsGameFilesExist { get; set; }
 		GameFile GameFile { get; set; } = new GameFile();
 
 		public bool CheckInstallationSuccess()
 		{
-			CheckGamePath();
-			CheckLogPath();
-			CheckUserPath();
+			GameFile.CheckGameFilesCreated();
 
-			return IsInstallationSuccess;
-		}
-
-		private void CheckGamePath()
-		{
 			GameFilePath = GameFile.GameFilePath;
-
-			if (Directory.Exists(GameFilePath))
-			{
-				IsInstallationSuccess = true;
-			}
-			else
-			{
-				IsInstallationSuccess = false;
-			}
-		}
-
-		private void CheckUserPath()
-		{
 			UserFilePath = GameFile.UserFilePath;
-
-			if (Directory.Exists(UserFilePath))
-			{
-				IsInstallationSuccess = true;
-			}
-			else
-			{
-				IsInstallationSuccess = false;
-			}
-		}
-		private void CheckLogPath()
-		{
 			LogFilePath = GameFile.LogFilePath;
 
-			if (Directory.Exists(LogFilePath))
+			if (File.Exists(GameFilePath) && File.Exists(UserFilePath) && File.Exists(LogFilePath))
 			{
 				IsInstallationSuccess = true;
 			}
@@ -64,6 +31,8 @@ namespace RetroGames
 			{
 				IsInstallationSuccess = false;
 			}
+
+			return IsInstallationSuccess;
 		}
 
 
