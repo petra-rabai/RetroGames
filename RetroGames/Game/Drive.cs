@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
@@ -39,7 +36,6 @@ namespace RetroGames
 
 		private string[] CollectDrives()
 		{
-			hDDs = DriveInfo.GetDrives();
 			AvailableDrives = new string[hDDs.Length];
 
 			for (int i = 0; i < hDDs.Length; i++)

@@ -11,7 +11,7 @@ namespace RetroGames
 	public class GameFile : IGameDirectory, IGameFile
 	{
 		public string GameDirectoryPath { get; set; }
-		public bool IsGameDirectoiesExist { get; set; }
+		public bool IsGameDirectoriesExist { get; set; }
 		public bool IsGameFilesExist { get; set; }
 		public string GameFilePath { get; set; }
 		public string UserFilePath { get; set; }
@@ -31,10 +31,10 @@ namespace RetroGames
 
 		private string CreateGameFile()
 		{
-			IsGameDirectoiesExist = GameDirectory.IsGameDirectoiesExist;
+			IsGameDirectoriesExist = GameDirectory.IsGameDirectoriesExist;
 			GameDirectoryPath = GameDirectory.GameDirectoryPath;
 
-			if (IsGameDirectoiesExist)
+			if (IsGameDirectoriesExist)
 			{
 				File.Create(GameDirectoryPath + GameSettings.Default.GameFile);
 				IsGameFilesExist = true;
@@ -50,10 +50,10 @@ namespace RetroGames
 
 		private string CreateUserFile()
 		{
-			IsGameDirectoiesExist = GameDirectory.IsGameDirectoiesExist;
+			IsGameDirectoriesExist = GameDirectory.IsGameDirectoriesExist;
 			UserDirectoryPath = GameDirectory.UserDirectoryPath;
 
-			if (IsGameDirectoiesExist)
+			if (IsGameDirectoriesExist)
 			{
 				File.Create(UserDirectoryPath + GameSettings.Default.UserFile);
 				IsGameFilesExist = true;
@@ -69,10 +69,10 @@ namespace RetroGames
 
 		private string CreateLogFile()
 		{
-			IsGameDirectoiesExist = GameDirectory.IsGameDirectoiesExist;
+			IsGameDirectoriesExist = GameDirectory.IsGameDirectoriesExist;
 			LogDirectoryPath = GameDirectory.LogDirectoryPath;
 
-			if (IsGameDirectoiesExist)
+			if (IsGameDirectoriesExist)
 			{
 				File.Create(LogDirectoryPath + GameSettings.Default.LogFile);
 				IsGameFilesExist = true;

@@ -5,6 +5,6 @@
 		string GameDirectoryPath { get; set; }
 		string UserDirectoryPath { get; set; }
 		string LogDirectoryPath { get; set; }
-		bool IsGameDirectoiesExist { get; set; }
+		bool IsGameDirectoriesExist { get; set; }
 	}
 }

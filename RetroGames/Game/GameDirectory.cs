@@ -1,10 +1,5 @@
 ﻿using RetroGames.Properties;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
@@ -13,66 +8,67 @@ namespace RetroGames
 		public string InstallationDrive { get; set; }
 		public bool IsInstallationDriveSelected { get; set; }
 		Drive Drive { get; set; } = new Drive();
-		public bool IsGameDirectoiesExist { get; set; }
+		public bool IsGameDirectoriesExist { get; set; }
 		public string GameDirectoryPath { get; set; }
 		public string UserDirectoryPath { get; set; }
 		public string LogDirectoryPath { get; set; }
-		public bool CheckGameDirectoriesCreated()
+		
+		public bool CheckGameDirectoriesExist()
 		{
+			CreateGameDirectories();
+
+			if (!Directory.Exists(GameDirectoryPath) && !Directory.Exists(UserDirectoryPath) && !Directory.Exists(LogDirectoryPath))
+			{
+				IsGameDirectoriesExist = false;
+			}
+			else
+			{
+				IsGameDirectoriesExist = true;
+			}
+
+			return IsGameDirectoriesExist;
+		}
+
+		private void CreateGameDirectories()
+		{
+			GetInstallationDrive();
 			CreateGameDirectory();
 			CreateUserDirectory();
 			CreateLogDirectory();
-
-			return IsGameDirectoiesExist;
 		}
 
 		private string CreateGameDirectory()
 		{
-			InstallationDrive = Drive.SelectInstallationDrive();
-
-			if (!Directory.Exists(InstallationDrive + GameSettings.Default.GameDirectory))
-			{
-				Directory.CreateDirectory(InstallationDrive + GameSettings.Default.GameDirectory);
-				IsGameDirectoiesExist = true;
-			}
-			else
-			{
-				IsGameDirectoiesExist = false;
-			}
+			GameDirectoryPath = InstallationDrive + GameSettings.Default.GameDirectory;
+			
+			Directory.CreateDirectory(GameDirectoryPath);
 
 			return GameDirectoryPath;
 		}
 
-		private string CreateUserDirectory()
+		private string GetInstallationDrive()
 		{
 			InstallationDrive = Drive.SelectInstallationDrive();
 
-			if (!Directory.Exists(InstallationDrive + GameSettings.Default.UserDirectory))
-			{
-				Directory.CreateDirectory(InstallationDrive + GameSettings.Default.UserDirectory);
-				IsGameDirectoiesExist = true;
-			}
-			else
-			{
-				IsGameDirectoiesExist = false;
-			}
+			IsInstallationDriveSelected = Drive.IsInstallationDriveSelected;
 
+			return InstallationDrive;
+		}
+
+		private string CreateUserDirectory()
+		{
+			UserDirectoryPath = InstallationDrive + GameSettings.Default.UserDirectory;
+			
+			Directory.CreateDirectory(UserDirectoryPath);
+			
 			return UserDirectoryPath;
 		}
 
 		private string CreateLogDirectory()
 		{
-			InstallationDrive = Drive.SelectInstallationDrive();
+			LogDirectoryPath = InstallationDrive + GameSettings.Default.LogDirectory;
 
-			if (!Directory.Exists(InstallationDrive + GameSettings.Default.LogDirectory))
-			{
-				Directory.CreateDirectory(InstallationDrive + GameSettings.Default.LogDirectory);
-				IsGameDirectoiesExist = true;
-			}
-			else
-			{
-				IsGameDirectoiesExist = false;
-			}
+			Directory.CreateDirectory(LogDirectoryPath);
 
 			return LogDirectoryPath;
 		}
