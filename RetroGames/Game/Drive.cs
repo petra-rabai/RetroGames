@@ -10,79 +10,35 @@ namespace RetroGames
 	public class Drive : IDrive
 	{
 		private const int gBConverthelper = (1024 * 1024 * 1024);
+		
 		public string InstallationDrive { get; set; }
 		public bool IsInstallationDriveSelected { get; set; }
 		public string[] AvailableDrives { get; set; }
 		public char DriveDecesion { get; set; }
 
 		private string defaultDrive;
-		private Dictionary<int, string> DriveList;
+		private Dictionary<int, string> DriveList = new Dictionary<int, string>();
+		private DriveInfo[] hDDs;
+		private double[] freeHddSpace;
 
 		public string SelectInstallationDrive()
 		{
-			ChooseDefaultDrive();
+			GetDriveInfo();
 			CollectDrives();
-
-			if (AvailableDrives.Length == 1)
-			{
-				InstallationDrive = defaultDrive;
-			}
-			else
-			{
-				int drivelistKey = Convert.ToInt32(DriveDecesion.ToString());
-				InstallationDrive = DriveList[drivelistKey];
-			}
-
-			IsInstallationDriveSelected = true;
+			ChooseDefaultDrive();
+			InstallationDriveSelectionSuccess();
 
 			return InstallationDrive;
 		}
 
-
-		private string ChooseDefaultDrive()
-		{
-			DriveInfo[] hDDs;
-			double[] freeDiscSpace;
-			GetFreeDiskSpace(out hDDs, out freeDiscSpace);
-			CompareDisks(hDDs, freeDiscSpace);
-
-			return defaultDrive;
-		}
-
-		private void CompareDisks(DriveInfo[] hDDs, double[] freeDiscSpace)
-		{
-			for (int i = 0; i < freeDiscSpace.Length; i++)
-			{
-				for (int j = freeDiscSpace.Length - 1; j >= 0; j--)
-				{
-					if (freeDiscSpace[i] > freeDiscSpace[j])
-					{
-						defaultDrive = hDDs[i].Name;
-					}
-					else
-					{
-						defaultDrive = hDDs[j].Name;
-					}
-				}
-			}
-		}
-
-		private void GetFreeDiskSpace(out DriveInfo[] hDDs, out double[] freeDiscSpace)
+		private void GetDriveInfo()
 		{
 			hDDs = DriveInfo.GetDrives();
-			freeDiscSpace = new double[hDDs.Length];
-			for (int i = 0; i < hDDs.Length; i++)
-			{
-				DriveInfo drive = new DriveInfo(hDDs[i].Name);
-				string driveName = drive.Name;
-				DriveInfo driveInfo = new DriveInfo(driveName);
-				freeDiscSpace[i] = Convert.ToDouble(driveInfo.AvailableFreeSpace / gBConverthelper);
-			}
+			freeHddSpace = new double[hDDs.Length];
 		}
 
 		private string[] CollectDrives()
 		{
-			DriveInfo[] hDDs;
 			hDDs = DriveInfo.GetDrives();
 			AvailableDrives = new string[hDDs.Length];
 
@@ -96,6 +52,53 @@ namespace RetroGames
 			}
 
 			return AvailableDrives;
+		}
+
+		private string ChooseDefaultDrive()
+		{
+			CompareDisksSpace();
+
+			return defaultDrive;
+		}
+
+		private void CompareDisksSpace()
+		{
+			for (int i = 0; i < hDDs.Length; i++)
+			{
+				freeHddSpace[i] = Convert.ToDouble(hDDs[i].AvailableFreeSpace / gBConverthelper);
+			}
+
+			for (int i = 0; i < hDDs.Length; i++)
+			{
+				for (int j = hDDs.Length - 1; j >= 0; j--)
+				{
+					if (freeHddSpace[i] > freeHddSpace[j])
+					{
+						defaultDrive = hDDs[i].Name;
+					}
+					else
+					{
+						defaultDrive = hDDs[j].Name;
+					}
+				}
+			}
+		}
+
+		private bool  InstallationDriveSelectionSuccess()
+		{
+			if (AvailableDrives.Length == 1)
+			{
+				InstallationDrive = defaultDrive;
+			}
+			else
+			{
+				int drivelistKey = Convert.ToInt32(DriveDecesion.ToString());
+				InstallationDrive = DriveList[drivelistKey];
+			}
+
+			IsInstallationDriveSelected = true;
+
+			return IsInstallationDriveSelected;
 		}
 
 	}
