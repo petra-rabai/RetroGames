@@ -21,7 +21,7 @@ namespace RetroGamesTests
 		}
 
 		[Test]
-		public void CheckGameDirectoryPathExist()
+		public void CheckGameDirectoryPathCreated()
 		{
 			string gameFolder;
 			
@@ -35,7 +35,7 @@ namespace RetroGamesTests
 		}
 
 		[Test]
-		public void CheckUserDirectoryPathExist()
+		public void CheckUserDirectoryPathCreated()
 		{
 			string userFolder;
 			
@@ -49,7 +49,7 @@ namespace RetroGamesTests
 		}
 
 		[Test]
-		public void CheckLogDirectoryPathExist()
+		public void CheckLogDirectoryPathCreated()
 		{
 			string logFolder;
 

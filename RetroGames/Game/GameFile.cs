@@ -11,7 +11,6 @@ namespace RetroGames
 	public class GameFile : IGameDirectory, IGameFile
 	{
 		public string GameDirectoryPath { get; set; }
-		public bool IsGameDirectoriesExist { get; set; }
 		public bool IsGameFilesExist { get; set; }
 		public string GameFilePath { get; set; }
 		public string UserFilePath { get; set; }
@@ -22,67 +21,59 @@ namespace RetroGames
 
 		public bool CheckGameFilesCreated()
 		{
-			CreateGameFile();
-			CreateUserFile();
-			CreateLogFile();
+			CreateGameFiles();
+
+			if (!File.Exists(UserFilePath) && !File.Exists(GameFilePath) && !File.Exists(LogFilePath))
+			{
+				IsGameFilesExist = false;
+			}
+			else
+			{
+				IsGameFilesExist = true;
+			}
 
 			return IsGameFilesExist;
 		}
 
+		private void CreateGameFiles()
+		{
+			GameDirectory.CheckGameDirectoriesExist();
+
+			CreateGameFile();
+			CreateUserFile();
+			CreateLogFile();
+		}
+
 		private string CreateGameFile()
 		{
-			IsGameDirectoriesExist = GameDirectory.IsGameDirectoriesExist;
 			GameDirectoryPath = GameDirectory.GameDirectoryPath;
-
-			if (IsGameDirectoriesExist)
-			{
-				File.Create(GameDirectoryPath + GameSettings.Default.GameFile);
-				IsGameFilesExist = true;
-			}
-			else
-			{
-				IsGameFilesExist = false;
-			}
-
+			GameFilePath = GameDirectoryPath + GameSettings.Default.GameFile;
+			
+			FileStream gameFileStream = new FileStream(GameFilePath, FileMode.Create);
+			gameFileStream.Close();
 
 			return GameFilePath;
 		}
 
 		private string CreateUserFile()
 		{
-			IsGameDirectoriesExist = GameDirectory.IsGameDirectoriesExist;
 			UserDirectoryPath = GameDirectory.UserDirectoryPath;
-
-			if (IsGameDirectoriesExist)
-			{
-				File.Create(UserDirectoryPath + GameSettings.Default.UserFile);
-				IsGameFilesExist = true;
-			}
-			else
-			{
-				IsGameFilesExist = false;
-			}
-
-
+			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
+			
+			FileStream userFileStream = new FileStream(UserFilePath, FileMode.Create);
+			userFileStream.Close();
+				
 			return UserFilePath;
 		}
 
 		private string CreateLogFile()
 		{
-			IsGameDirectoriesExist = GameDirectory.IsGameDirectoriesExist;
 			LogDirectoryPath = GameDirectory.LogDirectoryPath;
+			LogFilePath = LogDirectoryPath + GameSettings.Default.LogFile;
 
-			if (IsGameDirectoriesExist)
-			{
-				File.Create(LogDirectoryPath + GameSettings.Default.LogFile);
-				IsGameFilesExist = true;
-			}
-			else
-			{
-				IsGameFilesExist = false;
-			}
-
-
+			FileStream logFileStream = new FileStream(LogFilePath, FileMode.Create);
+			logFileStream.Close();
+			
 			return LogFilePath;
 		}
 	}
