@@ -25,7 +25,7 @@ namespace RetroGames.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("^.*(?=.{6,})(?=.*\\\\\\\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=.]).*$")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@.!%&*?]{8,15}$")]
         public string PasswordRegEx {
             get {
                 return ((string)(this["PasswordRegEx"]));
@@ -34,8 +34,9 @@ namespace RetroGames.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\\\\\A(?:[a-z0-9!#$%&\\\\\\\'*+/=?^_`{|}~-]+(?:\\\\\\\\.[a-z0-9!#$%&\\\\\\\'*+/=?^_`{|}~-]+)*@" +
-            "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\\\\\\\\Z")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^(?(\")(\".+?(?<!\\\\)\"@)|(([0-9a-z]((\\.(?!\\.))|[-!#\\$%&\'\\*\\+/=\\?\\^`\\{\\}\\|~\\w])*)(?<=" +
+            "[0-9a-z])@))(?(\\[)(\\[(\\d{1,3}\\.){3}\\d{1,3}\\])|(([0-9a-z][-\\w]*[0-9a-z]*\\.)+[a-z0" +
+            "-9][\\-a-z0-9]{0,22}[a-z0-9]))$")]
         public string EmailRegEx {
             get {
                 return ((string)(this["EmailRegEx"]));

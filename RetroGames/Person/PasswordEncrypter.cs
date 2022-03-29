@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace RetroGames
 {
@@ -12,9 +14,22 @@ namespace RetroGames
 
 		public string EncryptPassword(string plaintext)
 		{
-			byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(plaintext);
-			string encryptedtext = Convert.ToBase64String(b);
-
+			string publickey = "78546998";
+			string secretkey = "63215547";
+			string encryptedtext;
+			
+			byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
+			byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
+			byte[] inputbyteArray = Encoding.UTF8.GetBytes(plaintext);
+			
+			MemoryStream memoryStream = new MemoryStream();
+			DESCryptoServiceProvider cryptoService = new DESCryptoServiceProvider();
+			CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoService.CreateEncryptor(publickeybyte, secretkeyByte), CryptoStreamMode.Write);
+			
+			cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
+			cryptoStream.FlushFinalBlock();
+			encryptedtext = Convert.ToBase64String(memoryStream.ToArray());
+			
 			IsPasswordEncrypted = true;
 
 			return encryptedtext;

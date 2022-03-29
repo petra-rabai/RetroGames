@@ -10,31 +10,20 @@ namespace RetroGames
 {
 	public class EmailValidation : IEmailValidation
 	{
-		public string Email { get; set; } = "";
 		public bool IsEmailValid { get; set; } = false;
 
-		public string GetPlayerEmail()
+		Regex emailRegEx = new Regex(GameSettings.Default.EmailRegEx);
+
+		public bool ValidateEmail(string email)
 		{
-			string email = Console.ReadLine();
-
-			Email = email;
-
-			ValidateEmail();
-
-			return Email;
-		}
-
-		private bool ValidateEmail()
-		{
-			Regex emailRegEx = new Regex(GameSettings.Default.EmailRegEx);
-			while (!emailRegEx.Match(Email).Success)
+			if (emailRegEx.Match(email).Success)
 			{
-				Console.WriteLine("E-mail address not match the requirements! \n"
-					+ "Please add a valid e-mail address! \n");
-				Email = Console.ReadLine();
+				IsEmailValid = true;
 			}
-
-			IsEmailValid = true;
+			else
+			{
+				IsEmailValid = false;
+			}
 
 			return IsEmailValid;
 		}

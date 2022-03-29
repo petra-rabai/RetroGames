@@ -10,78 +10,60 @@ using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class Player : IUser, IPasswordValidation, IPasswordEncrypter, IEmailValidation, IRegistration, ILogin, IPlayer
+	public class Player : IPlayer
 	{
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string LoginName { get; set; }
-		public string Email { get; set; }
-		public bool IsEmailValid { get; set; }
-		User User { get; set; } = new User();
-		EmailValidation EmailValidation { get; set; } = new EmailValidation();
-		PasswordValidation PasswordValidation { get; set; } = new PasswordValidation();
-		PasswordEncrypter PasswordEncrypter { get; set; } = new PasswordEncrypter();
-		Registration Registration { get; set; } = new Registration();
-		public bool IsPasswordValid { get; set; }
-		public string Password { get; set; }
-		public bool IsPasswordEncrypted { get; set; }
+		public string LoginName { get; set; }	
+		public string PlayerPassword { get; set; }
 		public bool IsRegistered { get; set; }
 		public bool IsLoggedIn { get; set; }
 		public char PressedKey { get; set; }
+		User User { get; set; } = new User();
+		Password Password { get; set; } = new Password();
+		Registration Registration { get; set; } = new Registration();
+		Login Login { get; set; } = new Login();
 
-		public string GetPlayerFirstName()
+		public void GetLoginData()
 		{
-			FirstName = User.GetPlayerFirstName();
-
-			return FirstName;
+			GetPlayerLoginName();
+			GetPlayerPassword();
 		}
-
-		public string GetPlayerLastName()
-		{
-			LastName = User.GetPlayerLastName();
-
-			return LastName;
-		}
-
-		public string GetPlayerLoginName()
+		
+		
+		private string GetPlayerLoginName()
 		{
 			LoginName = User.GetPlayerLoginName();
 
 			return LoginName;
 		}
 
-		public string GetPlayerEmail()
+		private string GetPlayerPassword()
 		{
-			Email = EmailValidation.GetPlayerEmail();
+			PlayerPassword = Password.GetPlayerPassword();
 
-			IsEmailValid = EmailValidation.IsEmailValid;
-
-			return Email;
+			return PlayerPassword;
 		}
 
-		public string GetPlayerPassword()
+		public void GetRegistrationIsSuccess()
 		{
-			Password = PasswordValidation.GetPlayerPassword();
-
-			IsPasswordValid = PasswordValidation.IsPasswordValid;
-
-			return Password;
+			RegistrationSuccess();
 		}
 
-		public string EncryptPassword(string plaintext)
+		public void GetLoginIsSuccess()
 		{
-			plaintext = Password;
-
-			PasswordEncrypter.EncryptPassword(plaintext);
-
-			IsPasswordEncrypted = PasswordEncrypter.IsPasswordEncrypted;
-
-			return Password;
+			LoginSuccess();
 		}
 
-		public bool RegistrationSuccess(GameFile gameFile)
+
+		private bool RegistrationSuccess()
 		{
 			IsRegistered = Registration.IsRegistered;
+
+			return IsRegistered;
+		}
+
+		private bool LoginSuccess()
+		{
+			IsLoggedIn = Login.IsLoggedIn;
 
 			return IsRegistered;
 		}

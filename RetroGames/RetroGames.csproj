@@ -44,22 +44,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Drive.cs" />
+    <Compile Include="Person\Email.cs" />
     <Compile Include="Person\EmailValidation.cs" />
     <Compile Include="Game\GameDirectory.cs" />
     <Compile Include="Game\GameFile.cs" />
     <Compile Include="Game\IDrive.cs" />
+    <Compile Include="Person\IEmail.cs" />
     <Compile Include="Person\IEmailValidation.cs" />
     <Compile Include="Game\IGameDirectory.cs" />
     <Compile Include="Game\IGameFile.cs" />
     <Compile Include="Game\IInstallation.cs" />
     <Compile Include="Person\ILogin.cs" />
     <Compile Include="Game\Installation.cs" />
+    <Compile Include="Person\IPassword.cs" />
     <Compile Include="Person\IPasswordEncrypter.cs" />
     <Compile Include="Person\IPasswordValidation.cs" />
     <Compile Include="Person\IPlayer.cs" />
     <Compile Include="Person\IRegistration.cs" />
     <Compile Include="Person\IUser.cs" />
     <Compile Include="Person\Login.cs" />
+    <Compile Include="Person\Password.cs" />
     <Compile Include="Person\PasswordEncrypter.cs" />
     <Compile Include="Person\PasswordValidation.cs" />
     <Compile Include="Person\Player.cs" />

@@ -11,7 +11,6 @@ namespace RetroGames
 	public class Registration : IRegistration
 	{
 		public bool IsRegistered { get; set; } = false;
-		Player Player { get; set; } = new Player();
 
 		private string name;
 		private string loginName;
@@ -20,29 +19,37 @@ namespace RetroGames
 		private string email;
 		private char saveDecesion;
 
-		public bool RegistrationSuccess(GameFile gameFile)
+		public bool RegistrationSuccess(GameFile gameFile,
+								  User user,
+								  Password playerPassword,
+								  Email playerEmail,
+								  Player player)
 		{
-			RegistrationForm(gameFile);
+			RegistrationForm(gameFile,user,playerPassword,playerEmail,player);
 
 			return IsRegistered;
 		}
 
-		private void RegistrationForm(GameFile gameFile)
+		private void RegistrationForm(GameFile gameFile,
+								User user,
+								Password playerPassword,
+								Email playerEmail,
+								Player player)
 		{
 			FormTitle();
 			FormFirstName();
-			Player.GetPlayerFirstName();
+			user.GetPlayerFirstName();
 			FormLastName();
-			Player.GetPlayerLastName();
+			user.GetPlayerLastName();
 			FormLoginName();
-			loginName = Player.GetPlayerLoginName();
-			name = Player.FirstName + " " + Player.LastName;
+			loginName = user.GetPlayerLoginName();
+			name = user.FirstName + " " + user.LastName;
 			FormPassword();
-			password = Player.GetPlayerPassword();
+			password = playerPassword.GetPlayerPassword();
 			FormEmail();
-			email = Player.GetPlayerEmail();
+			email = playerEmail.GetPlayerEmail();
 			FromSave();
-			saveDecesion = Player.GetPlayerKeyFromConsole();
+			saveDecesion = player.GetPlayerKeyFromConsole();
 			SaveDecesionCheck(gameFile);
 			
 		}
@@ -154,7 +161,7 @@ namespace RetroGames
 			}
 		}
 
-		private void EraseData()
+		public void EraseData()
 		{
 			name.Remove(0, name.Length);
 			loginName.Remove(0, loginName.Length);
@@ -162,7 +169,7 @@ namespace RetroGames
 			email.Remove(0, email.Length);
 		}
 
-		private void SaveData(GameFile gameFile)
+		public void SaveData(GameFile gameFile)
 		{
 			string Path = GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
 			string data = "\n**********************"
@@ -180,7 +187,7 @@ namespace RetroGames
 				 + email
 				 + "\n"
 				 + "**********************";
-			if (Directory.Exists(gameFile.UserFilePath))
+			if (File.Exists(gameFile.UserFilePath))
 			{
 				File.AppendAllText(Path, data);
 			}

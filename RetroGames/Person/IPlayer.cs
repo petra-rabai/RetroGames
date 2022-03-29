@@ -3,7 +3,9 @@
 	public interface IPlayer
 	{
 		char PressedKey { get; set; }
-
-		char GetPlayerKeyFromConsole();
+		string PlayerPassword { get; set; }
+		bool IsRegistered { get; set; }
+		bool IsLoggedIn { get; set; }
+		string LoginName { get; set; }
 	}
 }

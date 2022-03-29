@@ -11,7 +11,11 @@ namespace RetroGames
 	{
 		static void Main(string[] args)
 		{
+			Password password = new Password();
 			
+			password.GetPlayerPassword();
+			
+			Console.ReadLine();
 
 		}
 	}
