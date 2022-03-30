@@ -28,7 +28,7 @@ namespace RetroGamesTests
 
 			Password password = new Password();
 
-			password.CheckIsPasswordValid(testPassword);
+			password.CheckIsPasswordEncrypted(testPassword);
 
 			isPasswordEncrypted = password.IsPasswordEncrypted;
 

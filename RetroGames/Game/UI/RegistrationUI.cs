@@ -1,107 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RetroGames.Properties;
 
 namespace RetroGames
 {
-	public class Registration : IRegistration
+	public class RegistrationUI
 	{
-		public bool IsRegistered { get; set; } = false;
-
-		private string name;
-		private string loginName;
 		private string formContent;
-		private string password;
-		private string email;
-		private char saveDecesion;
 
-		public bool RegistrationSuccess(GameFile gameFile,
-								  User user,
-								  Password playerPassword,
-								  Email playerEmail,
-								  Player player)
-		{
-			RegistrationForm(gameFile,user,playerPassword,playerEmail,player);
-
-			return IsRegistered;
-		}
-
-		private void RegistrationForm(GameFile gameFile,
-								User user,
-								Password playerPassword,
-								Email playerEmail,
-								Player player)
-		{
-			FormTitle();
-			FormFirstName();
-			user.GetPlayerFirstName();
-			FormLastName();
-			user.GetPlayerLastName();
-			FormLoginName();
-			loginName = user.GetPlayerLoginName();
-			name = user.FirstName + " " + user.LastName;
-			FormPassword();
-			password = playerPassword.GetPlayerPassword();
-			FormEmail();
-			email = playerEmail.GetPlayerEmail();
-			FromSave();
-			saveDecesion = player.GetPlayerKeyFromConsole();
-			SaveDecesionCheck(gameFile);
-			
-		}
-
-		private void FormTitle()
+		public void FormTitle()
 		{
 			Console.WriteLine("*****************************************************************");
 			Console.WriteLine("				New User Registration \n" + "\n ");
 			Console.WriteLine("*****************************************************************");
 		}
 
-		private void FormFirstName()
+		public void FormFirstName()
 		{
 			FirstNameUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
 
-		private void FormLastName()
+		public void FormLastName()
 		{
 			Console.WriteLine("\n*****************************************************************");
 			LastNameUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
 
-		private void FormLoginName()
+		public void FormLoginName()
 		{
 			Console.WriteLine("\n*****************************************************************");
 			LoginNameUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
 
-		private void FormPassword()
+		public void FormPassword()
 		{
 			Console.WriteLine("\n*****************************************************************");
 			PasswordUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
 
-		private void FormEmail()
+		public void FormEmail()
 		{
 			Console.WriteLine("\n*****************************************************************");
 			EmailUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
 
-		private void FromSave()
+		public void FromSave()
 		{
 			Console.WriteLine("\n*****************************************************************");
 			SaveQuestionUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
-		
+
 		private string LoginNameUIToConsole()
 		{
 			formContent = " * Login Name: * \n";
@@ -145,53 +101,5 @@ namespace RetroGames
 			return formContent;
 		}
 
-		private void SaveDecesionCheck(GameFile gameFile)
-		{
-			if (saveDecesion == 'Y')
-			{
-				SaveData(gameFile);
-
-				IsRegistered = true;
-			}
-			if (saveDecesion == 'N')
-			{
-				EraseData();
-
-				IsRegistered = false;
-			}
-		}
-
-		public void EraseData()
-		{
-			name.Remove(0, name.Length);
-			loginName.Remove(0, loginName.Length);
-			password.Remove(0, password.Length);
-			email.Remove(0, email.Length);
-		}
-
-		public void SaveData(GameFile gameFile)
-		{
-			string Path = GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
-			string data = "\n**********************"
-				 + "\n"
-				 + "Name: "
-				 + name
-				 + "\n"
-				 + "Login name: "
-				 + loginName
-				 + "\n"
-				 + "Password: "
-				 + password
-				 + "\n"
-				 + "E-mail: "
-				 + email
-				 + "\n"
-				 + "**********************";
-			if (File.Exists(gameFile.UserFilePath))
-			{
-				File.AppendAllText(Path, data);
-			}
-			 
-		}
 	}
 }

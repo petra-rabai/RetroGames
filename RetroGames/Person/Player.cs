@@ -24,48 +24,30 @@ namespace RetroGames
 
 		public void GetLoginData()
 		{
-			GetPlayerLoginName();
-			GetPlayerPassword();
-		}
-		
-		
-		private string GetPlayerLoginName()
-		{
-			LoginName = User.GetPlayerLoginName();
+			LoginName = User.LoginName;
+			PlayerPassword = Password.PlayerPassword;
 
-			return LoginName;
+			CheckLoginDataNotEmpty();
+
 		}
 
-		private string GetPlayerPassword()
+		private void CheckLoginDataNotEmpty()
 		{
-			PlayerPassword = Password.GetPlayerPassword();
-
-			return PlayerPassword;
+			if (LoginName == "" || PlayerPassword == "")
+			{
+				GetPlayerLoginName();
+				GetPlayerPassword();
+			}
 		}
 
-		public void GetRegistrationIsSuccess()
+		public void GetRegistrationIsSuccess(bool registred)
 		{
-			RegistrationSuccess();
+			CheckRegistrationSuccess(registred);
 		}
 
 		public void GetLoginIsSuccess()
 		{
-			LoginSuccess();
-		}
-
-
-		private bool RegistrationSuccess()
-		{
-			IsRegistered = Registration.IsRegistered;
-
-			return IsRegistered;
-		}
-
-		private bool LoginSuccess()
-		{
-			IsLoggedIn = Login.IsLoggedIn;
-
-			return IsRegistered;
+			CheckLoginSuccess();
 		}
 
 		public char GetPlayerKeyFromConsole()
@@ -90,5 +72,36 @@ namespace RetroGames
 			}
 			return PressedKey;
 		}
+
+		private string GetPlayerLoginName()
+		{
+			LoginName = User.GetPlayerLoginName();
+			
+			return LoginName;
+		}
+
+		private string GetPlayerPassword()
+		{
+			PlayerPassword = Password.GetPlayerPassword();
+		
+			return PlayerPassword;
+		}
+
+		private bool CheckRegistrationSuccess(bool registred)
+		{
+			Registration.IsUserRegistered(registred);
+
+			IsRegistered = Registration.IsRegistered;
+
+			return IsRegistered;
+		}
+
+		private bool CheckLoginSuccess()
+		{
+			IsLoggedIn = Login.IsLoggedIn;
+
+			return IsLoggedIn;
+		}
+		
 	}
 }

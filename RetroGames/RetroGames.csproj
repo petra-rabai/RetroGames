@@ -43,29 +43,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\Drive.cs" />
-    <Compile Include="Person\Email.cs" />
-    <Compile Include="Person\EmailValidation.cs" />
-    <Compile Include="Game\GameDirectory.cs" />
-    <Compile Include="Game\GameFile.cs" />
-    <Compile Include="Game\IDrive.cs" />
-    <Compile Include="Person\IEmail.cs" />
-    <Compile Include="Person\IEmailValidation.cs" />
-    <Compile Include="Game\IGameDirectory.cs" />
-    <Compile Include="Game\IGameFile.cs" />
+    <Compile Include="Game\DirectoryStructure\Drive.cs" />
+    <Compile Include="Game\UI\RegistrationUI.cs" />
+    <Compile Include="Person\Data\Email.cs" />
+    <Compile Include="Person\Security\EmailValidation.cs" />
+    <Compile Include="Game\DirectoryStructure\GameDirectory.cs" />
+    <Compile Include="Game\DirectoryStructure\GameFile.cs" />
+    <Compile Include="Game\DirectoryStructure\IDrive.cs" />
+    <Compile Include="Person\Data\IEmail.cs" />
+    <Compile Include="Person\Security\IEmailValidation.cs" />
+    <Compile Include="Game\DirectoryStructure\IGameDirectory.cs" />
+    <Compile Include="Game\DirectoryStructure\IGameFile.cs" />
     <Compile Include="Game\IInstallation.cs" />
-    <Compile Include="Person\ILogin.cs" />
+    <Compile Include="Person\Actions\ILogin.cs" />
     <Compile Include="Game\Installation.cs" />
-    <Compile Include="Person\IPassword.cs" />
-    <Compile Include="Person\IPasswordEncrypter.cs" />
-    <Compile Include="Person\IPasswordValidation.cs" />
+    <Compile Include="Person\Data\IPassword.cs" />
+    <Compile Include="Person\Security\IPasswordEncrypter.cs" />
+    <Compile Include="Person\Security\IPasswordValidation.cs" />
     <Compile Include="Person\IPlayer.cs" />
-    <Compile Include="Person\IRegistration.cs" />
-    <Compile Include="Person\IUser.cs" />
-    <Compile Include="Person\Login.cs" />
-    <Compile Include="Person\Password.cs" />
-    <Compile Include="Person\PasswordEncrypter.cs" />
-    <Compile Include="Person\PasswordValidation.cs" />
+    <Compile Include="Person\Actions\IRegistration.cs" />
+    <Compile Include="Person\Data\IUser.cs" />
+    <Compile Include="Person\Actions\Login.cs" />
+    <Compile Include="Person\Data\Password.cs" />
+    <Compile Include="Person\Security\PasswordEncrypter.cs" />
+    <Compile Include="Person\Security\PasswordValidation.cs" />
     <Compile Include="Person\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,8 +75,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>GameSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Person\Registration.cs" />
-    <Compile Include="Person\User.cs" />
+    <Compile Include="Person\Actions\Registration.cs" />
+    <Compile Include="Person\Data\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
