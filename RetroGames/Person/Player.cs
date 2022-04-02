@@ -17,37 +17,33 @@ namespace RetroGames
 		public bool IsRegistered { get; set; }
 		public bool IsLoggedIn { get; set; }
 		public char PressedKey { get; set; }
-		User User { get; set; } = new User();
-		Password Password { get; set; } = new Password();
-		Registration Registration { get; set; } = new Registration();
-		Login Login { get; set; } = new Login();
 
-		public void GetLoginData()
+		public void GetLoginData(User user, Password password,PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
 		{
-			LoginName = User.LoginName;
-			PlayerPassword = Password.PlayerPassword;
+			LoginName = user.LoginName;
+			PlayerPassword = password.PlayerPassword;
 
-			CheckLoginDataNotEmpty();
+			CheckLoginDataNotEmpty(user,password,passwordEncrypter,passwordValidation);
 
 		}
 
-		private void CheckLoginDataNotEmpty()
+		private void CheckLoginDataNotEmpty(User user, Password password, PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
 		{
 			if (LoginName == "" || PlayerPassword == "")
 			{
-				GetPlayerLoginName();
-				GetPlayerPassword();
+				GetPlayerLoginName(user);
+				GetPlayerPassword(password,passwordEncrypter,passwordValidation);
 			}
 		}
 
-		public void GetRegistrationIsSuccess(bool registred)
+		public void GetRegistrationIsSuccess(bool registred, Registration registration)
 		{
-			CheckRegistrationSuccess(registred);
+			CheckRegistrationSuccess(registred, registration);
 		}
 
-		public void GetLoginIsSuccess()
+		public void GetLoginIsSuccess(Login login)
 		{
-			CheckLoginSuccess();
+			CheckLoginSuccess(login);
 		}
 
 		public char GetPlayerKeyFromConsole()
@@ -73,32 +69,32 @@ namespace RetroGames
 			return PressedKey;
 		}
 
-		private string GetPlayerLoginName()
+		private string GetPlayerLoginName(User user)
 		{
-			LoginName = User.GetPlayerLoginName();
+			LoginName = user.GetPlayerLoginName();
 			
 			return LoginName;
 		}
 
-		private string GetPlayerPassword()
+		private string GetPlayerPassword(Password password, PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
 		{
-			PlayerPassword = Password.GetPlayerPassword();
+			PlayerPassword = password.GetPlayerPassword(passwordEncrypter,passwordValidation);
 		
 			return PlayerPassword;
 		}
 
-		private bool CheckRegistrationSuccess(bool registred)
+		private bool CheckRegistrationSuccess(bool registred, Registration registration)
 		{
-			Registration.IsUserRegistered(registred);
+			registration.IsUserRegistered(registred);
 
-			IsRegistered = Registration.IsRegistered;
+			IsRegistered = registration.IsRegistered;
 
 			return IsRegistered;
 		}
 
-		private bool CheckLoginSuccess()
+		private bool CheckLoginSuccess(Login login)
 		{
-			IsLoggedIn = Login.IsLoggedIn;
+			IsLoggedIn = login.IsLoggedIn;
 
 			return IsLoggedIn;
 		}

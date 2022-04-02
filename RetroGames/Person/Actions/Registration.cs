@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using RetroGames.Properties;
 
 namespace RetroGames
@@ -24,19 +25,24 @@ namespace RetroGames
 								  User user,
 								  Password playerPassword,
 								  Email playerEmail,
+								  EmailValidation emailValidation,
+								  PasswordEncrypter passwordEncrypter,
+								  PasswordValidation passwordValidation,
+								  Drive drive,
+								  GameDirectory gameDirectory,
 								  Player player)
 		{
-			RegistrationForm(gameFile,user,playerPassword,playerEmail,player);
+			RegistrationForm(gameFile,user,playerPassword,playerEmail,emailValidation,passwordEncrypter,passwordValidation,drive,gameDirectory,player);
 			
 			IsUserRegistered(isRegistrationSuccess);
 
 		}
 
-		public void SaveDecesionCheck(GameFile gameFile, char decesion)
+		public void SaveDecesionCheck(GameFile gameFile, char decesion, Drive drive, GameDirectory gameDirectory)
 		{
 			if (decesion == 'Y')
 			{
-				SaveDataSuccess(gameFile);
+				SaveDataSuccess(gameFile,drive,gameDirectory);
 
 			}
 			if (decesion == 'N')
@@ -59,10 +65,14 @@ namespace RetroGames
 			return IsRegistered;
 		}
 
-		private void RegistrationForm(GameFile gameFile,
+		private void RegistrationForm(GameFile gameFile,		
 								User user,
 								Password playerPassword,
 								Email playerEmail,
+								EmailValidation emailValidation,
+								PasswordEncrypter passwordEncrypter,
+								PasswordValidation passwordValidation,
+								Drive drive, GameDirectory gameDirectory,
 								Player player)
 		{
 			GetFormTitle();
@@ -70,10 +80,10 @@ namespace RetroGames
 			GetLastName(user);
 			AssignName(user);
 			GetLoginName(user);
-			GetPassword(playerPassword);
-			GetEmail(playerEmail);
+			GetPassword(playerPassword,passwordEncrypter,passwordValidation);
+			GetEmail(playerEmail,emailValidation);
 			GetSaveDecesion(player);
-			SaveDecesionCheck(gameFile,saveDecesion);
+			SaveDecesionCheck(gameFile,saveDecesion,drive,gameDirectory);
 
 		}
 
@@ -90,16 +100,16 @@ namespace RetroGames
 			return saveDecesion;
 		}
 
-		private void GetEmail(Email playerEmail)
+		private void GetEmail(Email playerEmail, EmailValidation emailValidation)
 		{
 			RegistrationUI.FormEmail();
-			Email = playerEmail.GetPlayerEmail();
+			Email = playerEmail.GetPlayerEmail(emailValidation);
 		}
 
-		private void GetPassword(Password playerPassword)
+		private void GetPassword(Password playerPassword, PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
 		{
 			RegistrationUI.FormPassword();
-			Password = playerPassword.GetPlayerPassword();
+			Password = playerPassword.GetPlayerPassword(passwordEncrypter,passwordValidation);
 		}
 
 		private void AssignName(User user)
@@ -137,36 +147,30 @@ namespace RetroGames
 			return isRegistrationSuccess;
 		}
 
-		private void GetUserSavePath(GameFile gameFile)
+		private void GetUserSavePath(GameFile gameFile, Drive drive, GameDirectory gameDirectory)
 		{
-			gameFile.CheckGameFilesCreated();
+			gameFile.CheckGameFilesCreated(drive,gameDirectory);
 		}
 
-		private bool SaveDataSuccess(GameFile gameFile)
+		private bool SaveDataSuccess(GameFile gameFile, Drive drive, GameDirectory gameDirectory)
 		{
-			GetUserSavePath(gameFile);
-
-			string Path = gameFile.UserFilePath;
-			string data = "\n**********************"
-				 + "\n"
-				 + "Name: "
-				 + Name
-				 + "\n"
-				 + "Login name: "
-				 + LoginName
-				 + "\n"
-				 + "Password: "
-				 + Password
-				 + "\n"
-				 + "E-mail: "
-				 + Email
-				 + "\n"
-				 + "**********************";
-			if (File.Exists(gameFile.UserFilePath))
+			GetUserSavePath(gameFile, drive,gameDirectory);
+			RegistrationData registrationData = new RegistrationData()
 			{
-				File.AppendAllText(Path, data);
-			}
-			
+				Name = this.Name,
+				LoginName = this.LoginName,
+				Password = this.Password,
+				Email = this.Email
+			};
+			string Path = gameFile.UserFilePath;
+
+			XmlSerializer RegistrationWriteToXML = new XmlSerializer(typeof(RegistrationData));
+			FileStream registrationXML = new FileStream(Path,
+									 FileMode.OpenOrCreate,
+									 FileAccess.ReadWrite);
+			RegistrationWriteToXML.Serialize(registrationXML, registrationData);
+			registrationXML.Close();
+
 			isRegistrationSuccess = true;
 
 			return isRegistrationSuccess;

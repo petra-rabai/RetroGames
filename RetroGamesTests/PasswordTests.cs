@@ -12,8 +12,9 @@ namespace RetroGamesTests
 			bool isPasswordValid;
 			
 			Password password = new Password();
+			PasswordValidation passwordValidation = new PasswordValidation();
 
-			password.CheckIsPasswordValid(testPassword);
+			password.CheckIsPasswordValid(testPassword,passwordValidation);
 
 			isPasswordValid = password.IsPasswordValid;
 
@@ -27,8 +28,9 @@ namespace RetroGamesTests
 			bool isPasswordEncrypted;
 
 			Password password = new Password();
+			PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
 
-			password.CheckIsPasswordEncrypted(testPassword);
+			password.CheckIsPasswordEncrypted(testPassword,passwordEncrypter);
 
 			isPasswordEncrypted = password.IsPasswordEncrypted;
 

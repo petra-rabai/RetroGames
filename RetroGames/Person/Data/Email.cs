@@ -9,13 +9,12 @@ namespace RetroGames
 	public class Email : IEmail
 	{
 		public string PlayerEmail { get; set; } = "";
-		EmailValidation EmailValidation { get; set; } = new EmailValidation();
 
-		public string GetPlayerEmail()
+		public string GetPlayerEmail(EmailValidation emailValidation)
 		{
 			string email = Console.ReadLine();
 
-			EmailValidation.ValidateEmail(email);
+			emailValidation.ValidateEmail(email);
 
 			PlayerEmail = email;
 

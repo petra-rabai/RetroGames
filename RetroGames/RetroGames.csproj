@@ -43,9 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\Actions\GameMenuNavigation.cs" />
+    <Compile Include="Game\Actions\IGameMenuNavigation.cs" />
+    <Compile Include="Game\GameMenu.cs" />
+    <Compile Include="Game\IGameMenu.cs" />
+    <Compile Include="Game\MainScreen.cs" />
     <Compile Include="Game\DirectoryStructure\Drive.cs" />
+    <Compile Include="Game\UI\InstallationUI.cs" />
+    <Compile Include="Game\UI\MainScreenUI.cs" />
     <Compile Include="Game\UI\RegistrationUI.cs" />
     <Compile Include="Person\Data\Email.cs" />
+    <Compile Include="Person\Data\RegistrationData.cs" />
     <Compile Include="Person\Security\EmailValidation.cs" />
     <Compile Include="Game\DirectoryStructure\GameDirectory.cs" />
     <Compile Include="Game\DirectoryStructure\GameFile.cs" />

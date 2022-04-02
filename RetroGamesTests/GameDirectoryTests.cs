@@ -12,8 +12,9 @@ namespace RetroGamesTests
 			bool directoriesExist;
 
 			GameDirectory gameDirectory = new GameDirectory();
+			Drive drive = new Drive();
 			
-			gameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
 			directoriesExist = gameDirectory.IsGameDirectoriesExist;
 
@@ -26,8 +27,9 @@ namespace RetroGamesTests
 			string gameFolder;
 			
 			GameDirectory gameDirectory = new GameDirectory();
+			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
 			gameFolder = gameDirectory.GameDirectoryPath;
 
@@ -40,8 +42,9 @@ namespace RetroGamesTests
 			string userFolder;
 			
 			GameDirectory gameDirectory = new GameDirectory();
+			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
 			userFolder = gameDirectory.UserDirectoryPath;
 			
@@ -54,8 +57,9 @@ namespace RetroGamesTests
 			string logFolder;
 
 			GameDirectory gameDirectory = new GameDirectory();
+			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
 			logFolder = gameDirectory.LogDirectoryPath;
 
@@ -68,8 +72,9 @@ namespace RetroGamesTests
 			string installationDrive;
 
 			GameDirectory gameDirectory = new GameDirectory();
+			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
 			installationDrive = gameDirectory.InstallationDrive;
 
@@ -83,8 +88,9 @@ namespace RetroGamesTests
 			bool installationDriveExist;
 			
 			GameDirectory gameDirectory = new GameDirectory();
+			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
 			installationDriveExist = gameDirectory.IsInstallationDriveSelected;
 

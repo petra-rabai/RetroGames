@@ -12,6 +12,8 @@ namespace RetroGames
 
 		public void FormTitle()
 		{
+			Console.Clear();
+			SetScreenColor();
 			Console.WriteLine("*****************************************************************");
 			Console.WriteLine("				New User Registration \n" + "\n ");
 			Console.WriteLine("*****************************************************************");
@@ -57,6 +59,12 @@ namespace RetroGames
 			SaveQuestionUIToConsole();
 			Console.WriteLine(formContent + "\n");
 		}
+
+		private void SetScreenColor()
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+		}
+
 
 		private string LoginNameUIToConsole()
 		{

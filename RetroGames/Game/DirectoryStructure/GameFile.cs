@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class GameFile : IGameDirectory, IGameFile
+	public class GameFile : IGameFile
 	{
 		public string GameDirectoryPath { get; set; }
 		public bool IsGameFilesExist { get; set; }
@@ -17,11 +17,11 @@ namespace RetroGames
 		public string LogFilePath { get; set; }
 		public string UserDirectoryPath { get; set; }
 		public string LogDirectoryPath { get; set; }
-		GameDirectory GameDirectory { get; set; } = new GameDirectory();
 
-		public bool CheckGameFilesCreated()
+
+		public bool CheckGameFilesCreated(Drive drive, GameDirectory gameDirectory)
 		{
-			CreateGameFiles();
+			CreateGameFiles(drive,gameDirectory);
 
 			if (!File.Exists(UserFilePath) && !File.Exists(GameFilePath) && !File.Exists(LogFilePath))
 			{
@@ -35,18 +35,18 @@ namespace RetroGames
 			return IsGameFilesExist;
 		}
 
-		private void CreateGameFiles()
+		private void CreateGameFiles(Drive drive, GameDirectory gameDirectory)
 		{
-			GameDirectory.CheckGameDirectoriesExist();
+			gameDirectory.CheckGameDirectoriesExist(drive);
 
-			CreateGameFile();
-			CreateUserFile();
-			CreateLogFile();
+			CreateGameFile(gameDirectory);
+			CreateUserFile(gameDirectory);
+			CreateLogFile(gameDirectory);
 		}
 
-		private string CreateGameFile()
+		private string CreateGameFile(GameDirectory gameDirectory)
 		{
-			GameDirectoryPath = GameDirectory.GameDirectoryPath;
+			GameDirectoryPath = gameDirectory.GameDirectoryPath;
 			GameFilePath = GameDirectoryPath + GameSettings.Default.GameFile;
 			
 			FileStream gameFileStream = new FileStream(GameFilePath, FileMode.Create);
@@ -55,9 +55,9 @@ namespace RetroGames
 			return GameFilePath;
 		}
 
-		private string CreateUserFile()
+		private string CreateUserFile(GameDirectory gameDirectory)
 		{
-			UserDirectoryPath = GameDirectory.UserDirectoryPath;
+			UserDirectoryPath = gameDirectory.UserDirectoryPath;
 			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
 			
 			FileStream userFileStream = new FileStream(UserFilePath, FileMode.Create);
@@ -66,9 +66,9 @@ namespace RetroGames
 			return UserFilePath;
 		}
 
-		private string CreateLogFile()
+		private string CreateLogFile(GameDirectory gameDirectory)
 		{
-			LogDirectoryPath = GameDirectory.LogDirectoryPath;
+			LogDirectoryPath = gameDirectory.LogDirectoryPath;
 			LogFilePath = LogDirectoryPath + GameSettings.Default.LogFile;
 
 			FileStream logFileStream = new FileStream(LogFilePath, FileMode.Create);

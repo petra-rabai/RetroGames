@@ -13,49 +13,47 @@ namespace RetroGames
 		public string PlayerPassword { get; set; } = "";
 		public bool IsPasswordValid { get; set; }
 		public bool IsPasswordEncrypted { get; set; }
-		PasswordValidation PasswordValidation { get; set; } = new PasswordValidation();
-		PasswordEncrypter PasswordEncrypter { get; set; } = new PasswordEncrypter();
 		public string PasswordError { get; set; }
 
 		readonly SecureString securePassword = new SecureString();
 
-		public string GetPlayerPassword()
+		public string GetPlayerPassword(PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
 		{
 			SecureString password = ConvertPasswordToSecure();
 			string passWordConvert = new NetworkCredential(string.Empty, password).Password;
 
 			PlayerPassword = passWordConvert;
 
-			CheckIsPasswordValid(PlayerPassword);
-			CheckIsPasswordEncrypted(PlayerPassword);
+			CheckIsPasswordValid(PlayerPassword,passwordValidation);
+			CheckIsPasswordEncrypted(PlayerPassword,passwordEncrypter);
 
 			return PlayerPassword;
 		}
 
-		public void CheckIsPasswordEncrypted(string password)
+		public void CheckIsPasswordEncrypted(string password, PasswordEncrypter passwordEncrypter)
 		{
-			GetIsPasswordEncrypted(password);
+			GetIsPasswordEncrypted(password,passwordEncrypter);
 		}
 		
-		private bool GetIsPasswordEncrypted(string password)
+		private bool GetIsPasswordEncrypted(string password, PasswordEncrypter passwordEncrypter)
 		{
-			PasswordEncrypter.EncryptPassword(password);
+			passwordEncrypter.EncryptPassword(password);
 
-			IsPasswordEncrypted = PasswordEncrypter.IsPasswordEncrypted;
+			IsPasswordEncrypted = passwordEncrypter.IsPasswordEncrypted;
 
 			return IsPasswordEncrypted;
 		}
 
-		public void CheckIsPasswordValid(string password)
+		public void CheckIsPasswordValid(string password, PasswordValidation passwordValidation)
 		{
-			GetIsPasswordValid(password);
+			GetIsPasswordValid(password,passwordValidation);
 		}
 
-		private bool GetIsPasswordValid(string password)
+		private bool GetIsPasswordValid(string password, PasswordValidation passwordValidation)
 		{
-			PasswordValidation.ValidatePassword(password);
+			passwordValidation.ValidatePassword(password);
 
-			IsPasswordValid = PasswordValidation.IsPasswordValid;
+			IsPasswordValid = passwordValidation.IsPasswordValid;
 
 			return IsPasswordValid;
 		}

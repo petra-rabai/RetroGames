@@ -13,12 +13,15 @@ namespace RetroGamesTests
 		{
 			Registration registration = new Registration();
 			GameFile gameFile = new GameFile();
+			Drive drive = new Drive();
+			GameDirectory gameDirectory = new GameDirectory();
+
 			registration.Name = "Test User";
 			registration.LoginName = "test";
 			registration.Email = "test@test.com";
 			registration.Password = "!+563errrv";
 			
-			registration.SaveDecesionCheck(gameFile,testDecesion);
+			registration.SaveDecesionCheck(gameFile,testDecesion,drive,gameDirectory);
 
 			Assert.NotNull(registration.IsRegistered);
 		}

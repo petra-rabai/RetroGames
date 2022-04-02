@@ -12,8 +12,10 @@ namespace RetroGamesTests
 			bool gameFilesExist;
 
 			GameFile gameFile = new GameFile();
+			Drive drive = new Drive();
+			GameDirectory gameDirectory = new GameDirectory();
 
-			gameFile.CheckGameFilesCreated();
+			gameFile.CheckGameFilesCreated(drive,gameDirectory);
 
 			gameFilesExist = gameFile.IsGameFilesExist;
 			
@@ -27,8 +29,10 @@ namespace RetroGamesTests
 			string gameFilePath;
 
 			GameFile gameFile = new GameFile();
-			
-			gameFile.CheckGameFilesCreated();
+			Drive drive = new Drive();
+			GameDirectory gameDirectory = new GameDirectory();
+
+			gameFile.CheckGameFilesCreated(drive, gameDirectory);
 
 			gameFilePath = gameFile.GameFilePath;
 			
@@ -41,8 +45,10 @@ namespace RetroGamesTests
 			string userFilePath;
 
 			GameFile gameFile = new GameFile();
+			Drive drive = new Drive();
+			GameDirectory gameDirectory = new GameDirectory();
 
-			gameFile.CheckGameFilesCreated();
+			gameFile.CheckGameFilesCreated(drive,gameDirectory);
 
 			userFilePath = gameFile.UserFilePath;
 
@@ -55,8 +61,10 @@ namespace RetroGamesTests
 			string logFilePath;
 
 			GameFile gameFile = new GameFile();
+			Drive drive = new Drive();
+			GameDirectory gameDirectory = new GameDirectory();
 
-			gameFile.CheckGameFilesCreated();
+			gameFile.CheckGameFilesCreated(drive,gameDirectory);
 
 			logFilePath = gameFile.LogFilePath;
 

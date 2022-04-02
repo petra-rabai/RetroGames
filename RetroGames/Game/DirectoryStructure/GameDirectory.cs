@@ -3,19 +3,18 @@ using System.IO;
 
 namespace RetroGames
 {
-	public class GameDirectory : IDrive, IGameDirectory
+	public class GameDirectory : IGameDirectory
 	{
 		public string InstallationDrive { get; set; }
 		public bool IsInstallationDriveSelected { get; set; }
-		Drive Drive { get; set; } = new Drive();
 		public bool IsGameDirectoriesExist { get; set; }
 		public string GameDirectoryPath { get; set; }
 		public string UserDirectoryPath { get; set; }
 		public string LogDirectoryPath { get; set; }
 		
-		public bool CheckGameDirectoriesExist()
+		public bool CheckGameDirectoriesExist(Drive drive)
 		{
-			CreateGameDirectories();
+			CreateGameDirectories(drive);
 
 			if (!Directory.Exists(GameDirectoryPath) && !Directory.Exists(UserDirectoryPath) && !Directory.Exists(LogDirectoryPath))
 			{
@@ -29,9 +28,9 @@ namespace RetroGames
 			return IsGameDirectoriesExist;
 		}
 
-		private void CreateGameDirectories()
+		private void CreateGameDirectories(Drive drive)
 		{
-			GetInstallationDrive();
+			GetInstallationDrive(drive);
 			CreateGameDirectory();
 			CreateUserDirectory();
 			CreateLogDirectory();
@@ -46,11 +45,11 @@ namespace RetroGames
 			return GameDirectoryPath;
 		}
 
-		private string GetInstallationDrive()
+		private string GetInstallationDrive(Drive drive)
 		{
-			InstallationDrive = Drive.SelectInstallationDrive();
+			InstallationDrive = drive.SelectInstallationDrive();
 
-			IsInstallationDriveSelected = Drive.IsInstallationDriveSelected;
+			IsInstallationDriveSelected = drive.IsInstallationDriveSelected;
 
 			return InstallationDrive;
 		}
