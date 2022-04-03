@@ -13,23 +13,41 @@ namespace RetroGames
 		public string[] AvailableDrives { get; set; }
 		public char DriveDecesion { get; set; }
 		public Dictionary<int, string> DriveList { get; set; } = new Dictionary<int, string>();
+		public char PlayerPressedKey { get; set; }
 
 		private string defaultDrive;
 		private DriveInfo[] hDDs;
 		private double[] freeHddSpace;
-		private char playerPressedKey;
 		private bool IsPlayerPressedKeySuccess;
 
 		public char GetPlayerPressedKey(Player player)
 		{
-			playerPressedKey = player.GetPlayerKeyFromConsole();
+			PlayerPressedKey = player.GetPlayerKeyFromConsole();
 			
-			return playerPressedKey;
+			return PlayerPressedKey;
 		}
 		
-		private bool IsPlayerPressdKeySuccess()
+		public void GetInstallationDrive(char key)
 		{
-			if (playerPressedKey != ' ')
+			GetDriveList();
+
+			key = PlayerPressedKey;
+			CheckIsPlayerPressdKeySuccess(key);
+			SelectInstallationDrive(IsPlayerPressedKeySuccess);
+
+		}
+
+		public Dictionary<int, string> GetDriveList()
+		{
+			GetDriveInfo();
+			CollectDrives();
+
+			return DriveList;
+		}
+
+		private bool CheckIsPlayerPressdKeySuccess(char key)
+		{
+			if (Char.IsWhiteSpace(key))
 			{
 				IsPlayerPressedKeySuccess = true;
 			}
@@ -40,18 +58,28 @@ namespace RetroGames
 			return IsPlayerPressedKeySuccess;
 		}
 
-		public string SelectInstallationDrive()
+		private string SelectInstallationDrive(bool hitKeySuccess)
 		{
-			IsPlayerPressdKeySuccess();
-
-			if (IsPlayerPressedKeySuccess)
+			if (hitKeySuccess)
 			{
 				ChooseDefaultDrive();
 				GetDriveDecesion();
 				InstallationDriveSelectionSuccess();
 			}
-			
+			else
+			{
+				ChooseDefaultDrive();
+				InstallationDrive = defaultDrive;
+			}
+
 			return InstallationDrive;
+		}
+
+		private char GetDriveDecesion()
+		{
+			DriveDecesion = PlayerPressedKey;
+
+			return DriveDecesion;
 		}
 
 		private void GetDriveInfo()
@@ -60,14 +88,7 @@ namespace RetroGames
 			freeHddSpace = new double[hDDs.Length];
 		}
 
-		public Dictionary <int,string> GetDriveList()
-		{
-			GetDriveInfo();
-			
-			CollectDrives();
-
-			return DriveList;
-		}
+		
 		private string[] CollectDrives()
 		{
 			AvailableDrives = new string[hDDs.Length];
@@ -133,12 +154,7 @@ namespace RetroGames
 			return IsInstallationDriveSelected;
 		}
 
-		private char GetDriveDecesion()
-		{			
-			DriveDecesion = playerPressedKey;
-
-			return DriveDecesion;
-		}
+		
 
 		
 

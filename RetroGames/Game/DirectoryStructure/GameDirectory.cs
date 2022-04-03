@@ -47,7 +47,9 @@ namespace RetroGames
 
 		private string GetInstallationDrive(Drive drive)
 		{
-			InstallationDrive = drive.SelectInstallationDrive();
+			drive.GetInstallationDrive(drive.PlayerPressedKey);
+
+			InstallationDrive = drive.InstallationDrive;
 
 			IsInstallationDriveSelected = drive.IsInstallationDriveSelected;
 

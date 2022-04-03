@@ -62,9 +62,9 @@
     <Compile Include="Person\Security\IEmailValidation.cs" />
     <Compile Include="Game\DirectoryStructure\IGameDirectory.cs" />
     <Compile Include="Game\DirectoryStructure\IGameFile.cs" />
-    <Compile Include="Game\IInstallation.cs" />
+    <Compile Include="Game\Actions\IInstallation.cs" />
     <Compile Include="Person\Actions\ILogin.cs" />
-    <Compile Include="Game\Installation.cs" />
+    <Compile Include="Game\Actions\Installation.cs" />
     <Compile Include="Person\Data\IPassword.cs" />
     <Compile Include="Person\Security\IPasswordEncrypter.cs" />
     <Compile Include="Person\Security\IPasswordValidation.cs" />

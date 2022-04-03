@@ -6,47 +6,28 @@ namespace RetroGamesTests
 	public class DriveTests
 	{
 		
-		
 		[Test]
-		public void CheckSelectInstallationDriveSuccess()
+		public void GetDriveListSuccess()
 		{
-			string installationdrive;
-
 			Drive drive = new Drive();
 			
-			installationdrive = drive.SelectInstallationDrive();
+			drive.GetDriveList();
 
-			Assert.IsNotNull(installationdrive);
+			Assert.IsNotEmpty(drive.DriveList);
 		}
 
+		[TestCase('0')]
+		[TestCase(' ')]
 		[Test]
-		public void CheckInstallationDriveExistSuccess()
+		public void GetInstallationDriveSuccess(char testKey)
 		{
-			bool isInstallationDriveExist;
 			Drive drive = new Drive();
 
-			drive.SelectInstallationDrive();
+			drive.GetInstallationDrive(testKey);
 
-			isInstallationDriveExist = drive.IsInstallationDriveSelected;
+			Assert.NotNull(drive.InstallationDrive);
 
-			Assert.IsTrue(isInstallationDriveExist);
 		}
-
-		[Test]
-		public void CheckAvailableDrivesExist()
-		{
-			string[] availableDrives;
-
-			Drive drive = new Drive();
-
-			drive.SelectInstallationDrive();
-
-			availableDrives = drive.AvailableDrives;
-
-			Assert.IsNotNull(availableDrives);
-		}
-
-
 
 	}
 }
