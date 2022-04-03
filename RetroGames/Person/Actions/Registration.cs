@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using RetroGames.Properties;
 
@@ -166,8 +167,9 @@ namespace RetroGames
 
 			XmlSerializer RegistrationWriteToXML = new XmlSerializer(typeof(RegistrationData));
 			FileStream registrationXML = new FileStream(Path,
-									 FileMode.OpenOrCreate,
-									 FileAccess.ReadWrite);
+									 FileMode.Append,
+									 FileAccess.Write);
+			
 			RegistrationWriteToXML.Serialize(registrationXML, registrationData);
 			registrationXML.Close();
 

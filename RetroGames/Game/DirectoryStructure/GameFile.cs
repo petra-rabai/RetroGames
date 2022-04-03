@@ -21,11 +21,9 @@ namespace RetroGames
 
 		public bool CheckGameFilesCreated(Drive drive, GameDirectory gameDirectory)
 		{
-			CreateGameFiles(drive,gameDirectory);
-
 			if (!File.Exists(UserFilePath) && !File.Exists(GameFilePath) && !File.Exists(LogFilePath))
 			{
-				IsGameFilesExist = false;
+				CreateGameFiles(drive, gameDirectory);
 			}
 			else
 			{

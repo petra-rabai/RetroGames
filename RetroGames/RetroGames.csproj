@@ -66,6 +66,7 @@
     <Compile Include="Person\Actions\ILogin.cs" />
     <Compile Include="Game\Actions\Installation.cs" />
     <Compile Include="Person\Data\IPassword.cs" />
+    <Compile Include="Person\Security\IPasswordDeCrypter.cs" />
     <Compile Include="Person\Security\IPasswordEncrypter.cs" />
     <Compile Include="Person\Security\IPasswordValidation.cs" />
     <Compile Include="Person\IPlayer.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Person\Data\IUser.cs" />
     <Compile Include="Person\Actions\Login.cs" />
     <Compile Include="Person\Data\Password.cs" />
+    <Compile Include="Person\Security\PasswordDeCrypter.cs" />
     <Compile Include="Person\Security\PasswordEncrypter.cs" />
     <Compile Include="Person\Security\PasswordValidation.cs" />
     <Compile Include="Person\Player.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
+using RetroGames.Properties;
 
 namespace RetroGames
 {
@@ -14,8 +15,8 @@ namespace RetroGames
 
 		public string EncryptPassword(string plaintext)
 		{
-			string publickey = "78546998";
-			string secretkey = "63215547";
+			string publickey = GameSettings.Default.CryptographyPublicKey;
+			string secretkey = GameSettings.Default.CryptographySecretKey;
 			string encryptedtext;
 			
 			byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);

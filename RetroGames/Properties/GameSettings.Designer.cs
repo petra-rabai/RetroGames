@@ -114,5 +114,23 @@ namespace RetroGames.Properties {
                 this["LogFile"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("78546998")]
+        public string CryptographyPublicKey {
+            get {
+                return ((string)(this["CryptographyPublicKey"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("63215547")]
+        public string CryptographySecretKey {
+            get {
+                return ((string)(this["CryptographySecretKey"]));
+            }
+        }
     }
 }

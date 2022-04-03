@@ -21,15 +21,18 @@ namespace RetroGames
 			User user = new User();
 			Password password = new Password();
 			PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+			Login login = new Login();
+			PasswordDeCrypter passwordDeCrypter = new PasswordDeCrypter();
 			PasswordValidation passwordValidation = new PasswordValidation();
 			Email playerEmail = new Email();
 			EmailValidation emailValidation = new EmailValidation();
 			GameDirectory gameDirectory = new GameDirectory();
 			Installation installation = new Installation();
 
-			mainScreen.MainScreenInitialize(gameMenu);
-			gameMenuNavigation.GetChoosedMenu(gameMenu,player);
-			gameMenuNavigation.MenuNavigation(gameMenu, mainScreen, player, drive,registration,gameFile,user,password,playerEmail,installation,gameDirectory,emailValidation,passwordEncrypter,passwordValidation);
+			login.GetLoginDataFromXML(gameFile, drive, gameDirectory, passwordDeCrypter);
+			//mainScreen.MainScreenInitialize(gameMenu);
+			//gameMenuNavigation.GetChoosedMenu(gameMenu,player);
+			//gameMenuNavigation.MenuNavigation(gameMenu, mainScreen, player, drive,registration,gameFile,user,password,playerEmail,installation,gameDirectory,emailValidation,passwordEncrypter,passwordValidation);
 
 			Console.ReadLine();
 
