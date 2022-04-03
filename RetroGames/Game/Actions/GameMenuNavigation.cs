@@ -37,7 +37,7 @@ namespace RetroGames
 			else
 			{
 				GetChoosedMenuFromGameMenu();
-				Navigation(mainScreen, player, drive,registration,gameFile,user,playerPassword,playerEmail,emailValidation,passwordEncrypter,passwordValidation,installation,gameDirectory);
+				Navigation(mainScreen, player, drive,registration,gameFile,user,playerPassword,playerEmail,emailValidation,passwordEncrypter,passwordValidation,installation,gameDirectory,gameMenu);
 			}
 
 		}
@@ -54,7 +54,8 @@ namespace RetroGames
 						  PasswordEncrypter passwordEncrypter,
 						  PasswordValidation passwordValidation,
 						  Installation installation,
-						  GameDirectory gameDirectory)
+						  GameDirectory gameDirectory,
+						  GameMenu gameMenu)
 		{
 			switch (ChoosedMenu)
 			{
@@ -64,7 +65,7 @@ namespace RetroGames
 					break;
 				case "Installation":
 					// Install the game
-					installation.InstallationProcess(mainScreen, player, drive,gameDirectory,gameFile);
+					installation.InstallationProcess(mainScreen, player, drive,gameDirectory,gameFile,gameMenu);
 
 					break;
 				case "Pause Game":

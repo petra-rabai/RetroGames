@@ -27,13 +27,12 @@ namespace RetroGames
 			return PlayerPressedKey;
 		}
 		
-		public void GetInstallationDrive(char key)
+		public void GetInstallationDrive(char playerHitKey)
 		{
 			GetDriveList();
 
-			key = PlayerPressedKey;
-			CheckIsPlayerPressdKeySuccess(key);
-			SelectInstallationDrive(IsPlayerPressedKeySuccess);
+			CheckIsPlayerPressdKeySuccess(playerHitKey);
+			SelectInstallationDrive(IsPlayerPressedKeySuccess, playerHitKey);
 
 		}
 
@@ -45,9 +44,9 @@ namespace RetroGames
 			return DriveList;
 		}
 
-		private bool CheckIsPlayerPressdKeySuccess(char key)
+		private bool CheckIsPlayerPressdKeySuccess(char playerHitKey)
 		{
-			if (Char.IsWhiteSpace(key))
+			if (playerHitKey != '*')
 			{
 				IsPlayerPressedKeySuccess = true;
 			}
@@ -58,12 +57,12 @@ namespace RetroGames
 			return IsPlayerPressedKeySuccess;
 		}
 
-		private string SelectInstallationDrive(bool hitKeySuccess)
+		private string SelectInstallationDrive(bool hitKeySuccess, char playerHitKey)
 		{
 			if (hitKeySuccess)
 			{
 				ChooseDefaultDrive();
-				GetDriveDecesion();
+				GetDriveDecesionFromPlayer(playerHitKey);
 				InstallationDriveSelectionSuccess();
 			}
 			else
@@ -75,9 +74,9 @@ namespace RetroGames
 			return InstallationDrive;
 		}
 
-		private char GetDriveDecesion()
+		private char GetDriveDecesionFromPlayer(char playerHitKey)
 		{
-			DriveDecesion = PlayerPressedKey;
+			DriveDecesion = playerHitKey;
 
 			return DriveDecesion;
 		}

@@ -17,7 +17,7 @@ namespace RetroGamesTests
 		}
 
 		[TestCase('0')]
-		[TestCase(' ')]
+		[TestCase('*')]
 		[Test]
 		public void GetInstallationDriveSuccess(char testKey)
 		{
@@ -28,6 +28,7 @@ namespace RetroGamesTests
 			Assert.NotNull(drive.InstallationDrive);
 
 		}
+
 
 	}
 }
