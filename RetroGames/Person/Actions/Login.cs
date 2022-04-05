@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,39 +14,39 @@ namespace RetroGames
 		public string LoginName { get; set; }
 		public string LoginPassword { get; set; }
 
-		XmlReader dataReader;
-
-		public void GetLoginDataFromXML(GameFile gameFile,Drive drive, GameDirectory gameDirectory, PasswordDeCrypter passwordDeCrypter)
+		public void GetLoginDataFromXML(GameFile gameFile, Drive drive, GameDirectory gameDirectory, StringCryptographer stringCryptographer)
 		{
 			gameFile.CheckGameFilesCreated(drive, gameDirectory);
-			ReadLoginData(gameFile, passwordDeCrypter);
+			ReadLoginData(gameFile, stringCryptographer);
 		}
 
-		private void ReadLoginData(GameFile gameFile, PasswordDeCrypter passwordDeCrypter)
+		private void ReadLoginData(GameFile gameFile, StringCryptographer stringCryptographer)
 		{
-			string filePath = gameFile.UserFilePath;
-			dataReader = XmlReader.Create(filePath);
-
-			while (dataReader.Read())
+			XmlDocument loginData = new XmlDocument();
+			
+			StreamReader loginDataReader = new StreamReader(gameFile.UserFilePath, Encoding.UTF8);
+			string loginDataContent = loginDataReader.ReadToEnd();
+			loginData.LoadXml(loginDataContent);
+			XmlNodeList loginDataList = loginData.GetElementsByTagName("RegistrationData");
+			
+			foreach (XmlNode loginNode in loginDataList)
 			{
-				if (dataReader.IsStartElement())
+				
+				for (int i = 0; i < loginNode.ChildNodes.Count; i++)
 				{
-					switch (dataReader.Name.ToString())
+					if (loginNode.ChildNodes.Item(i).Name == "LoginName")
 					{
-						case "LoginName":
-							LoginName = dataReader.ReadString();
-							break;
-						case "Password":
-							LoginPassword = passwordDeCrypter.DecryptPassword(dataReader.ReadString());
-							break;
-						default:
-							break;
+						LoginName = loginNode.ChildNodes.Item(i).InnerText;
 					}
-
+					else if (loginNode.ChildNodes.Item(i).Name == "Password")
+					{
+						LoginPassword = stringCryptographer.Decrypt(loginNode.ChildNodes.Item(i).InnerText);
+					}	
 				}
-			}
-		}
 
+			}
+
+		}
 
 
 	}

@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace RetroGames
 {
@@ -21,6 +23,11 @@ namespace RetroGames
 
 		public bool CheckGameFilesCreated(Drive drive, GameDirectory gameDirectory)
 		{
+			drive.GetInstallationDrive(' ');
+			UserFilePath = drive.InstallationDrive + GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
+			LogFilePath = drive.InstallationDrive + GameSettings.Default.LogDirectory + GameSettings.Default.LogFile;
+			GameFilePath = drive.InstallationDrive + GameSettings.Default.GameDirectory + GameSettings.Default.GameFile;
+
 			if (!File.Exists(UserFilePath) && !File.Exists(GameFilePath) && !File.Exists(LogFilePath))
 			{
 				CreateGameFiles(drive, gameDirectory);

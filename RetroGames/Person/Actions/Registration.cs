@@ -27,13 +27,13 @@ namespace RetroGames
 								  Password playerPassword,
 								  Email playerEmail,
 								  EmailValidation emailValidation,
-								  PasswordEncrypter passwordEncrypter,
+								 StringCryptographer stringCryptographer,
 								  PasswordValidation passwordValidation,
 								  Drive drive,
 								  GameDirectory gameDirectory,
 								  Player player)
 		{
-			RegistrationForm(gameFile,user,playerPassword,playerEmail,emailValidation,passwordEncrypter,passwordValidation,drive,gameDirectory,player);
+			RegistrationForm(gameFile,user,playerPassword,playerEmail,emailValidation, stringCryptographer, passwordValidation,drive,gameDirectory,player);
 			
 			IsUserRegistered(isRegistrationSuccess);
 
@@ -71,7 +71,7 @@ namespace RetroGames
 								Password playerPassword,
 								Email playerEmail,
 								EmailValidation emailValidation,
-								PasswordEncrypter passwordEncrypter,
+								StringCryptographer stringCryptographer,
 								PasswordValidation passwordValidation,
 								Drive drive, GameDirectory gameDirectory,
 								Player player)
@@ -81,7 +81,7 @@ namespace RetroGames
 			GetLastName(user);
 			AssignName(user);
 			GetLoginName(user);
-			GetPassword(playerPassword,passwordEncrypter,passwordValidation);
+			GetPassword(playerPassword, stringCryptographer, passwordValidation);
 			GetEmail(playerEmail,emailValidation);
 			GetSaveDecesion(player);
 			SaveDecesionCheck(gameFile,saveDecesion,drive,gameDirectory);
@@ -107,10 +107,10 @@ namespace RetroGames
 			Email = playerEmail.GetPlayerEmail(emailValidation);
 		}
 
-		private void GetPassword(Password playerPassword, PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
+		private void GetPassword(Password playerPassword, StringCryptographer stringCryptographer, PasswordValidation passwordValidation)
 		{
 			RegistrationUI.FormPassword();
-			Password = playerPassword.GetPlayerPassword(passwordEncrypter,passwordValidation);
+			Password = playerPassword.GetPlayerPassword(stringCryptographer, passwordValidation);
 		}
 
 		private void AssignName(User user)
@@ -167,9 +167,9 @@ namespace RetroGames
 
 			XmlSerializer RegistrationWriteToXML = new XmlSerializer(typeof(RegistrationData));
 			FileStream registrationXML = new FileStream(Path,
-									 FileMode.Append,
+									 FileMode.Open,
 									 FileAccess.Write);
-			
+
 			RegistrationWriteToXML.Serialize(registrationXML, registrationData);
 			registrationXML.Close();
 

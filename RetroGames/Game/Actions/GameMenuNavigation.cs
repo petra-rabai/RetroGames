@@ -27,8 +27,7 @@ namespace RetroGames
 						  User user,
 						  Password playerPassword,
 						  Email playerEmail,Installation installation, GameDirectory gameDirectory, EmailValidation emailValidation,
-						  PasswordEncrypter passwordEncrypter,
-						  PasswordValidation passwordValidation)
+						  PasswordValidation passwordValidation, StringCryptographer stringCryptographer)
 		{
 			if (PressedKey == ' ')
 			{
@@ -37,7 +36,7 @@ namespace RetroGames
 			else
 			{
 				GetChoosedMenuFromGameMenu();
-				Navigation(mainScreen, player, drive,registration,gameFile,user,playerPassword,playerEmail,emailValidation,passwordEncrypter,passwordValidation,installation,gameDirectory,gameMenu);
+				Navigation(mainScreen, player, drive,registration,gameFile,user,playerPassword,playerEmail,emailValidation,passwordValidation,installation,gameDirectory,gameMenu, stringCryptographer);
 			}
 
 		}
@@ -51,11 +50,11 @@ namespace RetroGames
 						  Password playerPassword,
 						  Email playerEmail,
 						  EmailValidation emailValidation,
-						  PasswordEncrypter passwordEncrypter,
 						  PasswordValidation passwordValidation,
 						  Installation installation,
 						  GameDirectory gameDirectory,
-						  GameMenu gameMenu)
+						  GameMenu gameMenu,
+						  StringCryptographer stringCryptographer)
 		{
 			switch (ChoosedMenu)
 			{
@@ -82,7 +81,7 @@ namespace RetroGames
 					break;
 				case "Registration":
 					// If Installation not success drop an error
-					registration.UserRegistration(gameFile, user, playerPassword, playerEmail,emailValidation,passwordEncrypter,passwordValidation,drive,gameDirectory, player);
+					registration.UserRegistration(gameFile, user, playerPassword, playerEmail,emailValidation, stringCryptographer, passwordValidation,drive,gameDirectory, player);
 					break;
 				case "Help":
 					// Open the Help section (txt? or any other structured file?)

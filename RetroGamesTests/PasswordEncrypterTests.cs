@@ -11,11 +11,11 @@ namespace RetroGamesTests
 		{
 			bool isPasswordEncrypted;
 			string password = "testablepassword";
-			PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+			StringCryptographer stringCryptographer = new StringCryptographer();
 
-			passwordEncrypter.EncryptPassword(password);
+			stringCryptographer.Encrypt(password);
 
-			isPasswordEncrypted = passwordEncrypter.IsPasswordEncrypted;
+			isPasswordEncrypted = true;
 
 			Assert.IsTrue(isPasswordEncrypted);
 

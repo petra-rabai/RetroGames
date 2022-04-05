@@ -15,11 +15,12 @@ namespace RetroGamesTests
 			GameFile gameFile = new GameFile();
 			Drive drive = new Drive();
 			GameDirectory gameDirectory = new GameDirectory();
+			StringCryptographer stringCryptographer = new StringCryptographer();
 
 			registration.Name = "Test User";
-			registration.LoginName = "test";
+			registration.LoginName = "test1";
 			registration.Email = "test@test.com";
-			registration.Password = "!+563errrv";
+			registration.Password = stringCryptographer.Encrypt("Rp!.19840716.!");
 			
 			registration.SaveDecesionCheck(gameFile,testDecesion,drive,gameDirectory);
 

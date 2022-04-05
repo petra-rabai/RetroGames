@@ -54,6 +54,7 @@
     <Compile Include="Game\UI\RegistrationUI.cs" />
     <Compile Include="Person\Data\Email.cs" />
     <Compile Include="Person\Data\RegistrationData.cs" />
+    <Compile Include="Person\Security\Cryptography.cs" />
     <Compile Include="Person\Security\EmailValidation.cs" />
     <Compile Include="Game\DirectoryStructure\GameDirectory.cs" />
     <Compile Include="Game\DirectoryStructure\GameFile.cs" />
@@ -66,16 +67,12 @@
     <Compile Include="Person\Actions\ILogin.cs" />
     <Compile Include="Game\Actions\Installation.cs" />
     <Compile Include="Person\Data\IPassword.cs" />
-    <Compile Include="Person\Security\IPasswordDeCrypter.cs" />
-    <Compile Include="Person\Security\IPasswordEncrypter.cs" />
     <Compile Include="Person\Security\IPasswordValidation.cs" />
     <Compile Include="Person\IPlayer.cs" />
     <Compile Include="Person\Actions\IRegistration.cs" />
     <Compile Include="Person\Data\IUser.cs" />
     <Compile Include="Person\Actions\Login.cs" />
     <Compile Include="Person\Data\Password.cs" />
-    <Compile Include="Person\Security\PasswordDeCrypter.cs" />
-    <Compile Include="Person\Security\PasswordEncrypter.cs" />
     <Compile Include="Person\Security\PasswordValidation.cs" />
     <Compile Include="Person\Player.cs" />
     <Compile Include="Program.cs" />

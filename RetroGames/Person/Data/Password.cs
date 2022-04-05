@@ -17,7 +17,7 @@ namespace RetroGames
 
 		readonly SecureString securePassword = new SecureString();
 
-		public string GetPlayerPassword(PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
+		public string GetPlayerPassword(StringCryptographer stringCryptographer, PasswordValidation passwordValidation)
 		{
 			SecureString password = ConvertPasswordToSecure();
 			string passWordConvert = new NetworkCredential(string.Empty, password).Password;
@@ -25,21 +25,22 @@ namespace RetroGames
 			PlayerPassword = passWordConvert;
 
 			CheckIsPasswordValid(PlayerPassword,passwordValidation);
-			CheckIsPasswordEncrypted(PlayerPassword,passwordEncrypter);
+			CheckIsPasswordEncrypted(PlayerPassword, stringCryptographer);
 
 			return PlayerPassword;
 		}
 
-		public void CheckIsPasswordEncrypted(string password, PasswordEncrypter passwordEncrypter)
+		public void CheckIsPasswordEncrypted(string password, StringCryptographer stringCryptographer)
 		{
-			GetIsPasswordEncrypted(password,passwordEncrypter);
+			GetIsPasswordEncrypted(password, stringCryptographer);
 		}
 		
-		private bool GetIsPasswordEncrypted(string password, PasswordEncrypter passwordEncrypter)
+		private bool GetIsPasswordEncrypted(string password, StringCryptographer stringCryptographer)
 		{
-			passwordEncrypter.EncryptPassword(password);
 
-			IsPasswordEncrypted = passwordEncrypter.IsPasswordEncrypted;
+			stringCryptographer.Encrypt(password);
+
+			IsPasswordEncrypted = stringCryptographer.IsEncrypted;
 
 			return IsPasswordEncrypted;
 		}

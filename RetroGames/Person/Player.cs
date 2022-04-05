@@ -18,21 +18,21 @@ namespace RetroGames
 		public bool IsLoggedIn { get; set; }
 		public char PressedKey { get; set; }
 
-		public void GetLoginData(User user, Password password,PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
+		public void GetLoginData(User user, Password password, PasswordValidation passwordValidation ,StringCryptographer stringCryptographer)
 		{
 			LoginName = user.LoginName;
 			PlayerPassword = password.PlayerPassword;
 
-			CheckLoginDataNotEmpty(user,password,passwordEncrypter,passwordValidation);
+			CheckLoginDataNotEmpty(user,password,passwordValidation,stringCryptographer);
 
 		}
 
-		private void CheckLoginDataNotEmpty(User user, Password password, PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
+		private void CheckLoginDataNotEmpty(User user, Password password, PasswordValidation passwordValidation, StringCryptographer stringCryptographer)
 		{
 			if (LoginName == "" || PlayerPassword == "")
 			{
 				GetPlayerLoginName(user);
-				GetPlayerPassword(password,passwordEncrypter,passwordValidation);
+				GetPlayerPassword(password,passwordValidation,stringCryptographer);
 			}
 		}
 
@@ -76,9 +76,9 @@ namespace RetroGames
 			return LoginName;
 		}
 
-		private string GetPlayerPassword(Password password, PasswordEncrypter passwordEncrypter, PasswordValidation passwordValidation)
+		private string GetPlayerPassword(Password password, PasswordValidation passwordValidation, StringCryptographer stringCryptographer)
 		{
-			PlayerPassword = password.GetPlayerPassword(passwordEncrypter,passwordValidation);
+			PlayerPassword = password.GetPlayerPassword(stringCryptographer, passwordValidation);
 		
 			return PlayerPassword;
 		}
