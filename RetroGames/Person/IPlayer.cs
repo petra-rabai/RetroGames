@@ -7,5 +7,7 @@
 		bool IsRegistered { get; set; }
 		bool IsLoggedIn { get; set; }
 		string LoginName { get; set; }
+
+		char GetPlayerKeyFromConsole();
 	}
 }

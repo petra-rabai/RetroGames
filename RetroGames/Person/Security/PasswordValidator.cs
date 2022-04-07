@@ -1,17 +1,22 @@
 ﻿using RetroGames.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class PasswordValidation : IPasswordValidation, IPassword
+	public class PasswordValidator : IPasswordValidator
 	{
+		private const string hasNumberPattern = @"[0-9]+";
+		private const string hasUpperCharPattern = @"[A-Z]+";
+		private const string hasMinMaxCharPattern = @".{8,15}";
+		private const string hasLowerCharPattern = @"[a-z]+";
+		private const string hasSymbolsPattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
+		
+		private const string lowerCharError = "Password should contain at least one lower case letter.";
+		private const string upperCharError = "Password should contain at least one upper case letter.";
+		private const string minMaxCharError = "Password should not be lesser than 8 or should not be greater than 15 characters.";
+		private const string numberError = "Password should contain at least one numeric value.";
+		private const string symbolError = "Password should contain at least one special case character.";
+
 		public bool IsPasswordValid { get; set; } = false;
 		public string PasswordError { get; set; }
 		public string PlayerPassword { get; set; }
@@ -56,33 +61,33 @@ namespace RetroGames
 
 		private string GetErrorReason()
 		{
-			Regex hasNumber = new Regex(@"[0-9]+");
-			Regex hasUpperChar = new Regex(@"[A-Z]+");
-			Regex hasMiniMaxChars = new Regex(@".{8,15}");
-			Regex hasLowerChar = new Regex(@"[a-z]+");
-			Regex hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+			Regex hasNumber = new Regex(hasNumberPattern);
+			Regex hasUpperChar = new Regex(hasUpperCharPattern);
+			Regex hasMiniMaxChars = new Regex(hasMinMaxCharPattern);
+			Regex hasLowerChar = new Regex(hasLowerCharPattern);
+			Regex hasSymbols = new Regex(hasSymbolsPattern);
 
-			string Error="";
+			string Error = "";
 
 			if (!hasLowerChar.IsMatch(PlayerPassword))
 			{
-				Error = "Password should contain at least one lower case letter.";
+				Error = lowerCharError;
 			}
 			if (!hasUpperChar.IsMatch(PlayerPassword))
 			{
-				Error = "Password should contain at least one upper case letter.";
+				Error = upperCharError;
 			}
 			if (!hasMiniMaxChars.IsMatch(PlayerPassword) || PlayerPassword.Length > 15)
 			{
-				Error = "Password should not be lesser than 8 or should not be greater than 15 characters.";
+				Error = minMaxCharError;
 			}
 			if (!hasNumber.IsMatch(PlayerPassword))
 			{
-				Error = "Password should contain at least one numeric value.";
+				Error = numberError;
 			}
 			if (!hasSymbols.IsMatch(PlayerPassword))
 			{
-				Error = "Password should contain at least one special case character.";
+				Error = symbolError;
 			}
 			
 			return Error;

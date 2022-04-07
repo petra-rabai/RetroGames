@@ -12,7 +12,7 @@ namespace RetroGamesTests
 		{
 			bool passwordValid;
 
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 			
 			passwordValidation.ValidatePassword(testPassword);
 			
@@ -26,7 +26,7 @@ namespace RetroGamesTests
 		public void IsPasswordValidFailed(string testPassword)
 		{
 			bool passwordValid;
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 			passwordValid = passwordValidation.IsPasswordValid;
@@ -40,7 +40,7 @@ namespace RetroGamesTests
 		{
 			string errorMessage;
 			string testErrorMessage = "Password should contain at least one numeric value.";
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 
@@ -56,7 +56,7 @@ namespace RetroGamesTests
 		{
 			string errorMessage;
 			string testErrorMessage = "Password should contain at least one upper case letter.";
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 
@@ -72,7 +72,7 @@ namespace RetroGamesTests
 		{
 			string errorMessage;
 			string testErrorMessage = "Password should not be lesser than 8 or should not be greater than 15 characters.";
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 
@@ -88,7 +88,7 @@ namespace RetroGamesTests
 		{
 			string errorMessage;
 			string testErrorMessage = "Password should not be lesser than 8 or should not be greater than 15 characters.";
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 
@@ -104,7 +104,7 @@ namespace RetroGamesTests
 		{
 			string errorMessage;
 			string testErrorMessage = "Password should contain at least one lower case letter.";
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 
@@ -120,7 +120,7 @@ namespace RetroGamesTests
 		{
 			string errorMessage;
 			string testErrorMessage = "Password should contain at least one special case character.";
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			passwordValidation.ValidatePassword(testPassword);
 

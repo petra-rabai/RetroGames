@@ -1,0 +1,12 @@
+﻿namespace RetroGames
+{
+	public interface IPasswordHandler
+	{
+		bool IsPasswordEncrypted { get; set; }
+		bool IsPasswordValid { get; set; }
+		bool PasswordHandlingSuccess { get; set; }
+		string PlayerPassword { get; set; }
+
+		bool CheckPasswordHandling();
+	}
+}

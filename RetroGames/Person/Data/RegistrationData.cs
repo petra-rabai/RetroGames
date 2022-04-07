@@ -2,7 +2,7 @@
 
 namespace RetroGames
 {
-	public class RegistrationData
+	public class RegistrationData : IRegistrationData
 	{
 		public RegistrationData()
 		{

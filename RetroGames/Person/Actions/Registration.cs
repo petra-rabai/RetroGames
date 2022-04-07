@@ -1,19 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.IO;
 using System.Xml.Serialization;
-using RetroGames.Properties;
 
 namespace RetroGames
 {
 	public class Registration : IRegistration
 	{
+		private IRegistrationUI registrationUI;
+		private IGameFile gameFile;
+		private IUser user;
+		private IEmail email;
+		private IPasswordHandler passwordHandler;
+		private IPlayer player;
+
+		public Registration(IRegistrationUI registrationUI,
+					  IGameFile gameFile,
+					  IUser user,
+					  IEmail email,
+					  IPlayer player,
+					  IPasswordHandler passwordHandler)
+		{
+			this.registrationUI = registrationUI;
+			this.gameFile = gameFile;
+			this.user = user;
+			this.email = email;
+			this.player = player;
+			this.passwordHandler = passwordHandler;
+		}
+
 		public bool IsRegistered { get; set; }
-		RegistrationUI RegistrationUI { get; set; } = new RegistrationUI();
 		public string Name { get; set; }
 		public string LoginName { get; set; }
 		public string Password { get; set; }
@@ -22,28 +36,19 @@ namespace RetroGames
 		private char saveDecesion;
 		private bool isRegistrationSuccess;
 
-		public void UserRegistration(GameFile gameFile,
-								  User user,
-								  Password playerPassword,
-								  Email playerEmail,
-								  EmailValidation emailValidation,
-								 StringCryptographer stringCryptographer,
-								  PasswordValidation passwordValidation,
-								  Drive drive,
-								  GameDirectory gameDirectory,
-								  Player player)
+		public void UserRegistration()
 		{
-			RegistrationForm(gameFile,user,playerPassword,playerEmail,emailValidation, stringCryptographer, passwordValidation,drive,gameDirectory,player);
+			RegistrationForm();
 			
 			IsUserRegistered(isRegistrationSuccess);
 
 		}
 
-		public void SaveDecesionCheck(GameFile gameFile, char decesion, Drive drive, GameDirectory gameDirectory)
+		public void SaveDecesionCheck(char decesion)
 		{
 			if (decesion == 'Y')
 			{
-				SaveDataSuccess(gameFile,drive,gameDirectory);
+				SaveDataSuccess();
 
 			}
 			if (decesion == 'N')
@@ -66,73 +71,73 @@ namespace RetroGames
 			return IsRegistered;
 		}
 
-		private void RegistrationForm(GameFile gameFile,		
-								User user,
-								Password playerPassword,
-								Email playerEmail,
-								EmailValidation emailValidation,
-								StringCryptographer stringCryptographer,
-								PasswordValidation passwordValidation,
-								Drive drive, GameDirectory gameDirectory,
-								Player player)
+		private void RegistrationForm()
 		{
 			GetFormTitle();
-			GetFirstName(user);
-			GetLastName(user);
-			AssignName(user);
-			GetLoginName(user);
-			GetPassword(playerPassword, stringCryptographer, passwordValidation);
-			GetEmail(playerEmail,emailValidation);
-			GetSaveDecesion(player);
-			SaveDecesionCheck(gameFile,saveDecesion,drive,gameDirectory);
+			GetFirstName();
+			GetLastName();
+			AssignName();
+			GetLoginName();
+			GetPassword();
+			GetEmail();
+			GetSaveDecesion();
+			SaveDecesionCheck(saveDecesion);
 
 		}
 
 		private void GetFormTitle()
 		{
-			RegistrationUI.FormTitle();
+			registrationUI.FormTitle();
 		}
 
-		private char GetSaveDecesion(Player player)
+		private char GetSaveDecesion()
 		{
-			RegistrationUI.FromSave();
+			registrationUI.FromSave();
+
 			saveDecesion = player.GetPlayerKeyFromConsole();
 
 			return saveDecesion;
 		}
 
-		private void GetEmail(Email playerEmail, EmailValidation emailValidation)
+		private void GetEmail()
 		{
-			RegistrationUI.FormEmail();
-			Email = playerEmail.GetPlayerEmail(emailValidation);
+			registrationUI.FormEmail();
+			Email = email.GetPlayerEmail();
 		}
 
-		private void GetPassword(Password playerPassword, StringCryptographer stringCryptographer, PasswordValidation passwordValidation)
+		private void GetPassword()
 		{
-			RegistrationUI.FormPassword();
-			Password = playerPassword.GetPlayerPassword(stringCryptographer, passwordValidation);
+			registrationUI.FormPassword();
+
+			while (!passwordHandler.PasswordHandlingSuccess)
+			{
+				passwordHandler.CheckPasswordHandling();
+			}
+			
+			Password = passwordHandler.PlayerPassword;
+			
 		}
 
-		private void AssignName(User user)
+		private void AssignName()
 		{
 			Name = user.FirstName + " " + user.LastName;
 		}
 
-		private void GetLoginName(User user)
+		private void GetLoginName()
 		{
-			RegistrationUI.FormLoginName();
+			registrationUI.FormLoginName();
 			LoginName = user.GetPlayerLoginName();
 		}
 
-		private void GetLastName(User user)
+		private void GetLastName()
 		{
-			RegistrationUI.FormLastName();
+			registrationUI.FormLastName();
 			user.GetPlayerLastName();
 		}
 
-		private void GetFirstName(User user)
+		private void GetFirstName()
 		{
-			RegistrationUI.FormFirstName();
+			registrationUI.FormFirstName();
 			user.GetPlayerFirstName();
 		}
 
@@ -148,14 +153,15 @@ namespace RetroGames
 			return isRegistrationSuccess;
 		}
 
-		private void GetUserSavePath(GameFile gameFile, Drive drive, GameDirectory gameDirectory)
+		private void GetUserSavePath()
 		{
-			gameFile.CheckGameFilesCreated(drive,gameDirectory);
+			gameFile.CheckGameFilesCreated();
 		}
 
-		private bool SaveDataSuccess(GameFile gameFile, Drive drive, GameDirectory gameDirectory)
+		private bool SaveDataSuccess()
 		{
-			GetUserSavePath(gameFile, drive,gameDirectory);
+			GetUserSavePath();
+
 			RegistrationData registrationData = new RegistrationData()
 			{
 				Name = this.Name,

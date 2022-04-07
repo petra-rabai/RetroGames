@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace RetroGames
 {
 	public class Login : ILogin
 	{
+		private IGameFile gameFile;
+		private IStringCryptographer stringCryptographer;
+
+		public Login(IGameFile gameFile, IStringCryptographer stringCryptographer)
+		{
+			this.gameFile = gameFile;
+			this.stringCryptographer = stringCryptographer;
+		}
+
 		public bool IsLoggedIn { get; set; } = false;
 		public string LoginName { get; set; }
 		public string LoginPassword { get; set; }
 
-		public void GetLoginDataFromXML(GameFile gameFile, Drive drive, GameDirectory gameDirectory, StringCryptographer stringCryptographer)
+		public void GetLoginDataFromXML()
 		{
-			gameFile.CheckGameFilesCreated(drive, gameDirectory);
-			ReadLoginData(gameFile, stringCryptographer);
+			gameFile.CheckGameFilesCreated();
+			ReadLoginData();
 		}
 
-		private void ReadLoginData(GameFile gameFile, StringCryptographer stringCryptographer)
+		private void ReadLoginData()
 		{
 			XmlDocument loginData = new XmlDocument();
 			

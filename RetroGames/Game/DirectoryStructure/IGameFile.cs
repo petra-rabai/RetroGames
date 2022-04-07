@@ -5,5 +5,7 @@
 		string GameFilePath { get; set; }
 		string UserFilePath { get; set; }
 		string LogFilePath { get; set; }
+
+		bool CheckGameFilesCreated();
 	}
 }

@@ -1,49 +1,57 @@
-﻿using RetroGames.Properties;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Net;
-using System.Security;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
 	public class Player : IPlayer
 	{
+		private IUser user;
+		private IPassword password;
+		private IRegistration registration;
+		private ILogin login;
+		private IPasswordHandler passwordHandler;
+
+		public Player(IUser user, IPassword password, IRegistration registration, ILogin login, IPasswordHandler passwordHandler)
+		{
+			this.user = user;
+			this.password = password;
+			this.registration = registration;
+			this.login = login;
+			this.passwordHandler = passwordHandler;
+		}
+
 		public string LoginName { get; set; }	
 		public string PlayerPassword { get; set; }
 		public bool IsRegistered { get; set; }
 		public bool IsLoggedIn { get; set; }
 		public char PressedKey { get; set; }
 
-		public void GetLoginData(User user, Password password, PasswordValidation passwordValidation ,StringCryptographer stringCryptographer)
+		public void GetLoginData()
 		{
 			LoginName = user.LoginName;
 			PlayerPassword = password.PlayerPassword;
 
-			CheckLoginDataNotEmpty(user,password,passwordValidation,stringCryptographer);
+			CheckLoginDataNotEmpty();
 
 		}
 
-		private void CheckLoginDataNotEmpty(User user, Password password, PasswordValidation passwordValidation, StringCryptographer stringCryptographer)
+		private void CheckLoginDataNotEmpty()
 		{
 			if (LoginName == "" || PlayerPassword == "")
 			{
-				GetPlayerLoginName(user);
-				GetPlayerPassword(password,passwordValidation,stringCryptographer);
+				GetPlayerLoginName();
+				GetPlayerPassword();
 			}
 		}
 
-		public void GetRegistrationIsSuccess(bool registred, Registration registration)
+		public void GetRegistrationIsSuccess(bool registred)
 		{
-			CheckRegistrationSuccess(registred, registration);
+			CheckRegistrationSuccess(registred);
 		}
 
-		public void GetLoginIsSuccess(Login login)
+		public void GetLoginIsSuccess()
 		{
-			CheckLoginSuccess(login);
+			CheckLoginSuccess();
 		}
 
 		public char GetPlayerKeyFromConsole()
@@ -69,21 +77,26 @@ namespace RetroGames
 			return PressedKey;
 		}
 
-		private string GetPlayerLoginName(User user)
+		private string GetPlayerLoginName()
 		{
 			LoginName = user.GetPlayerLoginName();
 			
 			return LoginName;
 		}
 
-		private string GetPlayerPassword(Password password, PasswordValidation passwordValidation, StringCryptographer stringCryptographer)
+		private string GetPlayerPassword()
 		{
-			PlayerPassword = password.GetPlayerPassword(stringCryptographer, passwordValidation);
-		
+			while (!passwordHandler.PasswordHandlingSuccess)
+			{
+				passwordHandler.CheckPasswordHandling();
+			}
+
+			PlayerPassword = passwordHandler.PlayerPassword;
+
 			return PlayerPassword;
 		}
 
-		private bool CheckRegistrationSuccess(bool registred, Registration registration)
+		private bool CheckRegistrationSuccess(bool registred)
 		{
 			registration.IsUserRegistered(registred);
 
@@ -92,7 +105,7 @@ namespace RetroGames
 			return IsRegistered;
 		}
 
-		private bool CheckLoginSuccess(Login login)
+		private bool CheckLoginSuccess()
 		{
 			IsLoggedIn = login.IsLoggedIn;
 

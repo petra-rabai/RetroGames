@@ -3,5 +3,6 @@
 	public interface IEmail
 	{
 		string PlayerEmail { get; set; }
+		string GetPlayerEmail();
 	}
 }

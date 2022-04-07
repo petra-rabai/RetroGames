@@ -12,7 +12,7 @@ namespace RetroGamesTests
 			bool isPasswordValid;
 			
 			Password password = new Password();
-			PasswordValidation passwordValidation = new PasswordValidation();
+			PasswordValidator passwordValidation = new PasswordValidator();
 
 			password.CheckIsPasswordValid(testPassword,passwordValidation);
 

@@ -1,14 +1,9 @@
 ﻿using RetroGames.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class EmailValidation : IEmailValidation
+	public class EmailValidator : IEmailValidator
 	{
 		public bool IsEmailValid { get; set; } = false;
 

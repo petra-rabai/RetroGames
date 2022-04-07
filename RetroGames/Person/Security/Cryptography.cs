@@ -2,45 +2,43 @@
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using RetroGames.Properties;
 
 namespace RetroGames
 {
-	public class StringCryptographer
+	public class StringCryptographer : IStringCryptographer
 	{
 		public bool IsEncrypted { get; set; }
-		
+
 		public bool IsDecrypted { get; set; }
 
 		public string Encrypt(string plaintext)
 		{
-			
-				string publickey = GameSettings.Default.CryptographyPublicKey;
-				string secretkey = GameSettings.Default.CryptographySecretKey;
-				string encryptedtext;
 
-				byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
-				byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
-				byte[] inputbyteArray = Encoding.UTF8.GetBytes(plaintext);
+			string publickey = GameSettings.Default.CryptographyPublicKey;
+			string secretkey = GameSettings.Default.CryptographySecretKey;
+			string encryptedtext;
 
-				MemoryStream memoryStream = new MemoryStream();
-				DESCryptoServiceProvider cryptoService = new DESCryptoServiceProvider();
-				CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoService.CreateEncryptor(publickeybyte, secretkeyByte), CryptoStreamMode.Write);
+			byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
+			byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
+			byte[] inputbyteArray = Encoding.UTF8.GetBytes(plaintext);
 
-				cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
-				cryptoStream.FlushFinalBlock();
-				encryptedtext = Convert.ToBase64String(memoryStream.ToArray());
+			MemoryStream memoryStream = new MemoryStream();
+			DESCryptoServiceProvider cryptoService = new DESCryptoServiceProvider();
+			CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoService.CreateEncryptor(publickeybyte, secretkeyByte), CryptoStreamMode.Write);
 
-				IsEncrypted = true;
+			cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
+			cryptoStream.FlushFinalBlock();
+			encryptedtext = Convert.ToBase64String(memoryStream.ToArray());
 
-				return encryptedtext;
-			
+			IsEncrypted = true;
+
+			return encryptedtext;
+
 
 		}
 
-		
+
 
 		public string Decrypt(string encryptedText)
 		{

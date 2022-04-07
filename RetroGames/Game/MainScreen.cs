@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class MainScreen
+	public class MainScreen: IMainScreen
 	{
-		MainScreenUI MainScreenUI { get; set; } = new MainScreenUI();
+		private IMainScreenUI mainScreenUI;
+
+		public MainScreen(IMainScreenUI mainScreenUI)
+		{
+			this.mainScreenUI = mainScreenUI;
+		}
+
 		public bool WaitForUserPromptDisplayed { get; set; }
 
 		[DllImport("kernel32.dll", ExactSpelling = true)]
@@ -24,23 +26,23 @@ namespace RetroGames
 		private const int RESTORE = 9;
 
 
-		public void MainScreenInitialize(GameMenu gameMenu)
+		public void MainScreenInitialize()
 		{
-			GetMainScreenUI(gameMenu);
+			GetMainScreenUI();
 		}
 
-		private void GetMainScreenUI(GameMenu gameMenu)
+		private void GetMainScreenUI()
 		{
 			MainScreenSetup();
-			MainScreenUI.InitializeMainScreenUI(gameMenu);
-			WaitForInput();
+			mainScreenUI.InitializeMainScreenUI();
+			WaitForInputSuccess();
 		}
 
 		private void MainScreenSetup()
 		{
 			SetScreenColor();
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-			ShowWindow(ThisConsole, MAXIMIZE);	
+			ShowWindow(ThisConsole, MAXIMIZE);
 		}
 
 		private void SetScreenColor()
@@ -48,7 +50,7 @@ namespace RetroGames
 			Console.ForegroundColor = ConsoleColor.Yellow;
 		}
 
-		public bool WaitForInput()
+		public bool WaitForInputSuccess()
 		{
 			while (FlashPrompt(" *** Wait for user input ... (Hit Enter to Continue)",
 			TimeSpan.FromMilliseconds(500)) != ConsoleKey.Enter) ;

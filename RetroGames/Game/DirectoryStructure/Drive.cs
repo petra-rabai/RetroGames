@@ -6,6 +6,13 @@ namespace RetroGames
 {
 	public class Drive : IDrive
 	{
+		private IPlayer player;
+		
+		public Drive(IPlayer player)
+		{
+			this.player = player;
+		}
+		
 		private const int gBConverthelper = (1024 * 1024 * 1024);
 		
 		public string InstallationDrive { get; set; }
@@ -20,7 +27,7 @@ namespace RetroGames
 		private double[] freeHddSpace;
 		private bool IsPlayerPressedKeySuccess;
 
-		public char GetPlayerPressedKey(Player player)
+		public char GetPlayerPressedKey()
 		{
 			PlayerPressedKey = player.GetPlayerKeyFromConsole();
 			

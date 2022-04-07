@@ -5,6 +5,12 @@ namespace RetroGames
 {
 	public class GameDirectory : IGameDirectory
 	{
+		private IDrive drive;
+
+		public GameDirectory(IDrive drive)
+		{
+			this.drive = drive;
+		}
 		public string InstallationDrive { get; set; }
 		public bool IsInstallationDriveSelected { get; set; }
 		public bool IsGameDirectoriesExist { get; set; }
@@ -12,13 +18,14 @@ namespace RetroGames
 		public string UserDirectoryPath { get; set; }
 		public string LogDirectoryPath { get; set; }
 		
-		public bool CheckGameDirectoriesExist(Drive drive)
+		public bool CheckGameDirectoriesExist()
 		{
-			CreateGameDirectories(drive);
-
+			
 			if (!Directory.Exists(GameDirectoryPath) && !Directory.Exists(UserDirectoryPath) && !Directory.Exists(LogDirectoryPath))
 			{
 				IsGameDirectoriesExist = false;
+
+				CreateGameDirectories();
 			}
 			else
 			{
@@ -28,9 +35,9 @@ namespace RetroGames
 			return IsGameDirectoriesExist;
 		}
 
-		private void CreateGameDirectories(Drive drive)
+		private void CreateGameDirectories()
 		{
-			GetInstallationDrive(drive);
+			GetInstallationDrive();
 			CreateGameDirectory();
 			CreateUserDirectory();
 			CreateLogDirectory();
@@ -45,7 +52,7 @@ namespace RetroGames
 			return GameDirectoryPath;
 		}
 
-		private string GetInstallationDrive(Drive drive)
+		private string GetInstallationDrive()
 		{
 			drive.GetInstallationDrive(drive.PlayerPressedKey);
 

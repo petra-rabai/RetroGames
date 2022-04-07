@@ -11,7 +11,7 @@ namespace RetroGamesTests
 		public void IsEmailValidationSuccess(string testemail)
 		{
 			bool isEmailValid;
-			EmailValidation emailValidation = new EmailValidation();
+			EmailValidator emailValidation = new EmailValidator();
 
 			emailValidation.ValidateEmail(testemail);
 
@@ -26,7 +26,7 @@ namespace RetroGamesTests
 		public void IsEmailValidationFailed(string testemail)
 		{
 			bool isEmailValid;
-			EmailValidation emailValidation = new EmailValidation();
+			EmailValidator emailValidation = new EmailValidator();
 
 			emailValidation.ValidateEmail(testemail);
 

@@ -1,13 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class GameMenuNavigation : IGameMenu, IPlayer, IGameMenuNavigation
+	public class GameMenuNavigation : IGameMenuNavigation
 	{
+		private IPlayer player;
+		private IRegistration registration;
+		private IGameMenu gameMenu;
+		private IInstallation installation;
+
+
+		public GameMenuNavigation(IPlayer player,
+							IRegistration registration,
+							IGameMenu gameMenu,
+							IInstallation installation)
+		{
+			this.registration = registration;
+			this.gameMenu = gameMenu;
+			this.installation = installation;
+			this.player = player;
+		}
+
 		public Dictionary<char, string> MainMenu { get; set; }
 		public string ChoosedMenu { get; set; }
 		public char PressedKey { get; set; }
@@ -16,45 +30,27 @@ namespace RetroGames
 		public bool IsLoggedIn { get; set; }
 		public string LoginName { get; set; }
 
-		public void GetChoosedMenu(GameMenu gameMenu, Player player)
+		public void GetChoosedMenu()
 		{
-			GetPlayerPressedKey(player);
-			GetMainMenu(gameMenu);
+			GetPlayerPressedKey();
+			GetMainMenu();
 		}
 
-		public void MenuNavigation(GameMenu gameMenu, MainScreen mainScreen, Player player, Drive drive, Registration registration,
-						  GameFile gameFile,
-						  User user,
-						  Password playerPassword,
-						  Email playerEmail,Installation installation, GameDirectory gameDirectory, EmailValidation emailValidation,
-						  PasswordValidation passwordValidation, StringCryptographer stringCryptographer)
+		public void MenuNavigation()
 		{
 			if (PressedKey == ' ')
 			{
-				GetChoosedMenu(gameMenu,player);
+				GetChoosedMenu();
 			}
 			else
 			{
 				GetChoosedMenuFromGameMenu();
-				Navigation(mainScreen, player, drive,registration,gameFile,user,playerPassword,playerEmail,emailValidation,passwordValidation,installation,gameDirectory,gameMenu, stringCryptographer);
+				Navigation();
 			}
 
 		}
 
-		private void Navigation(MainScreen mainScreen,
-						  Player player,
-						  Drive drive,
-						  Registration registration,
-						  GameFile gameFile,
-						  User user,
-						  Password playerPassword,
-						  Email playerEmail,
-						  EmailValidation emailValidation,
-						  PasswordValidation passwordValidation,
-						  Installation installation,
-						  GameDirectory gameDirectory,
-						  GameMenu gameMenu,
-						  StringCryptographer stringCryptographer)
+		private void Navigation()
 		{
 			switch (ChoosedMenu)
 			{
@@ -64,7 +60,7 @@ namespace RetroGames
 					break;
 				case "Installation":
 					// Install the game
-					installation.InstallationProcess(mainScreen, player, drive,gameDirectory,gameFile,gameMenu);
+					installation.InstallationProcess();
 
 					break;
 				case "Pause Game":
@@ -81,7 +77,7 @@ namespace RetroGames
 					break;
 				case "Registration":
 					// If Installation not success drop an error
-					registration.UserRegistration(gameFile, user, playerPassword, playerEmail,emailValidation, stringCryptographer, passwordValidation,drive,gameDirectory, player);
+					registration.UserRegistration();
 					break;
 				case "Help":
 					// Open the Help section (txt? or any other structured file?)
@@ -94,14 +90,14 @@ namespace RetroGames
 			}
 		}
 
-		private Dictionary<char, string> GetMainMenu(GameMenu gameMenu)
+		private Dictionary<char, string> GetMainMenu()
 		{
 			MainMenu = gameMenu.MainMenu;
 
 			return MainMenu;
 		}
 
-		private char GetPlayerPressedKey(Player player)
+		private char GetPlayerPressedKey()
 		{
 			PressedKey = player.GetPlayerKeyFromConsole();
 

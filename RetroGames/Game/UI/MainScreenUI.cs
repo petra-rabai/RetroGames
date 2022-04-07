@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class MainScreenUI
+	public class MainScreenUI : IMainScreenUI
 	{
-		
-		public void InitializeMainScreenUI(GameMenu gameMenu)
+
+		public void InitializeMainScreenUI()
 		{
 			GameTitleUIToConsole();
 			GameDescriptionUIToConsole();
-			GameMenuUIToConsole(gameMenu);
+			GameMenuUIToConsole();
 
 		}
 
@@ -43,7 +40,7 @@ namespace RetroGames
 
 		}
 
-		private void GameMenuUIToConsole(GameMenu gameMenu)
+		private void GameMenuUIToConsole()
 		{
 			Console.WriteLine("\n");
 			Console.WriteLine("\t*****************************************************************");
@@ -54,13 +51,13 @@ namespace RetroGames
 			Console.WriteLine("\t*****************************************************************");
 			Console.WriteLine("\t*****************************************************************");
 			Console.WriteLine("\n");
-			InitializeMainMenuToConsole(gameMenu);
+			InitializeMainMenuToConsole();
 			Console.WriteLine("\n");
 			Console.WriteLine("\t                   *** Choose an option \n                        ");
 			Console.WriteLine("\t*****************************************************************\n");
 		}
 
-		private void InitializeMainMenuToConsole(GameMenu gameMenu)
+		private void InitializeMainMenuToConsole()
 		{
 			foreach (KeyValuePair<char, string> menu in gameMenu.MainMenu)
 			{

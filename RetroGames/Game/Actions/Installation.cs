@@ -1,47 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class Installation : IGameFile, IInstallation
+	public class Installation : IInstallation
 	{
+		private IGameFile gameFile;
+		private IInstallationUI installationUI;
+		private IMainScreen mainScreen;
+		private IDrive drive;
+
+		public Installation(IGameFile gameFile,
+					  IInstallationUI installationUI,
+					  IMainScreen mainScreen,
+					  IDrive drive)
+		{
+			this.gameFile = gameFile;
+			this.installationUI = installationUI;
+			this.mainScreen = mainScreen;
+			this.drive = drive;
+
+		}
+
 		public bool IsInstallationSuccess { get; set; }
 		public string GameFilePath { get; set; }
 		public string UserFilePath { get; set; }
 		public string LogFilePath { get; set; }
 		
 		private bool installationCanStart;
-		InstallationUI UI { get; set; } = new InstallationUI();
 
-		public void InstallationProcess(MainScreen mainScreen, Player player, Drive drive, GameDirectory gameDirectory, GameFile gameFile, GameMenu gameMenu)
+
+		public void InstallationProcess()
 		{
-			UI.InstallationUIInitialize();
-			WriteDriveListToUI(drive);
+			installationUI.InstallationUIInitialize();
+			WriteDriveListToUI();
 
-			mainScreen.WaitForInput();
+			mainScreen.WaitForInputSuccess();
 
 			if (mainScreen.WaitForUserPromptDisplayed)
 			{
-				drive.GetPlayerPressedKey(player);
-				EreaseDriveList(drive);
-				CheckInstallationCanStart(drive);
+				drive.GetPlayerPressedKey();
+				EreaseDriveList();
+				CheckInstallationCanStart();
 				if (installationCanStart)
 				{
-					CheckInstallationSuccess(drive, gameDirectory, gameFile);
+					CheckInstallationSuccess();
 				}
 				else
 				{
 					IsInstallationSuccess = false;
-					mainScreen.MainScreenInitialize(gameMenu);
+					mainScreen.MainScreenInitialize();
 				}
 			}
 		}
 
-		private bool CheckInstallationCanStart(Drive drive)
+		private bool CheckInstallationCanStart()
 		{
 			if (drive.PlayerPressedKey == 'K')
 			{
@@ -53,7 +66,7 @@ namespace RetroGames
 			}
 			return installationCanStart;
 		}
-		private void WriteDriveListToUI(Drive drive)
+		private void WriteDriveListToUI()
 		{
 			int key;
 			string driveName;
@@ -64,12 +77,12 @@ namespace RetroGames
 			{
 				key = choosedisk.Key;
 				driveName = choosedisk.Value;
-				UI.DrivelistUI(key,driveName);
+				installationUI.DrivelistUI(key,driveName);
 			}
 				
 		}
 
-		private void EreaseDriveList(Drive drive)
+		private void EreaseDriveList()
 		{
 			
 			for (int i = drive.DriveList.Count; i >= 0; i--)
@@ -79,9 +92,9 @@ namespace RetroGames
 			
 		}
 		
-		public bool CheckInstallationSuccess(Drive drive,GameDirectory gameDirectory, GameFile gameFile)
+		public bool CheckInstallationSuccess()
 		{
-			gameFile.CheckGameFilesCreated(drive,gameDirectory);
+			gameFile.CheckGameFilesCreated();
 
 			GameFilePath = gameFile.GameFilePath;
 			UserFilePath = gameFile.UserFilePath;

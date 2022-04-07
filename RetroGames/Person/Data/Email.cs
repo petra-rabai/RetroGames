@@ -8,9 +8,15 @@ namespace RetroGames
 {
 	public class Email : IEmail
 	{
+		private IEmailValidator emailValidation;
+
+		public Email(IEmailValidator emailValidation)
+		{
+			this.emailValidation = emailValidation;
+		}
 		public string PlayerEmail { get; set; } = "";
 
-		public string GetPlayerEmail(EmailValidation emailValidation)
+		public string GetPlayerEmail()
 		{
 			string email = Console.ReadLine();
 

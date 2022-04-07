@@ -11,30 +11,23 @@ namespace RetroGames
 	{
 		static void Main(string[] args)
 		{
-			MainScreen mainScreen = new MainScreen();
-			GameMenu gameMenu = new GameMenu();
-			GameMenuNavigation gameMenuNavigation = new GameMenuNavigation();
-			Player player = new Player();
-			Drive drive = new Drive();
-			Registration registration = new Registration();
-			GameFile gameFile = new GameFile();
-			User user = new User();
-			Password password = new Password();
-
-			Login login = new Login();
-
-			PasswordValidation passwordValidation = new PasswordValidation();
-			Email playerEmail = new Email();
-			EmailValidation emailValidation = new EmailValidation();
-			GameDirectory gameDirectory = new GameDirectory();
-			Installation installation = new Installation();
-			StringCryptographer stringCryptographer = new StringCryptographer();
+			IMainScreenUI ImainScreen = new MainScreenUI();
+			MainScreen mainScreen = new MainScreen(ImainScreen);
+			IUser user = new User();
+			IPassword password = new Password();
+			IPlayer player = new Player(user,password,registration,login,passwordHandler);
 			
+			IRegistrationUI registrationUI = new RegistrationUI();
+			IDrive drive = new Drive(player);
+			IGameFile gameFile = new GameFile();
+			IRegistration registration = new Registration();
 			
-			login.GetLoginDataFromXML(gameFile, drive, gameDirectory, stringCryptographer);
-			//mainScreen.MainScreenInitialize(gameMenu);
-			//gameMenuNavigation.GetChoosedMenu(gameMenu,player);
-			//gameMenuNavigation.MenuNavigation(gameMenu, mainScreen, player, drive,registration,gameFile,user,password,playerEmail,installation,gameDirectory,emailValidation,passwordEncrypter,passwordValidation);
+			GameMenuNavigation gameMenuNavigation = new GameMenuNavigation(player);
+
+
+			mainScreen.MainScreenInitialize();
+			gameMenuNavigation.GetChoosedMenu();
+			gameMenuNavigation.MenuNavigation();
 
 			Console.ReadLine();
 
