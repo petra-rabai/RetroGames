@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Abstractions;
 
 namespace RetroGames
 {
 	public class Drive : IDrive
 	{
 		private IPlayerInteraction playerInteraction;
-		private IFileSystem fileSystem;
-		public Drive(IPlayerInteraction playerInteraction,IFileSystem fileSystem)
+
+		public Drive(IPlayerInteraction playerInteraction)
 		{
 			this.playerInteraction = playerInteraction;
-			this.fileSystem = fileSystem;
 		}
-		
+
 		private const int gBConverthelper = (1024 * 1024 * 1024);
-		
+
 		public string InstallationDrive { get; set; }
 		public bool IsInstallationDriveSelected { get; set; }
 		public string[] AvailableDrives { get; set; }
@@ -25,24 +23,23 @@ namespace RetroGames
 		public char PlayerPressedKey { get; set; }
 
 		private string defaultDrive;
-		private IDriveInfo[] hDDs;
+		private DriveInfo[] hDDs;
 		private double[] freeHddSpace;
 		private bool IsPlayerPressedKeySuccess;
 
 		public char GetPlayerPressedKey()
 		{
 			PlayerPressedKey = playerInteraction.GetPlayerKeyFromConsole();
-			
+
 			return PlayerPressedKey;
 		}
-		
+
 		public void GetInstallationDrive(char playerHitKey)
 		{
 			GetDriveList();
 
 			CheckIsPlayerPressdKeySuccess(playerHitKey);
 			SelectInstallationDrive(IsPlayerPressedKeySuccess, playerHitKey);
-
 		}
 
 		public Dictionary<int, string> GetDriveList()
@@ -92,12 +89,11 @@ namespace RetroGames
 
 		private void GetDriveInfo()
 		{
-			hDDs = fileSystem.DriveInfo.GetDrives();
+			hDDs = DriveInfo.GetDrives();
+
 			freeHddSpace = new double[hDDs.Length];
-			
 		}
 
-		
 		private string[] CollectDrives()
 		{
 			AvailableDrives = new string[hDDs.Length];
@@ -144,16 +140,14 @@ namespace RetroGames
 			}
 		}
 
-		private bool  InstallationDriveSelectionSuccess()
+		private bool InstallationDriveSelectionSuccess()
 		{
-			
 			if (AvailableDrives.Length == 1)
 			{
 				InstallationDrive = defaultDrive;
 			}
 			else
 			{
-				
 				int drivelistKey = Convert.ToInt32(DriveDecesion.ToString());
 				InstallationDrive = DriveList[drivelistKey];
 			}
@@ -162,10 +156,5 @@ namespace RetroGames
 
 			return IsInstallationDriveSelected;
 		}
-
-		
-
-		
-
 	}
 }

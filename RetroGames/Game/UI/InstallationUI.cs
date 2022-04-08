@@ -4,7 +4,6 @@ namespace RetroGames
 {
 	public class InstallationUI : IInstallationUI
 	{
-
 		public void InstallationUIInitialize()
 		{
 			Console.Clear();
@@ -26,7 +25,5 @@ namespace RetroGames
 		{
 			Console.WriteLine("\n\t" + key + " - " + driveName + "\n");
 		}
-
-
 	}
 }

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace RetroGames
 {
-	public class MainScreen: IMainScreen
+	public class MainScreen : IMainScreen
 	{
 		private IMainScreenUI mainScreenUI;
 
@@ -17,14 +17,16 @@ namespace RetroGames
 
 		[DllImport("kernel32.dll", ExactSpelling = true)]
 		private static extern IntPtr GetConsoleWindow();
+
 		private static IntPtr ThisConsole = GetConsoleWindow();
+
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
 		private const int HIDE = 0;
 		private const int MAXIMIZE = 3;
 		private const int MINIMIZE = 6;
 		private const int RESTORE = 9;
-
 
 		public void MainScreenInitialize()
 		{
@@ -58,12 +60,10 @@ namespace RetroGames
 			WaitForUserPromptDisplayed = true;
 
 			return WaitForUserPromptDisplayed;
-
 		}
 
 		private ConsoleKey FlashPrompt(string prompt, TimeSpan interval)
 		{
-
 			var cursorTop = Console.CursorTop;
 			var colorOne = Console.ForegroundColor;
 			var colorTwo = Console.BackgroundColor;
@@ -71,16 +71,13 @@ namespace RetroGames
 			var stopwach = Stopwatch.StartNew();
 			var lastValue = TimeSpan.Zero;
 
-
 			Console.Write(prompt);
 
 			while (!Console.KeyAvailable)
 			{
 				var currentValue = stopwach.Elapsed;
 
-
 				if (currentValue - lastValue < interval) continue;
-
 
 				lastValue = currentValue;
 				Console.ForegroundColor = Console.ForegroundColor == colorOne
@@ -92,12 +89,10 @@ namespace RetroGames
 				Console.Write(" " + prompt);
 			}
 
-
 			Console.ForegroundColor = colorOne;
 			Console.BackgroundColor = colorTwo;
 
 			return Console.ReadKey(true).Key;
 		}
-
 	}
 }

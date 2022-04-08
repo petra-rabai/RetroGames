@@ -6,6 +6,5 @@
 		bool IsRegistered { get; set; }
 		bool IsLoggedIn { get; set; }
 		string LoginName { get; set; }
-
 	}
 }

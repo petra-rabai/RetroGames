@@ -5,6 +5,7 @@
 		bool WaitForUserPromptDisplayed { get; set; }
 
 		void MainScreenInitialize();
+
 		bool WaitForInputSuccess();
 	}
 }

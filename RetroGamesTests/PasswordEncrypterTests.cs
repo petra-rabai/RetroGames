@@ -6,7 +6,6 @@ namespace RetroGamesTests
 	public class PasswordEncrypterTests
 	{
 		[Test]
-
 		public void IsPasswordEncryptedSuccess()
 		{
 			bool isPasswordEncrypted;
@@ -18,8 +17,6 @@ namespace RetroGamesTests
 			isPasswordEncrypted = true;
 
 			Assert.IsTrue(isPasswordEncrypted);
-
 		}
-
 	}
 }

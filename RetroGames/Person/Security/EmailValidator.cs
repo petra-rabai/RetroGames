@@ -7,7 +7,7 @@ namespace RetroGames
 	{
 		public bool IsEmailValid { get; set; } = false;
 
-		Regex emailRegEx = new Regex(GameSettings.Default.EmailRegEx);
+		private Regex emailRegEx = new Regex(GameSettings.Default.EmailRegEx);
 
 		public bool ValidateEmail(string email)
 		{

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text;
-using System.Security.Cryptography;
+﻿using RetroGames.Properties;
+using System;
 using System.IO;
-using RetroGames.Properties;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RetroGames
 {
@@ -14,7 +14,6 @@ namespace RetroGames
 
 		public string Encrypt(string plaintext)
 		{
-
 			string publickey = GameSettings.Default.CryptographyPublicKey;
 			string secretkey = GameSettings.Default.CryptographySecretKey;
 			string encryptedtext;
@@ -34,11 +33,7 @@ namespace RetroGames
 			IsEncrypted = true;
 
 			return encryptedtext;
-
-
 		}
-
-
 
 		public string Decrypt(string encryptedText)
 		{
@@ -64,9 +59,6 @@ namespace RetroGames
 			IsDecrypted = true;
 
 			return decryptedtext;
-
-
 		}
-
 	}
 }

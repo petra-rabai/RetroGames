@@ -11,6 +11,7 @@ namespace RetroGames
 			string Password = String.Empty;
 			string Email = String.Empty;
 		}
+
 		public string Name { get; set; }
 		public string LoginName { get; set; }
 		public string Password { get; set; }

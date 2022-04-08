@@ -61,7 +61,6 @@ namespace RetroGames
 			Console.ForegroundColor = ConsoleColor.Green;
 		}
 
-
 		private string LoginNameUIToConsole()
 		{
 			formContent = " * Login Name: * \n";
@@ -104,6 +103,5 @@ namespace RetroGames
 			formContent = "\n Do you want to save your registration? (Y/N) \n"; ;
 			return formContent;
 		}
-
 	}
 }

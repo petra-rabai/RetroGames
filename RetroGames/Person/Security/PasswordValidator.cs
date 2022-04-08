@@ -10,7 +10,7 @@ namespace RetroGames
 		private const string hasMinMaxCharPattern = @".{8,15}";
 		private const string hasLowerCharPattern = @"[a-z]+";
 		private const string hasSymbolsPattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
-		
+
 		private const string lowerCharError = "Password should contain at least one lower case letter.";
 		private const string upperCharError = "Password should contain at least one upper case letter.";
 		private const string minMaxCharError = "Password should not be lesser than 8 or should not be greater than 15 characters.";
@@ -21,12 +21,12 @@ namespace RetroGames
 		public string PasswordError { get; set; }
 		public string PlayerPassword { get; set; }
 
-		Regex PasswordRegEx = new Regex(GameSettings.Default.PasswordRegEx);
+		private Regex PasswordRegEx = new Regex(GameSettings.Default.PasswordRegEx);
 
 		public bool ValidatePassword(string playerPassword)
 		{
 			GetPlayerPassword(playerPassword);
-			
+
 			if (PasswordRegEx.Match(PlayerPassword).Success)
 			{
 				IsPasswordValid = true;
@@ -36,7 +36,7 @@ namespace RetroGames
 				IsPasswordValid = false;
 				GetPasswordError();
 			}
-			
+
 			return IsPasswordValid;
 		}
 
@@ -45,7 +45,7 @@ namespace RetroGames
 			if (!IsPasswordValid)
 			{
 				string passwordError = GetErrorReason();
-				
+
 				PasswordError = passwordError;
 			}
 
@@ -89,19 +89,8 @@ namespace RetroGames
 			{
 				Error = symbolError;
 			}
-			
+
 			return Error;
 		}
-
-		
-
-
-
-
-
-
-
-
-
 	}
 }

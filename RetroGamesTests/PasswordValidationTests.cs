@@ -7,17 +7,16 @@ namespace RetroGamesTests
 	{
 		[TestCase("Rp!.1984xxR")]
 		[Test]
-
 		public void IsPasswordValidSuccess(string testPassword)
 		{
 			bool passwordValid;
 
 			PasswordValidator passwordValidation = new PasswordValidator();
-			
+
 			passwordValidation.ValidatePassword(testPassword);
-			
+
 			passwordValid = passwordValidation.IsPasswordValid;
-			
+
 			Assert.IsTrue(passwordValid);
 		}
 

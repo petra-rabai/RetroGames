@@ -1,13 +1,10 @@
 ﻿using NUnit.Framework;
 using RetroGames;
-using FluentAssertions;
-
 
 namespace RetroGamesTests
 {
 	public class DriveTests
 	{
-		
 		[Test]
 		public void GetDriveListSuccess()
 		{
@@ -30,9 +27,6 @@ namespace RetroGamesTests
 			drive.GetInstallationDrive(testKey);
 
 			Assert.NotNull(drive.InstallationDrive);
-
 		}
-
-
 	}
 }

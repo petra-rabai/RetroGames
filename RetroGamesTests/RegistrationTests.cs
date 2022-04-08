@@ -1,13 +1,10 @@
 ﻿using NUnit.Framework;
 using RetroGames;
-using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
 	public class RegistrationTests
 	{
-		
 		[TestCase('Y')]
 		[TestCase('N')]
 		[Test]
@@ -19,11 +16,10 @@ namespace RetroGamesTests
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			IMainScreen mainScreen = new MainScreen(mainScreenUI);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 			IDrive drive = new Drive(playerInteraction);
-			IGameDirectory gameDirectory = new GameDirectory(drive,fileSystem);
-			IGameFile gameFile = new GameFile(drive,gameDirectory);
-			IInstallation installation = new Installation(gameFile,installationUI,mainScreen,drive);
+			IGameDirectory gameDirectory = new GameDirectory(drive);
+			IGameFile gameFile = new GameFile(drive, gameDirectory);
+			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
 			IUser user = new User();
 			IEmailValidator emailValidator = new EmailValidator();
 			IEmail email = new Email(emailValidator);
@@ -31,15 +27,15 @@ namespace RetroGamesTests
 			IPasswordValidator passwordValidator = new PasswordValidator();
 			IStringCryptographer IstringCryptographer = new StringCryptographer();
 			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, IstringCryptographer);
-			
-			Registration registration = new Registration(registrationUI,installation,user,email,playerInteraction,passwordHandler);
+
+			Registration registration = new Registration(registrationUI, installation, user, email, playerInteraction, passwordHandler);
 			StringCryptographer stringCryptographer = new StringCryptographer();
 
 			registration.Name = "Test User";
 			registration.LoginName = "test1";
 			registration.Email = "test@test.com";
 			registration.Password = stringCryptographer.Encrypt("Rp!.19840716.!");
-			
+
 			registration.SaveDecesionCheck(testDecesion);
 
 			Assert.NotNull(registration.IsRegistered);
@@ -56,9 +52,8 @@ namespace RetroGamesTests
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			IMainScreen mainScreen = new MainScreen(mainScreenUI);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 			IDrive drive = new Drive(playerInteraction);
-			IGameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+			IGameDirectory gameDirectory = new GameDirectory(drive);
 			IGameFile gameFile = new GameFile(drive, gameDirectory);
 			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
 			IUser user = new User();
@@ -68,13 +63,12 @@ namespace RetroGamesTests
 			IPasswordValidator passwordValidator = new PasswordValidator();
 			IStringCryptographer IstringCryptographer = new StringCryptographer();
 			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, IstringCryptographer);
-			
+
 			Registration registration = new Registration(registrationUI, installation, user, email, playerInteraction, passwordHandler);
 
 			registration.IsUserRegistered(registred);
 
 			Assert.AreEqual(registred, registration.IsRegistered);
 		}
-
 	}
 }

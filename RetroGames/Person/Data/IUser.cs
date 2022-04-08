@@ -7,7 +7,9 @@
 		string LoginName { get; set; }
 
 		string GetPlayerFirstName();
+
 		string GetPlayerLastName();
+
 		string GetPlayerLoginName();
 	}
 }

@@ -10,8 +10,9 @@ namespace RetroGames
 		Dictionary<int, string> DriveList { get; set; }
 
 		void GetInstallationDrive(char playerHitKey);
-		char GetPlayerPressedKey();
-		Dictionary<int, string> GetDriveList();
 
+		char GetPlayerPressedKey();
+
+		Dictionary<int, string> GetDriveList();
 	}
 }

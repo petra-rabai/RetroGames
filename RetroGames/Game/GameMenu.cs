@@ -16,6 +16,5 @@ namespace RetroGames
 			['H'] = "Help",
 			['Q'] = "Quit"
 		};
-
 	}
 }

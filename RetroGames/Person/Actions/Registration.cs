@@ -39,9 +39,8 @@ namespace RetroGames
 		public void UserRegistration()
 		{
 			RegistrationForm();
-			
-			IsUserRegistered(isRegistrationSuccess);
 
+			IsUserRegistered(isRegistrationSuccess);
 		}
 
 		public void SaveDecesionCheck(char decesion)
@@ -49,7 +48,6 @@ namespace RetroGames
 			if (decesion == 'Y')
 			{
 				SaveDataSuccess();
-
 			}
 			if (decesion == 'N')
 			{
@@ -82,7 +80,6 @@ namespace RetroGames
 			GetEmail();
 			GetSaveDecesion();
 			SaveDecesionCheck(saveDecesion);
-
 		}
 
 		private void GetFormTitle()
@@ -111,11 +108,11 @@ namespace RetroGames
 
 			while (!passwordHandler.PasswordHandlingSuccess)
 			{
-				passwordHandler.CheckPasswordHandling(Password);
+				passwordHandler.GetPlayerPassword();
+				passwordHandler.CheckPasswordHandling(passwordHandler.PlayerPassword);
 			}
-			
+
 			Password = passwordHandler.PlayerPassword;
-			
 		}
 
 		private void AssignName()
@@ -182,7 +179,6 @@ namespace RetroGames
 			isRegistrationSuccess = true;
 
 			return isRegistrationSuccess;
-
 		}
 	}
 }

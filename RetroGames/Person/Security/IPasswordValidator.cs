@@ -1,6 +1,4 @@
-﻿using System.Security;
-
-namespace RetroGames
+﻿namespace RetroGames
 {
 	public interface IPasswordValidator
 	{

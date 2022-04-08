@@ -19,12 +19,10 @@
 
 		public bool PasswordHandlingSuccess { get; set; }
 
-		public bool CheckPasswordHandling(string password)
+		public bool CheckPasswordHandling(string playerPassword)
 		{
-			GetPlayerPassword();
-			password = PlayerPassword;
-			CheckIsPasswordValid(password);
-			CheckIsPasswordEncrypted(password);
+			CheckIsPasswordValid(playerPassword);
+			CheckIsPasswordEncrypted(playerPassword);
 
 			if (IsPasswordValid && IsPasswordEncrypted)
 			{
@@ -38,7 +36,7 @@
 			return PasswordHandlingSuccess;
 		}
 
-		private string GetPlayerPassword()
+		public string GetPlayerPassword()
 		{
 			PlayerPassword = password.GetPlayerPassword();
 
@@ -67,6 +65,5 @@
 
 			return IsPasswordEncrypted;
 		}
-
 	}
 }

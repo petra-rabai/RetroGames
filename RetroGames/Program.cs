@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO.Abstractions;
-
 
 namespace RetroGames
 {
 	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			IGameMenu gameMenu = new GameMenu();
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			MainScreen mainScreen = new(mainScreenUI);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
 			IDrive drive = new Drive(playerInteraction);
-			IFileSystem fileSystem = new FileSystem();
-			IGameDirectory gameDirectory = new GameDirectory(drive,fileSystem);
-			IGameFile gameFile = new GameFile(drive,gameDirectory);
+			IGameDirectory gameDirectory = new GameDirectory(drive);
+			IGameFile gameFile = new GameFile(drive, gameDirectory);
 			IInstallationUI installationUI = new InstallationUI();
-			IInstallation installation = new Installation(gameFile,installationUI,mainScreen,drive);
+			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
 			IUser user = new User();
 			IEmailValidator emailValidator = new EmailValidator();
 			IEmail email = new Email(emailValidator);
@@ -31,15 +24,14 @@ namespace RetroGames
 			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, IstringCryptographer);
 			IRegistrationUI registrationUI = new RegistrationUI();
 			IRegistration registration = new Registration(registrationUI, installation, user, email, playerInteraction, passwordHandler);
-			
-			GameMenuNavigation gameMenuNavigation = new(playerInteraction,registration,gameMenu,installation);
+
+			GameMenuNavigation gameMenuNavigation = new(playerInteraction, registration, gameMenu, installation);
 
 			mainScreen.MainScreenInitialize();
 			gameMenuNavigation.GetChoosedMenu();
 			gameMenuNavigation.MenuNavigation();
 
 			Console.ReadLine();
-
 		}
 	}
 }

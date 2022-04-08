@@ -7,7 +7,6 @@ namespace RetroGamesTests
 	{
 		[TestCase("test@test.com")]
 		[Test]
-
 		public void IsEmailValidationSuccess(string testemail)
 		{
 			bool isEmailValid;
@@ -22,7 +21,6 @@ namespace RetroGamesTests
 
 		[TestCase("testtest.com")]
 		[Test]
-
 		public void IsEmailValidationFailed(string testemail)
 		{
 			bool isEmailValid;
@@ -34,6 +32,5 @@ namespace RetroGamesTests
 
 			Assert.IsFalse(isEmailValid);
 		}
-
 	}
 }

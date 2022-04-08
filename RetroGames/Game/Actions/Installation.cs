@@ -19,16 +19,14 @@ namespace RetroGames
 			this.installationUI = installationUI;
 			this.mainScreen = mainScreen;
 			this.drive = drive;
-
 		}
 
 		public bool IsInstallationSuccess { get; set; }
 		public string GameFilePath { get; set; }
 		public string UserFilePath { get; set; }
 		public string LogFilePath { get; set; }
-		
-		private bool installationCanStart;
 
+		private bool installationCanStart;
 
 		public void InstallationProcess()
 		{
@@ -66,32 +64,30 @@ namespace RetroGames
 			}
 			return installationCanStart;
 		}
+
 		private void WriteDriveListToUI()
 		{
 			int key;
 			string driveName;
-			
+
 			drive.GetDriveList();
-			
+
 			foreach (KeyValuePair<int, string> choosedisk in drive.DriveList)
 			{
 				key = choosedisk.Key;
 				driveName = choosedisk.Value;
-				installationUI.DrivelistUI(key,driveName);
+				installationUI.DrivelistUI(key, driveName);
 			}
-				
 		}
 
 		private void EreaseDriveList()
 		{
-			
 			for (int i = drive.DriveList.Count; i >= 0; i--)
 			{
 				drive.DriveList.Remove(i);
 			}
-			
 		}
-		
+
 		public bool CheckInstallationSuccess()
 		{
 			gameFile.CheckGameFilesCreated();
@@ -111,7 +107,5 @@ namespace RetroGames
 
 			return IsInstallationSuccess;
 		}
-
-
 	}
 }

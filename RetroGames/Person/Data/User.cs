@@ -7,6 +7,7 @@ namespace RetroGames
 		public string FirstName { get; set; } = "";
 		public string LastName { get; set; } = "";
 		public string LoginName { get; set; } = "";
+
 		public string GetPlayerFirstName()
 		{
 			string firstName = Console.ReadLine();
@@ -15,6 +16,7 @@ namespace RetroGames
 
 			return FirstName;
 		}
+
 		public string GetPlayerLastName()
 		{
 			string lastName = Console.ReadLine();

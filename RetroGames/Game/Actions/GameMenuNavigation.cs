@@ -10,7 +10,6 @@ namespace RetroGames
 		private IGameMenu gameMenu;
 		private IInstallation installation;
 
-
 		public GameMenuNavigation(IPlayerInteraction playerInteraction,
 							IRegistration registration,
 							IGameMenu gameMenu,
@@ -47,7 +46,6 @@ namespace RetroGames
 				GetChoosedMenuFromGameMenu();
 				Navigation();
 			}
-
 		}
 
 		private void Navigation()
@@ -58,33 +56,42 @@ namespace RetroGames
 					// Start a new game - If the user not registered or logged in drop an error
 					// If Installation not success drop an error
 					break;
+
 				case "Installation":
 					// Install the game
 					installation.InstallationProcess();
 
 					break;
+
 				case "Pause Game":
-					// Pause the current game 
+					// Pause the current game
 					break;
+
 				case "Save Game":
 					// Save the current unfinished game state
 					break;
+
 				case "Load Game":
 					// Load the current unfinished game state
 					break;
+
 				case "Login":
 					// Login with a registered user
 					break;
+
 				case "Registration":
 					// If Installation not success drop an error
 					registration.UserRegistration();
 					break;
+
 				case "Help":
 					// Open the Help section (txt? or any other structured file?)
 					break;
+
 				case "Quit":
 					Environment.Exit(0);
 					break;
+
 				default:
 					break;
 			}
@@ -110,7 +117,5 @@ namespace RetroGames
 
 			return ChoosedMenu;
 		}
-
-
 	}
 }

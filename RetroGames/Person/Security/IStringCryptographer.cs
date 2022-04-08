@@ -6,6 +6,7 @@
 		bool IsEncrypted { get; set; }
 
 		string Decrypt(string encryptedText);
+
 		string Encrypt(string plaintext);
 	}
 }

@@ -29,15 +29,14 @@ namespace RetroGames
 		private void ReadLoginData()
 		{
 			XmlDocument loginData = new XmlDocument();
-			
+
 			StreamReader loginDataReader = new StreamReader(installation.UserFilePath, Encoding.UTF8);
 			string loginDataContent = loginDataReader.ReadToEnd();
 			loginData.LoadXml(loginDataContent);
 			XmlNodeList loginDataList = loginData.GetElementsByTagName("RegistrationData");
-			
+
 			foreach (XmlNode loginNode in loginDataList)
 			{
-				
 				for (int i = 0; i < loginNode.ChildNodes.Count; i++)
 				{
 					if (loginNode.ChildNodes.Item(i).Name == "LoginName")
@@ -47,13 +46,9 @@ namespace RetroGames
 					else if (loginNode.ChildNodes.Item(i).Name == "Password")
 					{
 						LoginPassword = stringCryptographer.Decrypt(loginNode.ChildNodes.Item(i).InnerText);
-					}	
+					}
 				}
-
 			}
-
 		}
-
-
 	}
 }

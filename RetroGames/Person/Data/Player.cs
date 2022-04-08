@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace RetroGames
+﻿namespace RetroGames
 {
 	public class Player : IPlayer
 	{
@@ -20,7 +17,7 @@ namespace RetroGames
 			this.passwordHandler = passwordHandler;
 		}
 
-		public string LoginName { get; set; }	
+		public string LoginName { get; set; }
 		public string PlayerPassword { get; set; }
 		public bool IsRegistered { get; set; }
 		public bool IsLoggedIn { get; set; }
@@ -31,7 +28,6 @@ namespace RetroGames
 			PlayerPassword = password.PlayerPassword;
 
 			CheckLoginDataNotEmpty();
-
 		}
 
 		private void CheckLoginDataNotEmpty()
@@ -56,7 +52,7 @@ namespace RetroGames
 		private string GetPlayerLoginName()
 		{
 			LoginName = user.GetPlayerLoginName();
-			
+
 			return LoginName;
 		}
 
@@ -64,7 +60,8 @@ namespace RetroGames
 		{
 			while (!passwordHandler.PasswordHandlingSuccess)
 			{
-				passwordHandler.CheckPasswordHandling(PlayerPassword);
+				passwordHandler.GetPlayerPassword();
+				passwordHandler.CheckPasswordHandling(passwordHandler.PlayerPassword);
 			}
 
 			PlayerPassword = passwordHandler.PlayerPassword;
@@ -87,6 +84,5 @@ namespace RetroGames
 
 			return IsLoggedIn;
 		}
-		
 	}
 }

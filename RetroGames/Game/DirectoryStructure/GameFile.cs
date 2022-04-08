@@ -7,11 +7,13 @@ namespace RetroGames
 	{
 		private IGameDirectory gameDirectory;
 		private IDrive drive;
+
 		public GameFile(IDrive drive, IGameDirectory gameDirectory)
 		{
 			this.drive = drive;
 			this.gameDirectory = gameDirectory;
 		}
+
 		public string GameDirectoryPath { get; set; }
 		public bool IsGameFilesExist { get; set; }
 		public string GameFilePath { get; set; }
@@ -52,7 +54,7 @@ namespace RetroGames
 		{
 			GameDirectoryPath = gameDirectory.GameDirectoryPath;
 			GameFilePath = GameDirectoryPath + GameSettings.Default.GameFile;
-			
+
 			FileStream gameFileStream = new FileStream(GameFilePath, FileMode.Create);
 			gameFileStream.Close();
 
@@ -63,10 +65,10 @@ namespace RetroGames
 		{
 			UserDirectoryPath = gameDirectory.UserDirectoryPath;
 			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
-			
+
 			FileStream userFileStream = new FileStream(UserFilePath, FileMode.Create);
 			userFileStream.Close();
-				
+
 			return UserFilePath;
 		}
 
@@ -77,7 +79,7 @@ namespace RetroGames
 
 			FileStream logFileStream = new FileStream(LogFilePath, FileMode.Create);
 			logFileStream.Close();
-			
+
 			return LogFilePath;
 		}
 	}

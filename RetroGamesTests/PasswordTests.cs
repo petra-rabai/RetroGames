@@ -14,8 +14,8 @@ namespace RetroGamesTests
 			IPassword password = new Password();
 			IPasswordValidator passwordValidator = new PasswordValidator();
 			IStringCryptographer stringCryptographer = new StringCryptographer();
-		
-			PasswordHandler passwordHandler = new(password, passwordValidator,stringCryptographer);
+
+			PasswordHandler passwordHandler = new(password, passwordValidator, stringCryptographer);
 
 			passwordHandler.CheckPasswordHandling(testPassword);
 

@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using RetroGames;
-using System.IO;
 using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
@@ -12,22 +10,19 @@ namespace RetroGamesTests
 		public void CheckGameFilesExistSuccess()
 		{
 			bool gameFilesExist;
-			
+
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
-			
+
 			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
-			
+			GameDirectory gameDirectory = new GameDirectory(drive);
+
 			GameFile gameFile = new GameFile(drive, gameDirectory);
-			
 
 			gameFile.CheckGameFilesCreated();
 
 			gameFilesExist = gameFile.IsGameFilesExist;
-			
-			Assert.IsTrue(gameFilesExist);
 
+			Assert.IsTrue(gameFilesExist);
 		}
 
 		[Test]
@@ -39,14 +34,14 @@ namespace RetroGamesTests
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+			GameDirectory gameDirectory = new GameDirectory(drive);
 
 			GameFile gameFile = new GameFile(drive, gameDirectory);
 
 			gameFile.CheckGameFilesCreated();
 
 			gameFilePath = gameFile.GameFilePath;
-			
+
 			Assert.IsNotNull(gameFilePath);
 		}
 
@@ -59,7 +54,7 @@ namespace RetroGamesTests
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+			GameDirectory gameDirectory = new GameDirectory(drive);
 
 			GameFile gameFile = new GameFile(drive, gameDirectory);
 
@@ -79,7 +74,7 @@ namespace RetroGamesTests
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+			GameDirectory gameDirectory = new GameDirectory(drive);
 
 			GameFile gameFile = new GameFile(drive, gameDirectory);
 
@@ -89,6 +84,5 @@ namespace RetroGamesTests
 
 			Assert.IsNotNull(logFilePath);
 		}
-
 	}
 }

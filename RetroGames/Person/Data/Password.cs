@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroGames
 {
 	public class Password : IPassword
 	{
-		
 		public string PlayerPassword { get; set; } = "";
 
-		readonly SecureString securePassword = new SecureString();
+		private readonly SecureString securePassword = new SecureString();
 
 		public string GetPlayerPassword()
 		{

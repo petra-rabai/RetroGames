@@ -1,24 +1,20 @@
 ﻿using NUnit.Framework;
 using RetroGames;
-using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
 	public class GameDirectoryTests
 	{
-
 		[Test]
 		public void CheckGameDirectoriesExistSuccess()
 		{
 			bool directoriesExist;
-			
+
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
-			
+
 			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive, fileSystem);
-			
+			GameDirectory gameDirectory = new(drive);
+
 			gameDirectory.CheckGameDirectoriesExist();
 
 			directoriesExist = gameDirectory.IsGameDirectoriesExist;
@@ -32,10 +28,9 @@ namespace RetroGamesTests
 			string gameFolder;
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive, fileSystem);
+			GameDirectory gameDirectory = new(drive);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
@@ -50,15 +45,14 @@ namespace RetroGamesTests
 			string userFolder;
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive, fileSystem);
+			GameDirectory gameDirectory = new(drive);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
 			userFolder = gameDirectory.UserDirectoryPath;
-			
+
 			Assert.IsNotNull(userFolder);
 		}
 
@@ -68,10 +62,9 @@ namespace RetroGamesTests
 			string logFolder;
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive, fileSystem);
+			GameDirectory gameDirectory = new(drive);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
@@ -86,16 +79,14 @@ namespace RetroGamesTests
 			string installationDrive;
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive, fileSystem);
+			GameDirectory gameDirectory = new(drive);
 			gameDirectory.CheckGameDirectoriesExist();
 
 			installationDrive = gameDirectory.InstallationDrive;
 
 			Assert.IsNotNull(installationDrive);
-
 		}
 
 		[Test]
@@ -104,10 +95,9 @@ namespace RetroGamesTests
 			bool installationDriveExist;
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive, fileSystem);
+			GameDirectory gameDirectory = new(drive);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
@@ -115,6 +105,5 @@ namespace RetroGamesTests
 
 			Assert.IsTrue(installationDriveExist);
 		}
-
 	}
 }

@@ -17,7 +17,6 @@ namespace RetroGames
 			GameTitleUIToConsole();
 			GameDescriptionUIToConsole();
 			GameMenuUIToConsole();
-
 		}
 
 		private void GameTitleUIToConsole()
@@ -43,7 +42,6 @@ namespace RetroGames
 			Console.WriteLine("\t*******   You can play with retro games in The Console    *******");
 			Console.WriteLine("\n");
 			Console.WriteLine("\t*****************************************************************");
-
 		}
 
 		private void GameMenuUIToConsole()
@@ -69,10 +67,6 @@ namespace RetroGames
 			{
 				Console.WriteLine("\t\t\t" + " ** " + menu.Value + " - " + menu.Key + " key **" + "\n");
 			}
-
 		}
-
-
-
 	}
 }

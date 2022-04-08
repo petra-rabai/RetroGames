@@ -8,5 +8,7 @@
 		string PlayerPassword { get; set; }
 
 		bool CheckPasswordHandling(string password);
+
+		string GetPlayerPassword();
 	}
 }
