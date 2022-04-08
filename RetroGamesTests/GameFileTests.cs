@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using RetroGames;
 using System.IO;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
@@ -10,12 +12,17 @@ namespace RetroGamesTests
 		public void CheckGameFilesExistSuccess()
 		{
 			bool gameFilesExist;
+			
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
+			
+			Drive drive = new Drive(playerInteraction);
+			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+			
+			GameFile gameFile = new GameFile(drive, gameDirectory);
+			
 
-			GameFile gameFile = new GameFile();
-			Drive drive = new Drive();
-			GameDirectory gameDirectory = new GameDirectory();
-
-			gameFile.CheckGameFilesCreated(drive,gameDirectory);
+			gameFile.CheckGameFilesCreated();
 
 			gameFilesExist = gameFile.IsGameFilesExist;
 			
@@ -28,11 +35,15 @@ namespace RetroGamesTests
 		{
 			string gameFilePath;
 
-			GameFile gameFile = new GameFile();
-			Drive drive = new Drive();
-			GameDirectory gameDirectory = new GameDirectory();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
 
-			gameFile.CheckGameFilesCreated(drive, gameDirectory);
+			Drive drive = new Drive(playerInteraction);
+			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory);
+
+			gameFile.CheckGameFilesCreated();
 
 			gameFilePath = gameFile.GameFilePath;
 			
@@ -44,11 +55,15 @@ namespace RetroGamesTests
 		{
 			string userFilePath;
 
-			GameFile gameFile = new GameFile();
-			Drive drive = new Drive();
-			GameDirectory gameDirectory = new GameDirectory();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
 
-			gameFile.CheckGameFilesCreated(drive,gameDirectory);
+			Drive drive = new Drive(playerInteraction);
+			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory);
+
+			gameFile.CheckGameFilesCreated();
 
 			userFilePath = gameFile.UserFilePath;
 
@@ -60,11 +75,15 @@ namespace RetroGamesTests
 		{
 			string logFilePath;
 
-			GameFile gameFile = new GameFile();
-			Drive drive = new Drive();
-			GameDirectory gameDirectory = new GameDirectory();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
 
-			gameFile.CheckGameFilesCreated(drive,gameDirectory);
+			Drive drive = new Drive(playerInteraction);
+			GameDirectory gameDirectory = new GameDirectory(drive, fileSystem);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory);
+
+			gameFile.CheckGameFilesCreated();
 
 			logFilePath = gameFile.LogFilePath;
 

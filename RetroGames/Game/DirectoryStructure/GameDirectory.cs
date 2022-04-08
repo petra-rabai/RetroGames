@@ -1,5 +1,6 @@
 ﻿using RetroGames.Properties;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace RetroGames
 {
@@ -7,9 +8,12 @@ namespace RetroGames
 	{
 		private IDrive drive;
 
-		public GameDirectory(IDrive drive)
+		readonly IFileSystem fileSystem;
+		
+		public GameDirectory(IDrive drive, IFileSystem fileSystem)
 		{
 			this.drive = drive;
+			this.fileSystem = fileSystem;
 		}
 		public string InstallationDrive { get; set; }
 		public bool IsInstallationDriveSelected { get; set; }
@@ -20,6 +24,7 @@ namespace RetroGames
 		
 		public bool CheckGameDirectoriesExist()
 		{
+			
 			
 			if (!Directory.Exists(GameDirectoryPath) && !Directory.Exists(UserDirectoryPath) && !Directory.Exists(LogDirectoryPath))
 			{

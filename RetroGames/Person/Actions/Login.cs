@@ -6,12 +6,12 @@ namespace RetroGames
 {
 	public class Login : ILogin
 	{
-		private IGameFile gameFile;
+		private IInstallation installation;
 		private IStringCryptographer stringCryptographer;
 
-		public Login(IGameFile gameFile, IStringCryptographer stringCryptographer)
+		public Login(IInstallation installation, IStringCryptographer stringCryptographer)
 		{
-			this.gameFile = gameFile;
+			this.installation = installation;
 			this.stringCryptographer = stringCryptographer;
 		}
 
@@ -21,7 +21,8 @@ namespace RetroGames
 
 		public void GetLoginDataFromXML()
 		{
-			gameFile.CheckGameFilesCreated();
+			installation.CheckInstallationSuccess();
+
 			ReadLoginData();
 		}
 
@@ -29,7 +30,7 @@ namespace RetroGames
 		{
 			XmlDocument loginData = new XmlDocument();
 			
-			StreamReader loginDataReader = new StreamReader(gameFile.UserFilePath, Encoding.UTF8);
+			StreamReader loginDataReader = new StreamReader(installation.UserFilePath, Encoding.UTF8);
 			string loginDataContent = loginDataReader.ReadToEnd();
 			loginData.LoadXml(loginDataContent);
 			XmlNodeList loginDataList = loginData.GetElementsByTagName("RegistrationData");

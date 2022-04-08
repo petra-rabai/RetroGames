@@ -5,6 +5,12 @@ namespace RetroGames
 {
 	public class MainScreenUI : IMainScreenUI
 	{
+		private IGameMenu gameMenu;
+
+		public MainScreenUI(IGameMenu gameMenu)
+		{
+			this.gameMenu = gameMenu;
+		}
 
 		public void InitializeMainScreenUI()
 		{

@@ -6,24 +6,24 @@ namespace RetroGames
 	public class Registration : IRegistration
 	{
 		private IRegistrationUI registrationUI;
-		private IGameFile gameFile;
+		private IInstallation installation;
 		private IUser user;
 		private IEmail email;
 		private IPasswordHandler passwordHandler;
-		private IPlayer player;
+		private IPlayerInteraction playerInteraction;
 
 		public Registration(IRegistrationUI registrationUI,
-					  IGameFile gameFile,
+					  IInstallation installation,
 					  IUser user,
 					  IEmail email,
-					  IPlayer player,
+					  IPlayerInteraction playerInteraction,
 					  IPasswordHandler passwordHandler)
 		{
 			this.registrationUI = registrationUI;
-			this.gameFile = gameFile;
+			this.installation = installation;
 			this.user = user;
 			this.email = email;
-			this.player = player;
+			this.playerInteraction = playerInteraction;
 			this.passwordHandler = passwordHandler;
 		}
 
@@ -94,7 +94,7 @@ namespace RetroGames
 		{
 			registrationUI.FromSave();
 
-			saveDecesion = player.GetPlayerKeyFromConsole();
+			saveDecesion = playerInteraction.GetPlayerKeyFromConsole();
 
 			return saveDecesion;
 		}
@@ -111,7 +111,7 @@ namespace RetroGames
 
 			while (!passwordHandler.PasswordHandlingSuccess)
 			{
-				passwordHandler.CheckPasswordHandling();
+				passwordHandler.CheckPasswordHandling(Password);
 			}
 			
 			Password = passwordHandler.PlayerPassword;
@@ -155,7 +155,7 @@ namespace RetroGames
 
 		private void GetUserSavePath()
 		{
-			gameFile.CheckGameFilesCreated();
+			installation.CheckInstallationSuccess();
 		}
 
 		private bool SaveDataSuccess()
@@ -169,7 +169,7 @@ namespace RetroGames
 				Password = this.Password,
 				Email = this.Email
 			};
-			string Path = gameFile.UserFilePath;
+			string Path = installation.UserFilePath;
 
 			XmlSerializer RegistrationWriteToXML = new XmlSerializer(typeof(RegistrationData));
 			FileStream registrationXML = new FileStream(Path,

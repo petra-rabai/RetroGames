@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using RetroGames;
+using FluentAssertions;
+
 
 namespace RetroGamesTests
 {
@@ -9,8 +11,9 @@ namespace RetroGamesTests
 		[Test]
 		public void GetDriveListSuccess()
 		{
-			Drive drive = new Drive();
-			
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			Drive drive = new(playerInteraction);
+
 			drive.GetDriveList();
 
 			Assert.IsNotEmpty(drive.DriveList);
@@ -21,7 +24,8 @@ namespace RetroGamesTests
 		[Test]
 		public void GetInstallationDriveSuccess(char testKey)
 		{
-			Drive drive = new Drive();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			Drive drive = new(playerInteraction);
 
 			drive.GetInstallationDrive(testKey);
 

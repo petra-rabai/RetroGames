@@ -7,6 +7,6 @@
 		bool PasswordHandlingSuccess { get; set; }
 		string PlayerPassword { get; set; }
 
-		bool CheckPasswordHandling();
+		bool CheckPasswordHandling(string password);
 	}
 }

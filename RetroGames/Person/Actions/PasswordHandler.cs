@@ -19,11 +19,12 @@
 
 		public bool PasswordHandlingSuccess { get; set; }
 
-		public bool CheckPasswordHandling()
+		public bool CheckPasswordHandling(string password)
 		{
 			GetPlayerPassword();
-			CheckIsPasswordValid();
-			CheckIsPasswordEncrypted();
+			password = PlayerPassword;
+			CheckIsPasswordValid(password);
+			CheckIsPasswordEncrypted(password);
 
 			if (IsPasswordValid && IsPasswordEncrypted)
 			{
@@ -44,16 +45,16 @@
 			return PlayerPassword;
 		}
 
-		private bool CheckIsPasswordValid()
+		private bool CheckIsPasswordValid(string password)
 		{
-			IsPasswordValid = passwordValidation.ValidatePassword(PlayerPassword);
+			IsPasswordValid = passwordValidation.ValidatePassword(password);
 
 			return IsPasswordValid;
 		}
 
-		private bool CheckIsPasswordEncrypted()
+		private bool CheckIsPasswordEncrypted(string password)
 		{
-			PlayerPassword = stringCryptographer.Encrypt(PlayerPassword);
+			PlayerPassword = stringCryptographer.Encrypt(password);
 
 			if (stringCryptographer.IsEncrypted)
 			{

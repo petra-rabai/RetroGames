@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using RetroGames;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
@@ -11,12 +13,20 @@ namespace RetroGamesTests
 		{
 			bool isInstallationSuccess;
 
-			Installation installation = new Installation();
-			Drive drive = new Drive();
-			GameDirectory gameDirectory = new GameDirectory();
-			GameFile gameFile = new GameFile();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
+			IInstallationUI installationUI = new InstallationUI();
+			IGameMenu gameMenu = new GameMenu();
+			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
+			IMainScreen mainScreen = new MainScreen(mainScreenUI);
 
-			installation.CheckInstallationSuccess(drive,gameDirectory,gameFile);
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive,fileSystem);
+			GameFile gameFile = new(drive,gameDirectory);
+			
+			Installation installation = new(gameFile,installationUI,mainScreen,drive);
+			
+			installation.CheckInstallationSuccess();
 			
 			isInstallationSuccess = installation.IsInstallationSuccess;
 

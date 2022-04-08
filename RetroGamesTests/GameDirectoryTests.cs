@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using RetroGames;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
@@ -10,11 +12,14 @@ namespace RetroGamesTests
 		public void CheckGameDirectoriesExistSuccess()
 		{
 			bool directoriesExist;
-
-			GameDirectory gameDirectory = new GameDirectory();
-			Drive drive = new Drive();
 			
-			gameDirectory.CheckGameDirectoriesExist(drive);
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
+			
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive, fileSystem);
+			
+			gameDirectory.CheckGameDirectoriesExist();
 
 			directoriesExist = gameDirectory.IsGameDirectoriesExist;
 
@@ -25,11 +30,14 @@ namespace RetroGamesTests
 		public void CheckGameDirectoryPathCreated()
 		{
 			string gameFolder;
-			
-			GameDirectory gameDirectory = new GameDirectory();
-			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist(drive);
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
+
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive, fileSystem);
+
+			gameDirectory.CheckGameDirectoriesExist();
 
 			gameFolder = gameDirectory.GameDirectoryPath;
 
@@ -40,11 +48,14 @@ namespace RetroGamesTests
 		public void CheckUserDirectoryPathCreated()
 		{
 			string userFolder;
-			
-			GameDirectory gameDirectory = new GameDirectory();
-			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist(drive);
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
+
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive, fileSystem);
+
+			gameDirectory.CheckGameDirectoriesExist();
 
 			userFolder = gameDirectory.UserDirectoryPath;
 			
@@ -56,10 +67,13 @@ namespace RetroGamesTests
 		{
 			string logFolder;
 
-			GameDirectory gameDirectory = new GameDirectory();
-			Drive drive = new Drive();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
 
-			gameDirectory.CheckGameDirectoriesExist(drive);
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive, fileSystem);
+
+			gameDirectory.CheckGameDirectoriesExist();
 
 			logFolder = gameDirectory.LogDirectoryPath;
 
@@ -71,10 +85,12 @@ namespace RetroGamesTests
 		{
 			string installationDrive;
 
-			GameDirectory gameDirectory = new GameDirectory();
-			Drive drive = new Drive();
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
 
-			gameDirectory.CheckGameDirectoriesExist(drive);
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive, fileSystem);
+			gameDirectory.CheckGameDirectoriesExist();
 
 			installationDrive = gameDirectory.InstallationDrive;
 
@@ -86,11 +102,14 @@ namespace RetroGamesTests
 		public void CheckInstallationDriveExistSuccess()
 		{
 			bool installationDriveExist;
-			
-			GameDirectory gameDirectory = new GameDirectory();
-			Drive drive = new Drive();
 
-			gameDirectory.CheckGameDirectoriesExist(drive);
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IFileSystem fileSystem = new FileSystem();
+
+			Drive drive = new(playerInteraction);
+			GameDirectory gameDirectory = new(drive, fileSystem);
+
+			gameDirectory.CheckGameDirectoriesExist();
 
 			installationDriveExist = gameDirectory.IsInstallationDriveSelected;
 

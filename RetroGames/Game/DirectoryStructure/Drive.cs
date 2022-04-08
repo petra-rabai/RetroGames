@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace RetroGames
 {
 	public class Drive : IDrive
 	{
-		private IPlayer player;
-		
-		public Drive(IPlayer player)
+		private IPlayerInteraction playerInteraction;
+		private IFileSystem fileSystem;
+		public Drive(IPlayerInteraction playerInteraction,IFileSystem fileSystem)
 		{
-			this.player = player;
+			this.playerInteraction = playerInteraction;
+			this.fileSystem = fileSystem;
 		}
 		
 		private const int gBConverthelper = (1024 * 1024 * 1024);
@@ -23,13 +25,13 @@ namespace RetroGames
 		public char PlayerPressedKey { get; set; }
 
 		private string defaultDrive;
-		private DriveInfo[] hDDs;
+		private IDriveInfo[] hDDs;
 		private double[] freeHddSpace;
 		private bool IsPlayerPressedKeySuccess;
 
 		public char GetPlayerPressedKey()
 		{
-			PlayerPressedKey = player.GetPlayerKeyFromConsole();
+			PlayerPressedKey = playerInteraction.GetPlayerKeyFromConsole();
 			
 			return PlayerPressedKey;
 		}
@@ -90,8 +92,9 @@ namespace RetroGames
 
 		private void GetDriveInfo()
 		{
-			hDDs = DriveInfo.GetDrives();
+			hDDs = fileSystem.DriveInfo.GetDrives();
 			freeHddSpace = new double[hDDs.Length];
+			
 		}
 
 		

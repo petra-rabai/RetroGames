@@ -5,13 +5,13 @@ namespace RetroGames
 {
 	public class GameMenuNavigation : IGameMenuNavigation
 	{
-		private IPlayer player;
+		private IPlayerInteraction playerInteraction;
 		private IRegistration registration;
 		private IGameMenu gameMenu;
 		private IInstallation installation;
 
 
-		public GameMenuNavigation(IPlayer player,
+		public GameMenuNavigation(IPlayerInteraction playerInteraction,
 							IRegistration registration,
 							IGameMenu gameMenu,
 							IInstallation installation)
@@ -19,7 +19,7 @@ namespace RetroGames
 			this.registration = registration;
 			this.gameMenu = gameMenu;
 			this.installation = installation;
-			this.player = player;
+			this.playerInteraction = playerInteraction;
 		}
 
 		public Dictionary<char, string> MainMenu { get; set; }
@@ -99,7 +99,7 @@ namespace RetroGames
 
 		private char GetPlayerPressedKey()
 		{
-			PressedKey = player.GetPlayerKeyFromConsole();
+			PressedKey = playerInteraction.GetPlayerKeyFromConsole();
 
 			return PressedKey;
 		}

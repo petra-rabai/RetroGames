@@ -10,13 +10,16 @@ namespace RetroGamesTests
 		public void CheckIsPasswordValid(string testPassword)
 		{
 			bool isPasswordValid;
-			
-			Password password = new Password();
-			PasswordValidator passwordValidation = new PasswordValidator();
 
-			password.CheckIsPasswordValid(testPassword,passwordValidation);
+			IPassword password = new Password();
+			IPasswordValidator passwordValidator = new PasswordValidator();
+			IStringCryptographer stringCryptographer = new StringCryptographer();
+		
+			PasswordHandler passwordHandler = new(password, passwordValidator,stringCryptographer);
 
-			isPasswordValid = password.IsPasswordValid;
+			passwordHandler.CheckPasswordHandling(testPassword);
+
+			isPasswordValid = passwordHandler.IsPasswordValid;
 
 			Assert.IsTrue(isPasswordValid);
 		}
@@ -27,12 +30,15 @@ namespace RetroGamesTests
 		{
 			bool isPasswordEncrypted;
 
-			Password password = new Password();
-			StringCryptographer passwordCryptographer = new StringCryptographer();
+			IPassword password = new Password();
+			IPasswordValidator passwordValidator = new PasswordValidator();
+			IStringCryptographer stringCryptographer = new StringCryptographer();
 
-			password.CheckIsPasswordEncrypted(testPassword, passwordCryptographer);
+			PasswordHandler passwordHandler = new(password, passwordValidator, stringCryptographer);
 
-			isPasswordEncrypted = password.IsPasswordEncrypted;
+			passwordHandler.CheckPasswordHandling(testPassword);
+
+			isPasswordEncrypted = passwordHandler.IsPasswordEncrypted;
 
 			Assert.IsTrue(isPasswordEncrypted);
 		}

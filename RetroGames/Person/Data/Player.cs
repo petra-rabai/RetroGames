@@ -24,7 +24,6 @@ namespace RetroGames
 		public string PlayerPassword { get; set; }
 		public bool IsRegistered { get; set; }
 		public bool IsLoggedIn { get; set; }
-		public char PressedKey { get; set; }
 
 		public void GetLoginData()
 		{
@@ -54,29 +53,6 @@ namespace RetroGames
 			CheckLoginSuccess();
 		}
 
-		public char GetPlayerKeyFromConsole()
-		{
-			ConsoleKeyInfo hitkey = Console.ReadKey();
-
-			if (hitkey.Key == ConsoleKey.D0
-				|| hitkey.Key == ConsoleKey.D1
-				|| hitkey.Key == ConsoleKey.D2
-				|| hitkey.Key == ConsoleKey.D3
-				|| hitkey.Key == ConsoleKey.D4
-				|| hitkey.Key == ConsoleKey.D5)
-			{
-				string numKey = hitkey.Key.ToString();
-				string[] numKeyValue = new string[1];
-				numKeyValue[0] = numKey.Split('D').Last();
-				PressedKey = Convert.ToChar(numKeyValue[0]);
-			}
-			else
-			{
-				PressedKey = Char.Parse(hitkey.Key.ToString());
-			}
-			return PressedKey;
-		}
-
 		private string GetPlayerLoginName()
 		{
 			LoginName = user.GetPlayerLoginName();
@@ -88,7 +64,7 @@ namespace RetroGames
 		{
 			while (!passwordHandler.PasswordHandlingSuccess)
 			{
-				passwordHandler.CheckPasswordHandling();
+				passwordHandler.CheckPasswordHandling(PlayerPassword);
 			}
 
 			PlayerPassword = passwordHandler.PlayerPassword;

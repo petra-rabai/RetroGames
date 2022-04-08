@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Abstractions;
 
 
 namespace RetroGames
@@ -11,19 +12,27 @@ namespace RetroGames
 	{
 		static void Main(string[] args)
 		{
-			IMainScreenUI ImainScreen = new MainScreenUI();
-			MainScreen mainScreen = new MainScreen(ImainScreen);
+			IGameMenu gameMenu = new GameMenu();
+			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
+			MainScreen mainScreen = new(mainScreenUI);
+			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			IDrive drive = new Drive(playerInteraction);
+			IFileSystem fileSystem = new FileSystem();
+			IGameDirectory gameDirectory = new GameDirectory(drive,fileSystem);
+			IGameFile gameFile = new GameFile(drive,gameDirectory);
+			IInstallationUI installationUI = new InstallationUI();
+			IInstallation installation = new Installation(gameFile,installationUI,mainScreen,drive);
 			IUser user = new User();
+			IEmailValidator emailValidator = new EmailValidator();
+			IEmail email = new Email(emailValidator);
 			IPassword password = new Password();
-			IPlayer player = new Player(user,password,registration,login,passwordHandler);
-			
+			IPasswordValidator passwordValidator = new PasswordValidator();
+			IStringCryptographer IstringCryptographer = new StringCryptographer();
+			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, IstringCryptographer);
 			IRegistrationUI registrationUI = new RegistrationUI();
-			IDrive drive = new Drive(player);
-			IGameFile gameFile = new GameFile();
-			IRegistration registration = new Registration();
+			IRegistration registration = new Registration(registrationUI, installation, user, email, playerInteraction, passwordHandler);
 			
-			GameMenuNavigation gameMenuNavigation = new GameMenuNavigation(player);
-
+			GameMenuNavigation gameMenuNavigation = new(playerInteraction,registration,gameMenu,installation);
 
 			mainScreen.MainScreenInitialize();
 			gameMenuNavigation.GetChoosedMenu();
