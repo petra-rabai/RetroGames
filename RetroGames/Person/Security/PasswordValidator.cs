@@ -1,7 +1,7 @@
 ﻿using RetroGames.Properties;
 using System.Text.RegularExpressions;
 
-namespace RetroGames
+namespace RetroGames.Person.Security
 {
 	public class PasswordValidator : IPasswordValidator
 	{
@@ -21,7 +21,7 @@ namespace RetroGames
 		public string PasswordError { get; set; }
 		public string PlayerPassword { get; set; }
 
-		private Regex PasswordRegEx = new Regex(GameSettings.Default.PasswordRegEx);
+		private Regex PasswordRegEx = new(GameSettings.Default.PasswordRegEx);
 
 		public bool ValidatePassword(string playerPassword)
 		{
@@ -61,11 +61,11 @@ namespace RetroGames
 
 		private string GetErrorReason()
 		{
-			Regex hasNumber = new Regex(hasNumberPattern);
-			Regex hasUpperChar = new Regex(hasUpperCharPattern);
-			Regex hasMiniMaxChars = new Regex(hasMinMaxCharPattern);
-			Regex hasLowerChar = new Regex(hasLowerCharPattern);
-			Regex hasSymbols = new Regex(hasSymbolsPattern);
+			Regex hasNumber = new(hasNumberPattern);
+			Regex hasUpperChar = new(hasUpperCharPattern);
+			Regex hasMiniMaxChars = new(hasMinMaxCharPattern);
+			Regex hasLowerChar = new(hasLowerCharPattern);
+			Regex hasSymbols = new(hasSymbolsPattern);
 
 			string Error = "";
 

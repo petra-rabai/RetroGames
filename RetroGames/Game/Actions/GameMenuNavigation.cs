@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RetroGames
+namespace RetroGames.Games.Actions
 {
 	public class GameMenuNavigation : IGameMenuNavigation
 	{
-		private IPlayerInteraction playerInteraction;
-		private IRegistration registration;
-		private IGameMenu gameMenu;
-		private IInstallation installation;
+		private IPlayerInteraction _playerInteraction;
+		private IRegistration _registration;
+		private IGameMenu _gameMenu;
+		private IInstallation _installation;
 
 		public GameMenuNavigation(IPlayerInteraction playerInteraction,
 							IRegistration registration,
 							IGameMenu gameMenu,
 							IInstallation installation)
 		{
-			this.registration = registration;
-			this.gameMenu = gameMenu;
-			this.installation = installation;
-			this.playerInteraction = playerInteraction;
+			_registration = registration;
+			_gameMenu = gameMenu;
+			_installation = installation;
+			_playerInteraction = playerInteraction;
 		}
 
 		public Dictionary<char, string> MainMenu { get; set; }
@@ -59,7 +59,7 @@ namespace RetroGames
 
 				case "Installation":
 					// Install the game
-					installation.InstallationProcess();
+					_installation.InstallationProcess();
 
 					break;
 
@@ -81,7 +81,7 @@ namespace RetroGames
 
 				case "Registration":
 					// If Installation not success drop an error
-					registration.UserRegistration();
+					_registration.UserRegistration();
 					break;
 
 				case "Help":
@@ -99,14 +99,14 @@ namespace RetroGames
 
 		private Dictionary<char, string> GetMainMenu()
 		{
-			MainMenu = gameMenu.MainMenu;
+			MainMenu = _gameMenu.MainMenu;
 
 			return MainMenu;
 		}
 
 		private char GetPlayerPressedKey()
 		{
-			PressedKey = playerInteraction.GetPlayerKeyFromConsole();
+			PressedKey = _playerInteraction.GetPlayerKeyFromConsole();
 
 			return PressedKey;
 		}

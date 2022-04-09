@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RetroGames
+namespace RetroGames.Games.UI
 {
 	public class InstallationUI : IInstallationUI
 	{

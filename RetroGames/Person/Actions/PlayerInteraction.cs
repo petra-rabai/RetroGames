@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace RetroGames
+namespace RetroGames.Person.Actions
 {
 	public class PlayerInteraction : IPlayerInteraction
 	{

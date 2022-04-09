@@ -1,13 +1,13 @@
 ﻿using RetroGames.Properties;
 using System.Text.RegularExpressions;
 
-namespace RetroGames
+namespace RetroGames.Person.Security
 {
 	public class EmailValidator : IEmailValidator
 	{
 		public bool IsEmailValid { get; set; } = false;
 
-		private Regex emailRegEx = new Regex(GameSettings.Default.EmailRegEx);
+		private Regex emailRegEx = new(GameSettings.Default.EmailRegEx);
 
 		public bool ValidateEmail(string email)
 		{

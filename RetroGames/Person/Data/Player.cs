@@ -1,20 +1,20 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Person.Data
 {
 	public class Player : IPlayer
 	{
-		private IUser user;
-		private IPassword password;
-		private IRegistration registration;
-		private ILogin login;
-		private IPasswordHandler passwordHandler;
+		private IUser _user;
+		private IPassword _password;
+		private IRegistration _registration;
+		private ILogin _login;
+		private IPasswordHandler _passwordHandler;
 
 		public Player(IUser user, IPassword password, IRegistration registration, ILogin login, IPasswordHandler passwordHandler)
 		{
-			this.user = user;
-			this.password = password;
-			this.registration = registration;
-			this.login = login;
-			this.passwordHandler = passwordHandler;
+			_user = user;
+			_password = password;
+			_registration = registration;
+			_login = login;
+			_passwordHandler = passwordHandler;
 		}
 
 		public string LoginName { get; set; }
@@ -24,8 +24,8 @@
 
 		public void GetLoginData()
 		{
-			LoginName = user.LoginName;
-			PlayerPassword = password.PlayerPassword;
+			LoginName = _user.LoginName;
+			PlayerPassword = _password.PlayerPassword;
 
 			CheckLoginDataNotEmpty();
 		}
@@ -51,36 +51,36 @@
 
 		private string GetPlayerLoginName()
 		{
-			LoginName = user.GetPlayerLoginName();
+			LoginName = _user.GetPlayerLoginName();
 
 			return LoginName;
 		}
 
 		private string GetPlayerPassword()
 		{
-			while (!passwordHandler.PasswordHandlingSuccess)
+			while (!_passwordHandler.PasswordHandlingSuccess)
 			{
-				passwordHandler.GetPlayerPassword();
-				passwordHandler.CheckPasswordHandling(passwordHandler.PlayerPassword);
+				_passwordHandler.GetPlayerPassword();
+				_passwordHandler.CheckPasswordHandling(_passwordHandler.PlayerPassword);
 			}
 
-			PlayerPassword = passwordHandler.PlayerPassword;
+			PlayerPassword = _passwordHandler.PlayerPassword;
 
 			return PlayerPassword;
 		}
 
 		private bool CheckRegistrationSuccess(bool registred)
 		{
-			registration.IsUserRegistered(registred);
+			_registration.IsUserRegistered(registred);
 
-			IsRegistered = registration.IsRegistered;
+			IsRegistered = _registration.IsRegistered;
 
 			return IsRegistered;
 		}
 
 		private bool CheckLoginSuccess()
 		{
-			IsLoggedIn = login.IsLoggedIn;
+			IsLoggedIn = _login.IsLoggedIn;
 
 			return IsLoggedIn;
 		}

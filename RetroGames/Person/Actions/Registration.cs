@@ -1,16 +1,17 @@
-﻿using System.IO;
+﻿using RetroGames.Person.Data;
+using System.IO;
 using System.Xml.Serialization;
 
-namespace RetroGames
+namespace RetroGames.Person.Actions
 {
 	public class Registration : IRegistration
 	{
-		private IRegistrationUI registrationUI;
-		private IInstallation installation;
-		private IUser user;
-		private IEmail email;
-		private IPasswordHandler passwordHandler;
-		private IPlayerInteraction playerInteraction;
+		private IRegistrationUI _registrationUI;
+		private IInstallation _installation;
+		private IUser _user;
+		private IEmail _email;
+		private IPasswordHandler _passwordHandler;
+		private IPlayerInteraction _playerInteraction;
 
 		public Registration(IRegistrationUI registrationUI,
 					  IInstallation installation,
@@ -19,12 +20,12 @@ namespace RetroGames
 					  IPlayerInteraction playerInteraction,
 					  IPasswordHandler passwordHandler)
 		{
-			this.registrationUI = registrationUI;
-			this.installation = installation;
-			this.user = user;
-			this.email = email;
-			this.playerInteraction = playerInteraction;
-			this.passwordHandler = passwordHandler;
+			_registrationUI = registrationUI;
+			_installation = installation;
+			_user = user;
+			_email = email;
+			_playerInteraction = playerInteraction;
+			_passwordHandler = passwordHandler;
 		}
 
 		public bool IsRegistered { get; set; }
@@ -84,58 +85,58 @@ namespace RetroGames
 
 		private void GetFormTitle()
 		{
-			registrationUI.FormTitle();
+			_registrationUI.FormTitle();
 		}
 
 		private char GetSaveDecesion()
 		{
-			registrationUI.FromSave();
+			_registrationUI.FromSave();
 
-			saveDecesion = playerInteraction.GetPlayerKeyFromConsole();
+			saveDecesion = _playerInteraction.GetPlayerKeyFromConsole();
 
 			return saveDecesion;
 		}
 
 		private void GetEmail()
 		{
-			registrationUI.FormEmail();
-			Email = email.GetPlayerEmail();
+			_registrationUI.FormEmail();
+			Email = _email.GetPlayerEmail();
 		}
 
 		private void GetPassword()
 		{
-			registrationUI.FormPassword();
+			_registrationUI.FormPassword();
 
-			while (!passwordHandler.PasswordHandlingSuccess)
+			while (!_passwordHandler.PasswordHandlingSuccess)
 			{
-				passwordHandler.GetPlayerPassword();
-				passwordHandler.CheckPasswordHandling(passwordHandler.PlayerPassword);
+				_passwordHandler.GetPlayerPassword();
+				_passwordHandler.CheckPasswordHandling(_passwordHandler.PlayerPassword);
 			}
 
-			Password = passwordHandler.PlayerPassword;
+			Password = _passwordHandler.PlayerPassword;
 		}
 
 		private void AssignName()
 		{
-			Name = user.FirstName + " " + user.LastName;
+			Name = _user.FirstName + " " + _user.LastName;
 		}
 
 		private void GetLoginName()
 		{
-			registrationUI.FormLoginName();
-			LoginName = user.GetPlayerLoginName();
+			_registrationUI.FormLoginName();
+			LoginName = _user.GetPlayerLoginName();
 		}
 
 		private void GetLastName()
 		{
-			registrationUI.FormLastName();
-			user.GetPlayerLastName();
+			_registrationUI.FormLastName();
+			_user.GetPlayerLastName();
 		}
 
 		private void GetFirstName()
 		{
-			registrationUI.FormFirstName();
-			user.GetPlayerFirstName();
+			_registrationUI.FormFirstName();
+			_user.GetPlayerFirstName();
 		}
 
 		private bool EraseDataSuccess()
@@ -152,24 +153,24 @@ namespace RetroGames
 
 		private void GetUserSavePath()
 		{
-			installation.CheckInstallationSuccess();
+			_installation.CheckInstallationSuccess();
 		}
 
 		private bool SaveDataSuccess()
 		{
 			GetUserSavePath();
 
-			RegistrationData registrationData = new RegistrationData()
+			RegistrationData registrationData = new()
 			{
 				Name = this.Name,
 				LoginName = this.LoginName,
 				Password = this.Password,
 				Email = this.Email
 			};
-			string Path = installation.UserFilePath;
+			string Path = _installation.UserFilePath;
 
-			XmlSerializer RegistrationWriteToXML = new XmlSerializer(typeof(RegistrationData));
-			FileStream registrationXML = new FileStream(Path,
+			XmlSerializer RegistrationWriteToXML = new(typeof(RegistrationData));
+			FileStream registrationXML = new(Path,
 									 FileMode.Open,
 									 FileAccess.Write);
 

@@ -1,16 +1,16 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Person.Actions
 {
 	public class PasswordHandler : IPasswordHandler
 	{
-		private IPassword password;
-		private IPasswordValidator passwordValidation;
-		private IStringCryptographer stringCryptographer;
+		private IPassword _password;
+		private IPasswordValidator _passwordValidation;
+		private IStringCryptographer _stringCryptographer;
 
 		public PasswordHandler(IPassword password, IPasswordValidator passwordValidation, IStringCryptographer stringCryptographer)
 		{
-			this.password = password;
-			this.passwordValidation = passwordValidation;
-			this.stringCryptographer = stringCryptographer;
+			_password = password;
+			_passwordValidation = passwordValidation;
+			_stringCryptographer = stringCryptographer;
 		}
 
 		public string PlayerPassword { get; set; }
@@ -38,25 +38,25 @@
 
 		public string GetPlayerPassword()
 		{
-			PlayerPassword = password.GetPlayerPassword();
+			PlayerPassword = _password.GetPlayerPassword();
 
 			return PlayerPassword;
 		}
 
 		private bool CheckIsPasswordValid(string password)
 		{
-			IsPasswordValid = passwordValidation.ValidatePassword(password);
+			IsPasswordValid = _passwordValidation.ValidatePassword(password);
 
 			return IsPasswordValid;
 		}
 
 		private bool CheckIsPasswordEncrypted(string password)
 		{
-			PlayerPassword = stringCryptographer.Encrypt(password);
+			PlayerPassword = _stringCryptographer.Encrypt(password);
 
-			if (stringCryptographer.IsEncrypted)
+			if (_stringCryptographer.IsEncrypted)
 			{
-				IsPasswordEncrypted = stringCryptographer.IsEncrypted;
+				IsPasswordEncrypted = _stringCryptographer.IsEncrypted;
 			}
 			else
 			{

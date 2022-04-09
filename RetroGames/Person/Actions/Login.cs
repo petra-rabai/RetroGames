@@ -2,17 +2,17 @@
 using System.Text;
 using System.Xml;
 
-namespace RetroGames
+namespace RetroGames.Person.Actions
 {
 	public class Login : ILogin
 	{
-		private IInstallation installation;
-		private IStringCryptographer stringCryptographer;
+		private IInstallation _installation;
+		private IStringCryptographer _stringCryptographer;
 
 		public Login(IInstallation installation, IStringCryptographer stringCryptographer)
 		{
-			this.installation = installation;
-			this.stringCryptographer = stringCryptographer;
+			_installation = installation;
+			_stringCryptographer = stringCryptographer;
 		}
 
 		public bool IsLoggedIn { get; set; } = false;
@@ -21,16 +21,16 @@ namespace RetroGames
 
 		public void GetLoginDataFromXML()
 		{
-			installation.CheckInstallationSuccess();
+			_installation.CheckInstallationSuccess();
 
 			ReadLoginData();
 		}
 
 		private void ReadLoginData()
 		{
-			XmlDocument loginData = new XmlDocument();
+			XmlDocument loginData = new();
 
-			StreamReader loginDataReader = new StreamReader(installation.UserFilePath, Encoding.UTF8);
+			StreamReader loginDataReader = new(_installation.UserFilePath, Encoding.UTF8);
 			string loginDataContent = loginDataReader.ReadToEnd();
 			loginData.LoadXml(loginDataContent);
 			XmlNodeList loginDataList = loginData.GetElementsByTagName("RegistrationData");
@@ -45,7 +45,7 @@ namespace RetroGames
 					}
 					else if (loginNode.ChildNodes.Item(i).Name == "Password")
 					{
-						LoginPassword = stringCryptographer.Decrypt(loginNode.ChildNodes.Item(i).InnerText);
+						LoginPassword = _stringCryptographer.Decrypt(loginNode.ChildNodes.Item(i).InnerText);
 					}
 				}
 			}

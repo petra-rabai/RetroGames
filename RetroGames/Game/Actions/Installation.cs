@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace RetroGames
+namespace RetroGames.Games.Actions
 {
 	public class Installation : IInstallation
 	{
-		private IGameFile gameFile;
-		private IInstallationUI installationUI;
-		private IMainScreen mainScreen;
-		private IDrive drive;
+		private IGameFile _gameFile;
+		private IInstallationUI _installationUI;
+		private IMainScreen _mainScreen;
+		private IDrive _drive;
 
 		public Installation(IGameFile gameFile,
 					  IInstallationUI installationUI,
 					  IMainScreen mainScreen,
 					  IDrive drive)
 		{
-			this.gameFile = gameFile;
-			this.installationUI = installationUI;
-			this.mainScreen = mainScreen;
-			this.drive = drive;
+			_gameFile = gameFile;
+			_installationUI = installationUI;
+			_mainScreen = mainScreen;
+			_drive = drive;
 		}
 
 		public bool IsInstallationSuccess { get; set; }
@@ -30,14 +30,14 @@ namespace RetroGames
 
 		public void InstallationProcess()
 		{
-			installationUI.InstallationUIInitialize();
+			_installationUI.InstallationUIInitialize();
 			WriteDriveListToUI();
 
-			mainScreen.WaitForInputSuccess();
+			_mainScreen.WaitForInputSuccess();
 
-			if (mainScreen.WaitForUserPromptDisplayed)
+			if (_mainScreen.WaitForUserPromptDisplayed)
 			{
-				drive.GetPlayerPressedKey();
+				_drive.GetPlayerPressedKey();
 				EreaseDriveList();
 				CheckInstallationCanStart();
 				if (installationCanStart)
@@ -47,14 +47,14 @@ namespace RetroGames
 				else
 				{
 					IsInstallationSuccess = false;
-					mainScreen.MainScreenInitialize();
+					_mainScreen.MainScreenInitialize();
 				}
 			}
 		}
 
 		private bool CheckInstallationCanStart()
 		{
-			if (drive.PlayerPressedKey == 'K')
+			if (_drive.PlayerPressedKey == 'K')
 			{
 				installationCanStart = false;
 			}
@@ -70,31 +70,31 @@ namespace RetroGames
 			int key;
 			string driveName;
 
-			drive.GetDriveList();
+			_drive.GetDriveList();
 
-			foreach (KeyValuePair<int, string> choosedisk in drive.DriveList)
+			foreach (KeyValuePair<int, string> choosedisk in _drive.DriveList)
 			{
 				key = choosedisk.Key;
 				driveName = choosedisk.Value;
-				installationUI.DrivelistUI(key, driveName);
+				_installationUI.DrivelistUI(key, driveName);
 			}
 		}
 
 		private void EreaseDriveList()
 		{
-			for (int i = drive.DriveList.Count; i >= 0; i--)
+			for (int i = _drive.DriveList.Count; i >= 0; i--)
 			{
-				drive.DriveList.Remove(i);
+				_drive.DriveList.Remove(i);
 			}
 		}
 
 		public bool CheckInstallationSuccess()
 		{
-			gameFile.CheckGameFilesCreated();
+			_gameFile.CheckGameFilesCreated();
 
-			GameFilePath = gameFile.GameFilePath;
-			UserFilePath = gameFile.UserFilePath;
-			LogFilePath = gameFile.LogFilePath;
+			GameFilePath = _gameFile.GameFilePath;
+			UserFilePath = _gameFile.UserFilePath;
+			LogFilePath = _gameFile.LogFilePath;
 
 			if (File.Exists(GameFilePath) && File.Exists(UserFilePath) && File.Exists(LogFilePath))
 			{

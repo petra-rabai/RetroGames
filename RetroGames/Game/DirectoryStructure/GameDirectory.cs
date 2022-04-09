@@ -1,15 +1,15 @@
 ﻿using RetroGames.Properties;
 using System.IO;
 
-namespace RetroGames
+namespace RetroGames.Games.DirectoryStructure
 {
 	public class GameDirectory : IGameDirectory
 	{
-		private IDrive drive;
+		private IDrive _drive;
 
 		public GameDirectory(IDrive drive)
 		{
-			this.drive = drive;
+			_drive = drive;
 		}
 
 		public string InstallationDrive { get; set; }
@@ -59,11 +59,11 @@ namespace RetroGames
 
 		private string GetInstallationDrive()
 		{
-			drive.GetInstallationDrive(drive.PlayerPressedKey);
+			_drive.GetInstallationDrive(_drive.PlayerPressedKey);
 
-			InstallationDrive = drive.InstallationDrive;
+			InstallationDrive = _drive.InstallationDrive;
 
-			IsInstallationDriveSelected = drive.IsInstallationDriveSelected;
+			IsInstallationDriveSelected = _drive.IsInstallationDriveSelected;
 
 			return InstallationDrive;
 		}

@@ -1,9 +1,6 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace RetroGames
 {
@@ -11,8 +8,17 @@ namespace RetroGames
 	{
 		public IContainer Configure()
 		{
-			ContainerBuilder containerBuilder = new ContainerBuilder();
-			containerBuilder.RegisterType<Drive>().As<IDrive>();
+			ContainerBuilder containerBuilder = new();
+			
+			containerBuilder.RegisterType<Application>().As<IApplication>();
+
+			containerBuilder.RegisterAssemblyTypes(Assembly.Load(nameof(RetroGames)))
+				.Where(retroGamesType => retroGamesType.Namespace.Contains("Games"))
+				.As(retroGamesType => retroGamesType.GetInterfaces().FirstOrDefault(interfaceType => interfaceType.Name == "I" + retroGamesType.Name));
+
+			containerBuilder.RegisterAssemblyTypes(Assembly.Load(nameof(RetroGames)))
+				.Where(retroGamesType => retroGamesType.Namespace.Contains("Person"))
+				.As(retroGamesType => retroGamesType.GetInterfaces().FirstOrDefault(interfaceType => interfaceType.Name == "I" + retroGamesType.Name));
 
 			return containerBuilder.Build();
 		}

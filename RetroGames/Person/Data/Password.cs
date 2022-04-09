@@ -2,7 +2,7 @@
 using System.Net;
 using System.Security;
 
-namespace RetroGames
+namespace RetroGames.Person.Data
 {
 	public class Password : IPassword
 	{

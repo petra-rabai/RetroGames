@@ -1,5 +1,12 @@
 ﻿using NUnit.Framework;
 using RetroGames;
+using RetroGames.Games;
+using RetroGames.Games.Actions;
+using RetroGames.Games.DirectoryStructure;
+using RetroGames.Games.UI;
+using RetroGames.Person.Actions;
+using RetroGames.Person.Data;
+using RetroGames.Person.Security;
 
 namespace RetroGamesTests
 {

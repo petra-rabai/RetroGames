@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RetroGames
+﻿namespace RetroGames
 {
-	public class Application
+	public class Application : IApplication
 	{
-		public Application()
+		IMainScreen _mainScreen;
+		public Application(IMainScreen mainScreen)
 		{
+			_mainScreen = mainScreen;
+		}
 
+		public void Run()
+		{
+			_mainScreen.MainScreenInitialize();
 		}
 	}
 }

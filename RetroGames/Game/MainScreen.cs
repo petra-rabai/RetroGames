@@ -2,15 +2,15 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace RetroGames
+namespace RetroGames.Games
 {
 	public class MainScreen : IMainScreen
 	{
-		private IMainScreenUI mainScreenUI;
+		private IMainScreenUI _mainScreenUI;
 
 		public MainScreen(IMainScreenUI mainScreenUI)
 		{
-			this.mainScreenUI = mainScreenUI;
+			_mainScreenUI = mainScreenUI;
 		}
 
 		public bool WaitForUserPromptDisplayed { get; set; }
@@ -36,7 +36,7 @@ namespace RetroGames
 		private void GetMainScreenUI()
 		{
 			MainScreenSetup();
-			mainScreenUI.InitializeMainScreenUI();
+			_mainScreenUI.InitializeMainScreenUI();
 			WaitForInputSuccess();
 		}
 

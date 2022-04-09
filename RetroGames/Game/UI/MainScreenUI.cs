@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RetroGames
+namespace RetroGames.Games.UI
 {
 	public class MainScreenUI : IMainScreenUI
 	{
-		private IGameMenu gameMenu;
+		private IGameMenu _gameMenu;
 
 		public MainScreenUI(IGameMenu gameMenu)
 		{
-			this.gameMenu = gameMenu;
+			_gameMenu = gameMenu;
 		}
 
 		public void InitializeMainScreenUI()
@@ -63,7 +63,7 @@ namespace RetroGames
 
 		private void InitializeMainMenuToConsole()
 		{
-			foreach (KeyValuePair<char, string> menu in gameMenu.MainMenu)
+			foreach (KeyValuePair<char, string> menu in _gameMenu.MainMenu)
 			{
 				Console.WriteLine("\t\t\t" + " ** " + menu.Value + " - " + menu.Key + " key **" + "\n");
 			}

@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using RetroGames;
+using RetroGames.Games.DirectoryStructure;
+using RetroGames.Person.Actions;
 
 namespace RetroGamesTests
 {

@@ -1,16 +1,7 @@
-﻿using System;
-
-namespace RetroGames
+﻿namespace RetroGames.Person.Data
 {
 	public class RegistrationData : IRegistrationData
 	{
-		public RegistrationData()
-		{
-			string Name = String.Empty;
-			string LoginName = String.Empty;
-			string Password = String.Empty;
-			string Email = String.Empty;
-		}
 
 		public string Name { get; set; }
 		public string LoginName { get; set; }

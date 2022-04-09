@@ -4,7 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RetroGames
+namespace RetroGames.Person.Security
 {
 	public class StringCryptographer : IStringCryptographer
 	{

@@ -1,5 +1,8 @@
 ﻿using NUnit.Framework;
 using RetroGames;
+using RetroGames.Person.Actions;
+using RetroGames.Person.Data;
+using RetroGames.Person.Security;
 
 namespace RetroGamesTests
 {
