@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Unity;
 
 namespace RetroGames
 {
@@ -8,6 +9,7 @@ namespace RetroGames
 	{
 		private IPlayerInteraction playerInteraction;
 
+		[InjectionConstructor]
 		public Drive(IPlayerInteraction playerInteraction)
 		{
 			this.playerInteraction = playerInteraction;
@@ -26,6 +28,7 @@ namespace RetroGames
 		private DriveInfo[] hDDs;
 		private double[] freeHddSpace;
 		private bool IsPlayerPressedKeySuccess;
+		IUnityContainer playerInteractionIOC = new UnityContainer();
 
 		public char GetPlayerPressedKey()
 		{
@@ -34,6 +37,10 @@ namespace RetroGames
 			return PlayerPressedKey;
 		}
 
+		private void CreateIOC()
+		{
+			playerInteractionIOC.RegisterType<IPlayerInteraction, PlayerInteraction>();
+		}
 		public void GetInstallationDrive(char playerHitKey)
 		{
 			GetDriveList();
