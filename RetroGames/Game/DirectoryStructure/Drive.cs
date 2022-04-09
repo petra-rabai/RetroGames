@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Unity;
+//using Unity;
 
 namespace RetroGames
 {
 	public class Drive : IDrive
 	{
-		private IPlayerInteraction playerInteraction;
+		IPlayerInteraction _playerInteraction;
 
-		[InjectionConstructor]
+		//[InjectionConstructor]
 		public Drive(IPlayerInteraction playerInteraction)
 		{
-			this.playerInteraction = playerInteraction;
+			_playerInteraction = playerInteraction;
 		}
 
 		private const int gBConverthelper = (1024 * 1024 * 1024);
@@ -28,19 +28,19 @@ namespace RetroGames
 		private DriveInfo[] hDDs;
 		private double[] freeHddSpace;
 		private bool IsPlayerPressedKeySuccess;
-		IUnityContainer playerInteractionIOC = new UnityContainer();
+		//IUnityContainer playerInteractionIOC = new UnityContainer();
 
 		public char GetPlayerPressedKey()
 		{
-			PlayerPressedKey = playerInteraction.GetPlayerKeyFromConsole();
+			PlayerPressedKey = _playerInteraction.GetPlayerKeyFromConsole();
 
 			return PlayerPressedKey;
 		}
 
-		private void CreateIOC()
-		{
-			playerInteractionIOC.RegisterType<IPlayerInteraction, PlayerInteraction>();
-		}
+		//private void CreateIOC()
+		//{
+		//	playerInteractionIOC.RegisterType<IPlayerInteraction, PlayerInteraction>();
+		//}
 		public void GetInstallationDrive(char playerHitKey)
 		{
 			GetDriveList();
