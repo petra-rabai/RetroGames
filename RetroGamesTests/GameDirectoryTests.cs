@@ -1,27 +1,52 @@
 ﻿using NUnit.Framework;
+using FluentAssertions;
+using Moq;
 using RetroGames;
 using RetroGames.Games.DirectoryStructure;
 using RetroGames.Person.Actions;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
 	public class GameDirectoryTests
 	{
 		[Test]
-		public void CheckGameDirectoriesExistSuccess()
+		public void CheckRetroGamesFolderCreated()
 		{
 			bool directoriesExist;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
 
-			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive);
+			
+
+			
+
+			char playerKey = '0';
+			string testFolderPath = "";
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
+			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
+			
+			IFileSystemWatcher watcher = Mock.Of<IFileSystemWatcher>();
+			
+			IDirectory directory = Mock.Of<IDirectory>();
+
+			Mock.Get(directory).Setup(folder => folder.Exists(It.IsAny<string>())).Returns(true);
+
+			Drive drive = new(playerInteraction.Object);
+
+			GameDirectory gameDirectory = new(drive,fileSystem.Object);
 
 			gameDirectory.CheckGameDirectoriesExist();
+			testFolderPath = gameDirectory.GameDirectoryPath;
 
 			directoriesExist = gameDirectory.IsGameDirectoriesExist;
+			
+			Mock.Get(directory).Verify(folder => folder.Exists(It.IsAny<string>()), Times.Once);
 
-			Assert.IsTrue(directoriesExist);
+			testFolderPath.Should().NotBeEmpty();
 		}
 
 		[Test]

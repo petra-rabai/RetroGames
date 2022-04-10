@@ -1,5 +1,6 @@
 ﻿using RetroGames.Properties;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace RetroGames.Games.DirectoryStructure
 {
@@ -7,11 +8,13 @@ namespace RetroGames.Games.DirectoryStructure
 	{
 		private IGameDirectory _gameDirectory;
 		private IDrive _drive;
+		IFileSystem _fileSystem;
 
-		public GameFile(IDrive drive, IGameDirectory gameDirectory)
+		public GameFile(IDrive drive, IGameDirectory gameDirectory, IFileSystem fileSystem)
 		{
 			_drive = drive;
 			_gameDirectory = gameDirectory;
+			_fileSystem = fileSystem;
 		}
 
 		public string GameDirectoryPath { get; set; }
@@ -55,9 +58,7 @@ namespace RetroGames.Games.DirectoryStructure
 			GameDirectoryPath = _gameDirectory.GameDirectoryPath;
 			GameFilePath = GameDirectoryPath + GameSettings.Default.GameFile;
 
-			FileStream gameFileStream = new FileStream(GameFilePath, FileMode.Create);
-			gameFileStream.Close();
-
+			_fileSystem.File.Create(GameFilePath);
 			return GameFilePath;
 		}
 
@@ -65,9 +66,8 @@ namespace RetroGames.Games.DirectoryStructure
 		{
 			UserDirectoryPath = _gameDirectory.UserDirectoryPath;
 			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
-
-			FileStream userFileStream = new FileStream(UserFilePath, FileMode.Create);
-			userFileStream.Close();
+			
+			_fileSystem.File.Create(UserFilePath);
 
 			return UserFilePath;
 		}
@@ -77,8 +77,7 @@ namespace RetroGames.Games.DirectoryStructure
 			LogDirectoryPath = _gameDirectory.LogDirectoryPath;
 			LogFilePath = LogDirectoryPath + GameSettings.Default.LogFile;
 
-			FileStream logFileStream = new FileStream(LogFilePath, FileMode.Create);
-			logFileStream.Close();
+			_fileSystem.File.Create(LogFilePath);
 
 			return LogFilePath;
 		}
