@@ -3,7 +3,6 @@ using FluentAssertions;
 using Moq;
 using RetroGames;
 using RetroGames.Games.DirectoryStructure;
-using RetroGames.Person.Actions;
 using System.Collections.Generic;
 
 namespace RetroGamesTests

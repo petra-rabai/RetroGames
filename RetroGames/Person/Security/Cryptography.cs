@@ -41,9 +41,9 @@ namespace RetroGames.Person.Security
 			string secretkey = GameSettings.Default.CryptographySecretKey;
 			string decryptedtext = "";
 			byte[] privatekeyByte = { };
-			privatekeyByte = System.Text.Encoding.UTF8.GetBytes(secretkey);
+			privatekeyByte = Encoding.UTF8.GetBytes(secretkey);
 			byte[] publickeybyte = { };
-			publickeybyte = System.Text.Encoding.UTF8.GetBytes(publickey);
+			publickeybyte = Encoding.UTF8.GetBytes(publickey);
 			MemoryStream memoryStream;
 			CryptoStream cryptoStream;
 			byte[] inputbyteArray = new byte[encryptedText.Replace(" ", "+").Length];

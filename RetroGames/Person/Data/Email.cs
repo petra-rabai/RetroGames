@@ -4,11 +4,11 @@ namespace RetroGames.Person.Data
 {
 	public class Email : IEmail
 	{
-		private IEmailValidator _emailValidation;
+		private IEmailValidator _emailValidator;
 
 		public Email(IEmailValidator emailValidation)
 		{
-			_emailValidation = emailValidation;
+			_emailValidator = emailValidation;
 		}
 
 		public string PlayerEmail { get; set; } = "";
@@ -17,7 +17,7 @@ namespace RetroGames.Person.Data
 		{
 			string email = Console.ReadLine();
 
-			_emailValidation.ValidateEmail(email);
+			_emailValidator.ValidateEmail(email);
 
 			PlayerEmail = email;
 
