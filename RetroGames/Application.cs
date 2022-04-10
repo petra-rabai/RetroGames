@@ -2,7 +2,8 @@
 {
 	public class Application : IApplication
 	{
-		IMainScreen _mainScreen;
+		private IMainScreen _mainScreen;
+
 		public Application(IMainScreen mainScreen)
 		{
 			_mainScreen = mainScreen;

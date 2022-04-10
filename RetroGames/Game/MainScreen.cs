@@ -36,7 +36,7 @@ namespace RetroGames.Games
 		private void GetMainScreenUI()
 		{
 			MainScreenSetup();
-			_mainScreenUI.InitializeMainScreenUI();
+			_mainScreenUI.InitializeUI();
 			WaitForInputSuccess();
 		}
 

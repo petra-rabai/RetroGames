@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using RetroGames.Person.Security;
 
 namespace RetroGamesTests
 {
 	public class StringCryptographerTests
 	{
-
 		[TestCase("test")]
 		[TestCase("Rp!.x456")]
 		[TestCase("123446")]
@@ -35,11 +34,11 @@ namespace RetroGamesTests
 		public void IsDecryptedSuccess(string plaintText)
 		{
 			bool testIsDecrypted;
-			
+
 			StringCryptographer stringCryptographer = new();
-			
+
 			string encryptedText = stringCryptographer.Encrypt(plaintText);
-			
+
 			stringCryptographer.Decrypt(encryptedText);
 
 			testIsDecrypted = stringCryptographer.IsDecrypted;
@@ -47,7 +46,6 @@ namespace RetroGamesTests
 			testIsDecrypted.Should().BeTrue();
 		}
 
-		
 		[TestCase("test")]
 		[Test]
 		public void EncryptDecryptTextIsEqual(string testPlaintext)

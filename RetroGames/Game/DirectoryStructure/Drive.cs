@@ -6,7 +6,7 @@ namespace RetroGames.Games.DirectoryStructure
 {
 	public class Drive : IDrive
 	{
-		IPlayerInteraction _playerInteraction;
+		private IPlayerInteraction _playerInteraction;
 
 		public Drive(IPlayerInteraction playerInteraction)
 		{

@@ -12,7 +12,7 @@ namespace RetroGames.Games.UI
 			_gameMenu = gameMenu;
 		}
 
-		public void InitializeMainScreenUI()
+		public void InitializeUI()
 		{
 			GameTitleUIToConsole();
 			GameDescriptionUIToConsole();

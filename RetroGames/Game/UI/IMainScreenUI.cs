@@ -2,6 +2,6 @@
 {
 	public interface IMainScreenUI
 	{
-		void InitializeMainScreenUI();
+		void InitializeUI();
 	}
 }
