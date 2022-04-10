@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace RetroGames
 {
-	public class IOCContainerConfig
+	public class ContainerConfig
 	{
 		public IContainer Configure()
 		{

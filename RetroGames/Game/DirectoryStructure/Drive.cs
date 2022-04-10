@@ -80,21 +80,21 @@ namespace RetroGames.Games.DirectoryStructure
 			return InstallationDrive;
 		}
 
-		private char GetDriveDecesionFromPlayer(char playerHitKey)
+		public char GetDriveDecesionFromPlayer(char playerHitKey)
 		{
 			DriveDecesion = playerHitKey;
 
 			return DriveDecesion;
 		}
 
-		private void GetDriveInfo()
+		public void GetDriveInfo()
 		{
 			hDDs = DriveInfo.GetDrives();
 
 			freeHddSpace = new double[hDDs.Length];
 		}
 
-		private string[] CollectDrives()
+		public string[] CollectDrives()
 		{
 			AvailableDrives = new string[hDDs.Length];
 
@@ -140,7 +140,7 @@ namespace RetroGames.Games.DirectoryStructure
 			}
 		}
 
-		private bool InstallationDriveSelectionSuccess()
+		public bool InstallationDriveSelectionSuccess()
 		{
 			if (AvailableDrives.Length == 1)
 			{

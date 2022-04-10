@@ -7,7 +7,7 @@ namespace RetroGames
 	{
 		private static void Main(string[] args)
 		{
-			IOCContainerConfig iOCContainerConfig = new();
+			ContainerConfig iOCContainerConfig = new();
 			IContainer iOCContainer = iOCContainerConfig.Configure();
 			ILifetimeScope scope = iOCContainer.BeginLifetimeScope();
 			Application application = scope.Resolve<Application>();

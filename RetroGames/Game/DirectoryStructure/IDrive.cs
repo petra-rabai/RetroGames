@@ -14,5 +14,13 @@ namespace RetroGames
 		char GetPlayerPressedKey();
 
 		Dictionary<int, string> GetDriveList();
+
+		string[] CollectDrives();
+
+		bool InstallationDriveSelectionSuccess();
+
+		char GetDriveDecesionFromPlayer(char playerHitKey);
+
+		void GetDriveInfo();
 	}
 }
