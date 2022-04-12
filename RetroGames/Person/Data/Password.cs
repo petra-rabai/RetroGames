@@ -20,7 +20,7 @@ namespace RetroGames.Person.Data
 			return PlayerPassword;
 		}
 
-		private SecureString ConvertPasswordToSecure()
+		public SecureString ConvertPasswordToSecure()
 		{
 			while (true)
 			{
