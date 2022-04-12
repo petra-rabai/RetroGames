@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using RetroGames;
 using RetroGames.Games;
 using RetroGames.Games.Actions;
@@ -7,6 +8,7 @@ using RetroGames.Games.UI;
 using RetroGames.Person.Actions;
 using RetroGames.Person.Data;
 using RetroGames.Person.Security;
+using System.IO.Abstractions;
 
 namespace RetroGamesTests
 {
@@ -23,9 +25,13 @@ namespace RetroGamesTests
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			IMainScreen mainScreen = new MainScreen(mainScreenUI);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IDrive drive = new Drive(playerInteraction);
-			IGameDirectory gameDirectory = new GameDirectory(drive);
-			IGameFile gameFile = new GameFile(drive, gameDirectory);
+			
+			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
+
+			Drive drive = new(playerInteraction, fileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, fileSystem.Object);
+			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
 			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
 			IUser user = new User();
 			IEmailValidator emailValidator = new EmailValidator();
@@ -59,9 +65,12 @@ namespace RetroGamesTests
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			IMainScreen mainScreen = new MainScreen(mainScreenUI);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IDrive drive = new Drive(playerInteraction);
-			IGameDirectory gameDirectory = new GameDirectory(drive);
-			IGameFile gameFile = new GameFile(drive, gameDirectory);
+			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
+
+			Drive drive = new(playerInteraction, fileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, fileSystem.Object);
+			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
 			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
 			IUser user = new User();
 			IEmailValidator emailValidator = new EmailValidator();

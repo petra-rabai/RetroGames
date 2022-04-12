@@ -32,7 +32,7 @@ namespace RetroGames.Games.DirectoryStructure
 			LogFilePath = _drive.InstallationDrive + GameSettings.Default.LogDirectory + GameSettings.Default.LogFile;
 			GameFilePath = _drive.InstallationDrive + GameSettings.Default.GameDirectory + GameSettings.Default.GameFile;
 
-			if (!File.Exists(UserFilePath) && !File.Exists(GameFilePath) && !File.Exists(LogFilePath))
+			if (!_fileSystem.File.Exists(UserFilePath) && !_fileSystem.File.Exists(GameFilePath) && !_fileSystem.File.Exists(LogFilePath))
 			{
 				CreateGameFiles();
 			}
@@ -44,10 +44,8 @@ namespace RetroGames.Games.DirectoryStructure
 			return IsGameFilesExist;
 		}
 
-		private void CreateGameFiles()
+		public void CreateGameFiles()
 		{
-			_gameDirectory.CheckGameDirectoriesExist();
-
 			CreateGameFile();
 			CreateUserFile();
 			CreateLogFile();

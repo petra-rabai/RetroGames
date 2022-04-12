@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO.Abstractions;
 
 namespace RetroGames
 {
@@ -8,6 +9,8 @@ namespace RetroGames
 		bool IsInstallationDriveSelected { get; set; }
 		char PlayerPressedKey { get; set; }
 		Dictionary<int, string> DriveList { get; set; }
+		IDriveInfo[] DriveInfo { get; set; }
+		double[] FreeHddSpace { get; set; }
 
 		void GetInstallationDrive(char playerHitKey);
 
@@ -22,5 +25,8 @@ namespace RetroGames
 		char GetDriveDecesionFromPlayer(char playerHitKey);
 
 		void GetDriveInfo();
+
+		string CompareDisksSpace(int driveCount, long[] availableFreeSpace, string[] driveName);
+
 	}
 }

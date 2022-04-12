@@ -29,7 +29,7 @@ namespace RetroGames.Games.DirectoryStructure
 			UserDirectoryPath = InstallationDrive + GameSettings.Default.UserDirectory;
 			LogDirectoryPath = InstallationDrive + GameSettings.Default.LogDirectory;
 
-			if (!Directory.Exists(GameDirectoryPath) && !Directory.Exists(UserDirectoryPath) && !Directory.Exists(LogDirectoryPath))
+			if (!_fileSystem.Directory.Exists(GameDirectoryPath) && !_fileSystem.Directory.Exists(UserDirectoryPath) && !_fileSystem.Directory.Exists(LogDirectoryPath))
 			{
 				IsGameDirectoriesExist = false;
 
@@ -43,7 +43,7 @@ namespace RetroGames.Games.DirectoryStructure
 			return IsGameDirectoriesExist;
 		}
 
-		private void CreateGameDirectories()
+		public void CreateGameDirectories()
 		{
 			CreateGameDirectory();
 			CreateUserDirectory();

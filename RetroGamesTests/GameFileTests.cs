@@ -1,7 +1,9 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Moq;
+using NUnit.Framework;
 using RetroGames;
 using RetroGames.Games.DirectoryStructure;
-using RetroGames.Person.Actions;
+using System;
 using System.IO.Abstractions;
 
 namespace RetroGamesTests
@@ -9,82 +11,160 @@ namespace RetroGamesTests
 	public class GameFileTests
 	{
 		[Test]
-		public void CheckGameFilesExistSuccess()
+		public void CheckGameFilesDoesNotExistSuccess()
 		{
-			bool gameFilesExist;
+			char playerKey = '0';
+			bool testGameFilesExist;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
 
-			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive);
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Create(It.IsAny<String>())).Verifiable();
 
-			GameFile gameFile = new GameFile(drive, gameDirectory);
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
-			gameFilesExist = gameFile.IsGameFilesExist;
+			testGameFilesExist = gameFile.IsGameFilesExist;
 
-			Assert.IsTrue(gameFilesExist);
+			testGameFilesExist.Should().BeFalse();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.File.Create(It.IsAny<String>()), Times.AtLeastOnce);
+		}
+
+		[Test]
+		public void CheckGameFilesExistSuccess()
+		{
+			char playerKey = '0';
+			bool testGameFilesExist;
+
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
+
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Create(It.IsAny<String>())).Verifiable();
+
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Exists(It.IsAny<String>())).Returns(true);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
+
+			gameFile.CheckGameFilesCreated();
+
+			testGameFilesExist = gameFile.IsGameFilesExist;
+
+			testGameFilesExist.Should().BeTrue();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.File.Create(It.IsAny<String>()),Times.Never);
+
 		}
 
 		[Test]
 		public void CheckGameFilePathCreated()
 		{
+			char playerKey = '0';
 			string gameFilePath;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
 
-			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive);
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Create(It.IsAny<String>())).Verifiable();
 
-			GameFile gameFile = new GameFile(drive, gameDirectory);
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
 			gameFilePath = gameFile.GameFilePath;
 
-			Assert.IsNotNull(gameFilePath);
+			gameFilePath.Should().NotBeNull();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.File.Exists(It.IsAny<String>()));
 		}
 
 		[Test]
 		public void CheckUserFilePathCreated()
 		{
+			char playerKey = '0';
 			string userFilePath;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
 
-			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive);
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Create(It.IsAny<String>())).Verifiable();
 
-			GameFile gameFile = new GameFile(drive, gameDirectory);
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
-			userFilePath = gameFile.UserFilePath;
+			userFilePath = gameFile.GameFilePath;
 
-			Assert.IsNotNull(userFilePath);
+			userFilePath.Should().NotBeNull();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.File.Exists(It.IsAny<String>()));
+
 		}
 
 		[Test]
 		public void CheckLogFilePathCreated()
 		{
 			string logFilePath;
+			char playerKey = '0';
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IFileSystem fileSystem = new FileSystem();
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
 
-			Drive drive = new Drive(playerInteraction);
-			GameDirectory gameDirectory = new GameDirectory(drive);
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Create(It.IsAny<String>())).Verifiable();
 
-			GameFile gameFile = new GameFile(drive, gameDirectory);
+			mockFileSystem.Setup(fileSystem => fileSystem.File.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+
+			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
-			logFilePath = gameFile.LogFilePath;
+			logFilePath = gameFile.GameFilePath;
 
-			Assert.IsNotNull(logFilePath);
+			logFilePath.Should().NotBeNull();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.File.Exists(It.IsAny<String>()));
 		}
 	}
 }

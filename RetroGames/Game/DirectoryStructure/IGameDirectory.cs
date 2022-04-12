@@ -7,5 +7,6 @@
 		string LogDirectoryPath { get; set; }
 
 		bool CheckGameDirectoriesExist();
+		void CreateGameDirectories();
 	}
 }

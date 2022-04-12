@@ -5,48 +5,71 @@ using RetroGames;
 using RetroGames.Games.DirectoryStructure;
 using RetroGames.Person.Actions;
 using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
+using System;
 
 namespace RetroGamesTests
 {
 	public class GameDirectoryTests
 	{
+		
 		[Test]
-		public void CheckRetroGamesFolderCreated()
+		public void CheckIsGameDriectoryDoesNotExist()
 		{
 			bool directoriesExist;
 
-
-			
-
-			
-
 			char playerKey = '0';
-			string testFolderPath = "";
+
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
-			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
 			
-			IFileSystemWatcher watcher = Mock.Of<IFileSystemWatcher>();
-			
-			IDirectory directory = Mock.Of<IDirectory>();
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
 
-			Mock.Get(directory).Setup(folder => folder.Exists(It.IsAny<string>())).Returns(true);
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.Exists(It.IsAny<String>())).Returns(false);
 
-			Drive drive = new(playerInteraction.Object);
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
 
-			GameDirectory gameDirectory = new(drive,fileSystem.Object);
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
 			gameDirectory.CheckGameDirectoriesExist();
-			testFolderPath = gameDirectory.GameDirectoryPath;
 
 			directoriesExist = gameDirectory.IsGameDirectoriesExist;
-			
-			Mock.Get(directory).Verify(folder => folder.Exists(It.IsAny<string>()), Times.Once);
 
-			testFolderPath.Should().NotBeEmpty();
+
+			directoriesExist.Should().BeFalse();
+			
+			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.AtLeastOnce);
+		}
+
+		public void CheckIsGameDriectoryExist()
+		{
+			bool directoriesExist;
+
+			char playerKey = '0';
+
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
+			
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.Exists(It.IsAny<String>())).Returns(true);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+
+			gameDirectory.CheckGameDirectoriesExist();
+
+			directoriesExist = gameDirectory.IsGameDirectoriesExist;
+
+
+			directoriesExist.Should().BeTrue();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.AtLeastOnce);
 		}
 
 		[Test]
@@ -54,16 +77,28 @@ namespace RetroGamesTests
 		{
 			string gameFolder;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			char playerKey = '0';
 
-			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive);
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
+			
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
 			gameFolder = gameDirectory.GameDirectoryPath;
 
-			Assert.IsNotNull(gameFolder);
+			gameFolder.Should().NotBeNull();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()));
 		}
 
 		[Test]
@@ -71,16 +106,28 @@ namespace RetroGamesTests
 		{
 			string userFolder;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			char playerKey = '0';
 
-			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive);
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
+			
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
 			userFolder = gameDirectory.UserDirectoryPath;
 
-			Assert.IsNotNull(userFolder);
+			userFolder.Should().NotBeNull();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()));
 		}
 
 		[Test]
@@ -88,16 +135,28 @@ namespace RetroGamesTests
 		{
 			string logFolder;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
+			char playerKey = '0';
 
-			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive);
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return playerKey; });
+			
+			Mock<IFileSystem> mockFileSystem = new();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
+			mockFileSystem.Setup(fileSystem => fileSystem.Directory.Exists(It.IsAny<String>())).Returns(false);
+
+			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+
+			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
 			logFolder = gameDirectory.LogDirectoryPath;
 
-			Assert.IsNotNull(logFolder);
+			logFolder.Should().NotBeNull();
+
+			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()));
 		}
 
 		[Test]
@@ -107,13 +166,17 @@ namespace RetroGamesTests
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
 
-			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive);
+			IFileSystem fileSystem = new FileSystem();
+
+			Drive drive = new(playerInteraction, fileSystem);
+
+			GameDirectory gameDirectory = new(drive, fileSystem);
+			
 			gameDirectory.CheckGameDirectoriesExist();
 
 			installationDrive = gameDirectory.InstallationDrive;
 
-			Assert.IsNotNull(installationDrive);
+			installationDrive.Should().NotBeNull();
 		}
 
 		[Test]
@@ -123,14 +186,17 @@ namespace RetroGamesTests
 
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
 
-			Drive drive = new(playerInteraction);
-			GameDirectory gameDirectory = new(drive);
+			IFileSystem fileSystem = new FileSystem();
+
+			Drive drive = new(playerInteraction, fileSystem);
+
+			GameDirectory gameDirectory = new(drive, fileSystem);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
 			installationDriveExist = gameDirectory.IsInstallationDriveSelected;
 
-			Assert.IsTrue(installationDriveExist);
+			installationDriveExist.Should().BeTrue();
 		}
 	}
 }
