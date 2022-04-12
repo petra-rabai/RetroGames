@@ -3,10 +3,8 @@ using Moq;
 using NUnit.Framework;
 using RetroGames;
 using RetroGames.Games.DirectoryStructure;
-using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
 
 namespace RetroGamesTests
 {
@@ -17,15 +15,15 @@ namespace RetroGamesTests
 		{
 			char playerKey = '0';
 			int testAvailableDriveCount = 0;
-			
+
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
-			
-			Drive drive = new(playerInteraction.Object,fileSystem);
+
+			Drive drive = new(playerInteraction.Object, fileSystem);
 
 			drive.GetDriveList();
 
@@ -204,18 +202,18 @@ namespace RetroGamesTests
 				.Returns(() => { return playerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
-			
+
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
 			testAvailableDrives[0] = "C:\\";
 			testAvailableDrives[1] = "D:\\";
-			
+
 			drive.AvailableDrives = testAvailableDrives;
 			drive.DriveDecesion = playerKey;
 			drive.DriveList = testDriveList;
-			
+
 			drive.InstallationDriveSelectionSuccess();
-			
+
 			testDefaultDrive = drive.InstallationDrive;
 
 			testDefaultDrive.Should().NotBeEmpty();
@@ -258,7 +256,7 @@ namespace RetroGamesTests
 				}
 			}
 
-			testDefaultDrive = drive.CompareDisksSpace(testDriveCount, testAvailableFreeSpace,testDriveName);
+			testDefaultDrive = drive.CompareDisksSpace(testDriveCount, testAvailableFreeSpace, testDriveName);
 
 			testDefaultDrive.Should().NotBeEmpty();
 		}

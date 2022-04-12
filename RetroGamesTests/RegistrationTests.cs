@@ -25,7 +25,7 @@ namespace RetroGamesTests
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			IMainScreen mainScreen = new MainScreen(mainScreenUI);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			
+
 			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
 
 			Drive drive = new(playerInteraction, fileSystem.Object);

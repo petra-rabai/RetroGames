@@ -22,14 +22,13 @@ namespace RetroGamesTests
 			IGameMenu gameMenu = new GameMenu();
 			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
 			IMainScreen mainScreen = new MainScreen(mainScreenUI);
-			
+
 			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
 
 			Drive drive = new(playerInteraction, fileSystem.Object);
 
 			GameDirectory gameDirectory = new(drive, fileSystem.Object);
 			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
-			
 
 			Installation installation = new(gameFile, installationUI, mainScreen, drive);
 

@@ -27,6 +27,5 @@ namespace RetroGames
 		void GetDriveInfo();
 
 		string CompareDisksSpace(int driveCount, long[] availableFreeSpace, string[] driveName);
-
 	}
 }

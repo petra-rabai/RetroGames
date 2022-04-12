@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Abstractions;
 
 namespace RetroGames.Games.DirectoryStructure
@@ -9,6 +8,7 @@ namespace RetroGames.Games.DirectoryStructure
 	{
 		private IPlayerInteraction _playerInteraction;
 		private IFileSystem _fileSystem;
+
 		public Drive(IPlayerInteraction playerInteraction, IFileSystem fileSystem)
 		{
 			_playerInteraction = playerInteraction;
@@ -27,7 +27,7 @@ namespace RetroGames.Games.DirectoryStructure
 		public double[] FreeHddSpace { get; set; }
 
 		private string defaultDrive;
-		IDriveInfoFactory driveInfoFactory;
+		private IDriveInfoFactory driveInfoFactory;
 		private bool IsPlayerPressedKeySuccess;
 		private long[] availableFreeSpace;
 		private string[] driveName;
@@ -42,11 +42,12 @@ namespace RetroGames.Games.DirectoryStructure
 		private void FileSystemInit()
 		{
 			_fileSystem = new FileSystem();
-		} 
+		}
+
 		public void GetInstallationDrive(char playerHitKey)
 		{
 			FileSystemInit();
-			
+
 			GetDriveList();
 
 			CheckIsPlayerPressdKeySuccess(playerHitKey);
@@ -101,7 +102,7 @@ namespace RetroGames.Games.DirectoryStructure
 		public void GetDriveInfo()
 		{
 			driveInfoFactory = _fileSystem.DriveInfo;
-			
+
 			DriveInfo = driveInfoFactory.GetDrives();
 		}
 
@@ -124,11 +125,11 @@ namespace RetroGames.Games.DirectoryStructure
 		private string ChooseDefaultDrive()
 		{
 			GetAvilableFreeSpace(DriveInfo.Length);
-			
+
 			GetDriveName(DriveInfo.Length);
-			
-			CompareDisksSpace(DriveInfo.Length,availableFreeSpace, driveName);
-			
+
+			CompareDisksSpace(DriveInfo.Length, availableFreeSpace, driveName);
+
 			return defaultDrive;
 		}
 
@@ -140,7 +141,7 @@ namespace RetroGames.Games.DirectoryStructure
 			{
 				driveName[i] = DriveInfo[i].Name;
 			}
-			
+
 			return driveName;
 		}
 
@@ -152,7 +153,7 @@ namespace RetroGames.Games.DirectoryStructure
 			{
 				availableFreeSpace[i] = DriveInfo[i].AvailableFreeSpace / gBConverthelper;
 			}
-			
+
 			return availableFreeSpace;
 		}
 

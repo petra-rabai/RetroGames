@@ -7,6 +7,7 @@
 		string LogFilePath { get; set; }
 
 		bool CheckGameFilesCreated();
+
 		void CreateGameFiles();
 	}
 }

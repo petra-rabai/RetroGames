@@ -69,8 +69,7 @@ namespace RetroGamesTests
 
 			testGameFilesExist.Should().BeTrue();
 
-			mockFileSystem.Verify(fileSystem => fileSystem.File.Create(It.IsAny<String>()),Times.Never);
-
+			mockFileSystem.Verify(fileSystem => fileSystem.File.Create(It.IsAny<String>()), Times.Never);
 		}
 
 		[Test]
@@ -133,7 +132,6 @@ namespace RetroGamesTests
 			userFilePath.Should().NotBeNull();
 
 			mockFileSystem.Verify(fileSystem => fileSystem.File.Exists(It.IsAny<String>()));
-
 		}
 
 		[Test]

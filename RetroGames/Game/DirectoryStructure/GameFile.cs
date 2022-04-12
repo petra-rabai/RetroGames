@@ -1,5 +1,4 @@
 ﻿using RetroGames.Properties;
-using System.IO;
 using System.IO.Abstractions;
 
 namespace RetroGames.Games.DirectoryStructure
@@ -8,7 +7,7 @@ namespace RetroGames.Games.DirectoryStructure
 	{
 		private IGameDirectory _gameDirectory;
 		private IDrive _drive;
-		IFileSystem _fileSystem;
+		private IFileSystem _fileSystem;
 
 		public GameFile(IDrive drive, IGameDirectory gameDirectory, IFileSystem fileSystem)
 		{
@@ -64,7 +63,7 @@ namespace RetroGames.Games.DirectoryStructure
 		{
 			UserDirectoryPath = _gameDirectory.UserDirectoryPath;
 			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
-			
+
 			_fileSystem.File.Create(UserFilePath);
 
 			return UserFilePath;
