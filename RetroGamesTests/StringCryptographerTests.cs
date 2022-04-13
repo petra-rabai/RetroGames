@@ -18,7 +18,7 @@ namespace RetroGamesTests
 
 			StringCryptographer stringCryptographer = new();
 
-			stringCryptographer.Encrypt(plinText);
+			stringCryptographer.EncryptProcess(plinText);
 
 			testIsEncrypted = stringCryptographer.IsEncrypted;
 
@@ -36,10 +36,12 @@ namespace RetroGamesTests
 			bool testIsDecrypted;
 
 			StringCryptographer stringCryptographer = new();
+			string encryptedText;
+			stringCryptographer.EncryptProcess(plaintText);
 
-			string encryptedText = stringCryptographer.Encrypt(plaintText);
-
-			stringCryptographer.Decrypt(encryptedText);
+			encryptedText = stringCryptographer.EncryptResult;
+			
+			stringCryptographer.DecryptProcess(encryptedText);
 
 			testIsDecrypted = stringCryptographer.IsDecrypted;
 
@@ -51,11 +53,65 @@ namespace RetroGamesTests
 		public void EncryptDecryptTextIsEqual(string testPlaintext)
 		{
 			StringCryptographer stringCryptographer = new();
+			
+			stringCryptographer.EncryptProcess(testPlaintext);
+			
+			string testEncryptedText = stringCryptographer.EncryptResult;
 
-			string testEncryptedText = stringCryptographer.Encrypt(testPlaintext);
-			string testDecryptedText = stringCryptographer.Decrypt(testEncryptedText);
+			stringCryptographer.DecryptProcess(testEncryptedText);
+			
+			string testDecryptedText = stringCryptographer.DecryptResult;
 
 			testDecryptedText.Should().Be(testPlaintext);
+		}
+
+		[TestCase("")]
+		[Test]
+		public void CheckIsEncryptedFalse(string test)
+		{
+			StringCryptographer stringCryptographer = new();
+			bool testIsEncrypted;
+			
+			testIsEncrypted = stringCryptographer.CheckIsEncrypted(test);
+			
+			testIsEncrypted.Should().BeFalse();
+		}
+
+		[TestCase("'23455")]
+		[Test]
+		public void CheckIsEncryptedTrue(string test)
+		{
+			StringCryptographer stringCryptographer = new();
+			bool testIsEncrypted;
+
+			testIsEncrypted = stringCryptographer.CheckIsEncrypted(test);
+
+			testIsEncrypted.Should().BeTrue();
+		}
+
+
+		[TestCase("")]
+		[Test]
+		public void CheckIsDecryptedFalse(string test)
+		{
+			StringCryptographer stringCryptographer = new();
+			bool testIsDecrypted;
+
+			testIsDecrypted = stringCryptographer.CheckIsDecrypted(test);
+
+			testIsDecrypted.Should().BeFalse();
+		}
+
+		[TestCase("'23455")]
+		[Test]
+		public void CheckIsDecryptedTrue(string test)
+		{
+			StringCryptographer stringCryptographer = new();
+			bool testIsEncrypted;
+
+			testIsEncrypted = stringCryptographer.CheckIsDecrypted(test);
+
+			testIsEncrypted.Should().BeTrue();
 		}
 	}
 }

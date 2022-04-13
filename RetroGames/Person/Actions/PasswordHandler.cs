@@ -52,7 +52,9 @@
 
 		private bool CheckIsPasswordEncrypted(string password)
 		{
-			PlayerPassword = _stringCryptographer.Encrypt(password);
+			_stringCryptographer.EncryptProcess(password);
+
+			PlayerPassword = _stringCryptographer.EncryptResult;
 
 			if (_stringCryptographer.IsEncrypted)
 			{

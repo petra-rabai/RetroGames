@@ -47,7 +47,9 @@ namespace RetroGamesTests
 			registration.Name = "Test User";
 			registration.LoginName = "test1";
 			registration.Email = "test@test.com";
-			registration.Password = stringCryptographer.Encrypt("Rp!.19840716.!");
+			stringCryptographer.EncryptProcess("Rp!.19840716.!");
+			
+			registration.Password = stringCryptographer.EncryptResult;
 
 			registration.SaveDecesionCheck(testDecesion);
 

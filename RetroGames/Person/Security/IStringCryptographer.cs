@@ -4,9 +4,16 @@
 	{
 		bool IsDecrypted { get; set; }
 		bool IsEncrypted { get; set; }
+		string DecryptResult { get; set; }
+		string EncryptResult { get; set; }
 
-		string Decrypt(string encryptedText);
 
-		string Encrypt(string plaintext);
+		bool EncryptProcess(string plainText);
+
+		bool DecryptProcess(string encryptedText);
+
+		bool CheckIsDecrypted(string encryptedText);
+
+		bool CheckIsEncrypted(string encryptedText);
 	}
 }

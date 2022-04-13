@@ -45,7 +45,8 @@ namespace RetroGames.Person.Actions
 					}
 					else if (loginNode.ChildNodes.Item(i).Name == "Password")
 					{
-						LoginPassword = _stringCryptographer.Decrypt(loginNode.ChildNodes.Item(i).InnerText);
+						_stringCryptographer.DecryptProcess(loginNode.ChildNodes.Item(i).InnerText);
+						LoginPassword = _stringCryptographer.DecryptResult;
 					}
 				}
 			}

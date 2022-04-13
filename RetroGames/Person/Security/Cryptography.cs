@@ -11,12 +11,33 @@ namespace RetroGames.Person.Security
 		public bool IsEncrypted { get; set; }
 
 		public bool IsDecrypted { get; set; }
+		public string EncryptResult { get; set; } = "";
+		public string DecryptResult { get; set; } = "";
+		
+		private string encryptedtext = "";
+		private string decryptedtext = "";
 
-		public string Encrypt(string plaintext)
+		public bool EncryptProcess(string plainText)
+		{
+			Encrypt(plainText);
+			CheckIsEncrypted(EncryptResult);
+
+			return IsEncrypted;
+		}
+
+		public bool DecryptProcess(string encryptedText)
+		{
+			Decrypt(encryptedText);
+			CheckIsDecrypted(DecryptResult);
+
+			return IsDecrypted;
+		}
+
+		private string Encrypt(string plaintext)
 		{
 			string publickey = GameSettings.Default.CryptographyPublicKey;
 			string secretkey = GameSettings.Default.CryptographySecretKey;
-			string encryptedtext;
+			
 
 			byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
 			byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
@@ -28,18 +49,44 @@ namespace RetroGames.Person.Security
 
 			cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
 			cryptoStream.FlushFinalBlock();
-			encryptedtext = Convert.ToBase64String(memoryStream.ToArray());
+			EncryptResult = Convert.ToBase64String(memoryStream.ToArray());
 
-			IsEncrypted = true;
-
-			return encryptedtext;
+			return EncryptResult;
 		}
 
-		public string Decrypt(string encryptedText)
+		public bool CheckIsEncrypted(string encryptedText)
+		{
+			if (encryptedText != "")
+			{
+				IsEncrypted = true;
+			}
+			else
+			{
+				IsEncrypted = false;
+			}
+
+			return IsEncrypted;
+		}
+
+		public bool CheckIsDecrypted(string decryptedText)
+		{
+			if (decryptedText != "")
+			{
+				IsDecrypted = true;
+			}
+			else
+			{
+				IsDecrypted = false;
+			}
+
+			return IsDecrypted;
+		}
+
+		private string Decrypt(string encryptedText)
 		{
 			string publickey = GameSettings.Default.CryptographyPublicKey;
 			string secretkey = GameSettings.Default.CryptographySecretKey;
-			string decryptedtext = "";
+			
 			byte[] privatekeyByte = { };
 			privatekeyByte = Encoding.UTF8.GetBytes(secretkey);
 			byte[] publickeybyte = { };
@@ -54,11 +101,9 @@ namespace RetroGames.Person.Security
 			cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
 			cryptoStream.FlushFinalBlock();
 			Encoding encoding = Encoding.UTF8;
-			decryptedtext = encoding.GetString(memoryStream.ToArray());
+			DecryptResult = encoding.GetString(memoryStream.ToArray());
 
-			IsDecrypted = true;
-
-			return decryptedtext;
+			return DecryptResult;
 		}
 	}
 }

@@ -38,21 +38,31 @@ namespace RetroGamesTests
 		{
 			string testPassword = "Rp!x123592";
 			bool isPasswordHandlingFailed;
+			bool mockValidation = false;
 
-			Mock<IPasswordValidator> mockPasswordValidator = new();
+			Mock<IPasswordValidator> mockPasswordValidator = new(MockBehavior.Strict);
 			mockPasswordValidator
-				.Setup(mockSetup => mockSetup.IsPasswordValid)
-				.Returns(false);
-			
-			Mock<IStringCryptographer> mockStringCryptographer = new();
+				.Setup(mockSetup => mockSetup.ValidatePassword(testPassword))
+				.Returns(() => { return mockValidation; });
+
+			Mock<IStringCryptographer> mockStringCryptographer = new(MockBehavior.Strict);
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.EncryptProcess(testPassword))
+				.Returns(() => { return mockValidation; });
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.CheckIsEncrypted(testPassword))
+				.Returns(() => { return mockValidation; });
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.EncryptResult)
+				.Returns(() => { return testPassword; });
 			mockStringCryptographer
 				.Setup(mockSetup => mockSetup.IsEncrypted)
-				.Returns(false);
+				.Returns(() => { return mockValidation; });
 
 			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
 			mockPassword
 				.Setup(mockSetup => mockSetup.GetPlayerPassword())
-				.Returns(testPassword);
+				.Returns(() => { return testPassword; });
 
 			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
 			
@@ -61,6 +71,47 @@ namespace RetroGamesTests
 			isPasswordHandlingFailed = passwordHandler.PasswordHandlingSuccess;
 
 			isPasswordHandlingFailed.Should().BeFalse();
+
+		}
+
+		[Test]
+		public void CheckIsPasswordHandlingTrue()
+		{
+			string testPassword = "Rp!x123592";
+			bool isPasswordHandlingTrue;
+			bool mockValidation = true;
+
+			Mock<IPasswordValidator> mockPasswordValidator = new(MockBehavior.Strict);
+			mockPasswordValidator
+				.Setup(mockSetup => mockSetup.ValidatePassword(testPassword))
+				.Returns(() => { return mockValidation; });
+
+			Mock<IStringCryptographer> mockStringCryptographer = new(MockBehavior.Strict);
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.EncryptProcess(testPassword))
+				.Returns(() => { return mockValidation; });
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.CheckIsEncrypted(testPassword))
+				.Returns(() => { return mockValidation; });
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.EncryptResult)
+				.Returns(() => { return testPassword; });
+			mockStringCryptographer
+				.Setup(mockSetup => mockSetup.IsEncrypted)
+				.Returns(() => { return mockValidation; });
+
+			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
+			mockPassword
+				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Returns(() => { return testPassword; });
+
+			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
+
+			passwordHandler.CheckPasswordHandling(testPassword);
+
+			isPasswordHandlingTrue = passwordHandler.PasswordHandlingSuccess;
+
+			isPasswordHandlingTrue.Should().BeTrue();
 
 		}
 	}
