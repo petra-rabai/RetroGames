@@ -5,10 +5,10 @@ namespace RetroGames.Games.Actions
 {
 	public class GameMenuNavigation : IGameMenuNavigation
 	{
-		private IPlayerInteraction _playerInteraction;
-		private IRegistration _registration;
-		private IGameMenu _gameMenu;
-		private IInstallation _installation;
+		private readonly IPlayerInteraction _playerInteraction;
+		private readonly IRegistration _registration;
+		private readonly IGameMenu _gameMenu;
+		private readonly IInstallation _installation;
 
 		public GameMenuNavigation(IPlayerInteraction playerInteraction,
 							IRegistration registration,

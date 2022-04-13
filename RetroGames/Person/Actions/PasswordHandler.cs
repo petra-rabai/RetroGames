@@ -2,14 +2,14 @@
 {
 	public class PasswordHandler : IPasswordHandler
 	{
-		private IPassword _password;
-		private IPasswordValidator _passwordValidation;
-		private IStringCryptographer _stringCryptographer;
+		private readonly IPassword _password;
+		private readonly IPasswordValidator _passwordValidator;
+		private readonly IStringCryptographer _stringCryptographer;
 
-		public PasswordHandler(IPassword password, IPasswordValidator passwordValidation, IStringCryptographer stringCryptographer)
+		public PasswordHandler(IPassword password, IPasswordValidator passwordValidator, IStringCryptographer stringCryptographer)
 		{
 			_password = password;
-			_passwordValidation = passwordValidation;
+			_passwordValidator = passwordValidator;
 			_stringCryptographer = stringCryptographer;
 		}
 
@@ -45,7 +45,7 @@
 
 		private bool CheckIsPasswordValid(string password)
 		{
-			IsPasswordValid = _passwordValidation.ValidatePassword(password);
+			IsPasswordValid = _passwordValidator.ValidatePassword(password);
 
 			return IsPasswordValid;
 		}

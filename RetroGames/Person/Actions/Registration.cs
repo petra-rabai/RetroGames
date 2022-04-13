@@ -6,12 +6,12 @@ namespace RetroGames.Person.Actions
 {
 	public class Registration : IRegistration
 	{
-		private IRegistrationUI _registrationUI;
-		private IInstallation _installation;
-		private IUser _user;
-		private IEmail _email;
-		private IPasswordHandler _passwordHandler;
-		private IPlayerInteraction _playerInteraction;
+		private readonly IRegistrationUI _registrationUI;
+		private readonly IInstallation _installation;
+		private readonly IUser _user;
+		private readonly IEmail _email;
+		private readonly IPasswordHandler _passwordHandler;
+		private readonly IPlayerInteraction _playerInteraction;
 
 		public Registration(IRegistrationUI registrationUI,
 					  IInstallation installation,

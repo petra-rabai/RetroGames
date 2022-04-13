@@ -5,9 +5,9 @@ namespace RetroGames.Games.DirectoryStructure
 {
 	public class GameFile : IGameFile
 	{
-		private IGameDirectory _gameDirectory;
-		private IDrive _drive;
-		private IFileSystem _fileSystem;
+		private readonly IGameDirectory _gameDirectory;
+		private readonly IDrive _drive;
+		private readonly IFileSystem _fileSystem;
 
 		public GameFile(IDrive drive, IGameDirectory gameDirectory, IFileSystem fileSystem)
 		{
@@ -27,6 +27,7 @@ namespace RetroGames.Games.DirectoryStructure
 		public bool CheckGameFilesCreated()
 		{
 			_drive.GetInstallationDrive(' ');
+
 			UserFilePath = _drive.InstallationDrive + GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
 			LogFilePath = _drive.InstallationDrive + GameSettings.Default.LogDirectory + GameSettings.Default.LogFile;
 			GameFilePath = _drive.InstallationDrive + GameSettings.Default.GameDirectory + GameSettings.Default.GameFile;
@@ -46,22 +47,27 @@ namespace RetroGames.Games.DirectoryStructure
 		public void CreateGameFiles()
 		{
 			CreateGameFile();
+
 			CreateUserFile();
+			
 			CreateLogFile();
 		}
 
 		private string CreateGameFile()
 		{
 			GameDirectoryPath = _gameDirectory.GameDirectoryPath;
+			
 			GameFilePath = GameDirectoryPath + GameSettings.Default.GameFile;
 
 			_fileSystem.File.Create(GameFilePath);
+			
 			return GameFilePath;
 		}
 
 		private string CreateUserFile()
 		{
 			UserDirectoryPath = _gameDirectory.UserDirectoryPath;
+			
 			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
 
 			_fileSystem.File.Create(UserFilePath);
@@ -72,6 +78,7 @@ namespace RetroGames.Games.DirectoryStructure
 		private string CreateLogFile()
 		{
 			LogDirectoryPath = _gameDirectory.LogDirectoryPath;
+			
 			LogFilePath = LogDirectoryPath + GameSettings.Default.LogFile;
 
 			_fileSystem.File.Create(LogFilePath);

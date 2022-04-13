@@ -3,7 +3,7 @@ using RetroGames.Person.Security;
 
 namespace RetroGamesTests
 {
-	public class PasswordValidationTests
+	public class PasswordValidatorTests
 	{
 		[TestCase("Rp!.1984xxR")]
 		[Test]
@@ -11,11 +11,11 @@ namespace RetroGamesTests
 		{
 			bool passwordValid;
 
-			PasswordValidator passwordValidation = new PasswordValidator();
+			PasswordValidator passwordValidator = new PasswordValidator();
 
-			passwordValidation.ValidatePassword(testPassword);
+			passwordValidator.ValidatePassword(testPassword);
 
-			passwordValid = passwordValidation.IsPasswordValid;
+			passwordValid = passwordValidator.IsPasswordValid;
 
 			Assert.IsTrue(passwordValid);
 		}

@@ -6,7 +6,7 @@ namespace RetroGames.Games.DirectoryStructure
 {
 	public class Drive : IDrive
 	{
-		private IPlayerInteraction _playerInteraction;
+		private readonly IPlayerInteraction _playerInteraction;
 		private IFileSystem _fileSystem;
 
 		public Drive(IPlayerInteraction playerInteraction, IFileSystem fileSystem)
@@ -51,12 +51,14 @@ namespace RetroGames.Games.DirectoryStructure
 			GetDriveList();
 
 			CheckIsPlayerPressdKeySuccess(playerHitKey);
+			
 			SelectInstallationDrive(IsPlayerPressedKeySuccess, playerHitKey);
 		}
 
 		public Dictionary<int, string> GetDriveList()
 		{
 			GetDriveInfo();
+			
 			CollectDrives();
 
 			return DriveList;
@@ -72,6 +74,7 @@ namespace RetroGames.Games.DirectoryStructure
 			{
 				IsPlayerPressedKeySuccess = false;
 			}
+
 			return IsPlayerPressedKeySuccess;
 		}
 
@@ -80,12 +83,15 @@ namespace RetroGames.Games.DirectoryStructure
 			if (hitKeySuccess)
 			{
 				ChooseDefaultDrive();
+
 				GetDriveDecesionFromPlayer(playerHitKey);
+
 				InstallationDriveSelectionSuccess();
 			}
 			else
 			{
 				ChooseDefaultDrive();
+				
 				InstallationDrive = defaultDrive;
 			}
 

@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using FluentAssertions;
 using RetroGames;
 using RetroGames.Games;
 using RetroGames.Games.Actions;
@@ -17,26 +18,15 @@ namespace RetroGamesTests
 		{
 			bool isInstallationSuccess;
 
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			IInstallationUI installationUI = new InstallationUI();
-			IGameMenu gameMenu = new GameMenu();
-			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
-			IMainScreen mainScreen = new MainScreen(mainScreenUI);
-
-			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
-
-			Drive drive = new(playerInteraction, fileSystem.Object);
-
-			GameDirectory gameDirectory = new(drive, fileSystem.Object);
-			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
-
-			Installation installation = new(gameFile, installationUI, mainScreen, drive);
-
-			installation.CheckInstallationSuccess();
-
-			isInstallationSuccess = installation.IsInstallationSuccess;
-
-			Assert.IsTrue(isInstallationSuccess);
+			int mockDrivelistKey = 0;
+			string mockDrivelistName = "C:\\";
+			Mock<IInstallationUI> mockInstallationUI = new();
+			mockInstallationUI
+				.Setup(mockSetup => mockSetup.InstallationUIInitialize())
+				.Verifiable();
+			mockInstallationUI
+				.Setup(mockSetup => mockSetup.DrivelistUI(mockDrivelistKey, mockDrivelistName))
+				.Verifiable();
 		}
 	}
 }
