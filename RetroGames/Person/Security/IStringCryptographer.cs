@@ -7,7 +7,6 @@
 		string DecryptResult { get; set; }
 		string EncryptResult { get; set; }
 
-
 		bool EncryptProcess(string plainText);
 
 		bool DecryptProcess(string encryptedText);

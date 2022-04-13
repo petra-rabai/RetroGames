@@ -1,18 +1,14 @@
-﻿using NUnit.Framework;
-using RetroGames;
-using RetroGames.Person.Actions;
-using RetroGames.Person.Data;
-using RetroGames.Person.Security;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
-using System.Security;
+using NUnit.Framework;
+using RetroGames;
 using System.Net;
+using System.Security;
 
 namespace RetroGamesTests
 {
 	public class PasswordTests
 	{
-		
 		[Test]
 		public void GetPlayerPasswordSuccess()
 		{
@@ -24,14 +20,14 @@ namespace RetroGamesTests
 				.Returns(() => { return testSecureString; });
 
 			IPassword password = mockPassword.Object;
-			
+
 			password.GetPlayerPassword();
 
 			testPassword = password.PlayerPassword;
 
 			testPassword.Should().NotBeEmpty();
 		}
-		
+
 		//[TestCase("Rp!.12846ee")]
 		//[Test]
 		//public void CheckIsPasswordValid(string testPassword)

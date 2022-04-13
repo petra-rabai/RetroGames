@@ -13,7 +13,7 @@ namespace RetroGames.Person.Security
 		public bool IsDecrypted { get; set; }
 		public string EncryptResult { get; set; } = "";
 		public string DecryptResult { get; set; } = "";
-		
+
 		private string encryptedtext = "";
 		private string decryptedtext = "";
 
@@ -37,7 +37,6 @@ namespace RetroGames.Person.Security
 		{
 			string publickey = GameSettings.Default.CryptographyPublicKey;
 			string secretkey = GameSettings.Default.CryptographySecretKey;
-			
 
 			byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
 			byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
@@ -86,7 +85,7 @@ namespace RetroGames.Person.Security
 		{
 			string publickey = GameSettings.Default.CryptographyPublicKey;
 			string secretkey = GameSettings.Default.CryptographySecretKey;
-			
+
 			byte[] privatekeyByte = { };
 			privatekeyByte = Encoding.UTF8.GetBytes(secretkey);
 			byte[] publickeybyte = { };

@@ -13,7 +13,7 @@ namespace RetroGamesTests
 		public void CheckGetPlayerKeySuccess()
 		{
 			string testpassword = "Rp!x123592";
-			
+
 			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
 			mockPassword
 				.Setup(mockSetup => mockSetup.GetPlayerPassword())
@@ -22,7 +22,7 @@ namespace RetroGamesTests
 			IPasswordValidator passwordValidator = new PasswordValidator();
 			IStringCryptographer stringCryptographer = new StringCryptographer();
 
-			PasswordHandler passwordHandler = new(mockPassword.Object, passwordValidator,stringCryptographer);
+			PasswordHandler passwordHandler = new(mockPassword.Object, passwordValidator, stringCryptographer);
 
 			passwordHandler.GetPlayerPassword();
 
@@ -65,13 +65,12 @@ namespace RetroGamesTests
 				.Returns(() => { return testPassword; });
 
 			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
-			
+
 			passwordHandler.CheckPasswordHandling(testPassword);
 
 			isPasswordHandlingFailed = passwordHandler.PasswordHandlingSuccess;
 
 			isPasswordHandlingFailed.Should().BeFalse();
-
 		}
 
 		[Test]
@@ -112,7 +111,6 @@ namespace RetroGamesTests
 			isPasswordHandlingTrue = passwordHandler.PasswordHandlingSuccess;
 
 			isPasswordHandlingTrue.Should().BeTrue();
-
 		}
 	}
 }

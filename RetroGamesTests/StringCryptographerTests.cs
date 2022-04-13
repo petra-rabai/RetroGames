@@ -40,7 +40,7 @@ namespace RetroGamesTests
 			stringCryptographer.EncryptProcess(plaintText);
 
 			encryptedText = stringCryptographer.EncryptResult;
-			
+
 			stringCryptographer.DecryptProcess(encryptedText);
 
 			testIsDecrypted = stringCryptographer.IsDecrypted;
@@ -53,13 +53,13 @@ namespace RetroGamesTests
 		public void EncryptDecryptTextIsEqual(string testPlaintext)
 		{
 			StringCryptographer stringCryptographer = new();
-			
+
 			stringCryptographer.EncryptProcess(testPlaintext);
-			
+
 			string testEncryptedText = stringCryptographer.EncryptResult;
 
 			stringCryptographer.DecryptProcess(testEncryptedText);
-			
+
 			string testDecryptedText = stringCryptographer.DecryptResult;
 
 			testDecryptedText.Should().Be(testPlaintext);
@@ -71,9 +71,9 @@ namespace RetroGamesTests
 		{
 			StringCryptographer stringCryptographer = new();
 			bool testIsEncrypted;
-			
+
 			testIsEncrypted = stringCryptographer.CheckIsEncrypted(test);
-			
+
 			testIsEncrypted.Should().BeFalse();
 		}
 
@@ -88,7 +88,6 @@ namespace RetroGamesTests
 
 			testIsEncrypted.Should().BeTrue();
 		}
-
 
 		[TestCase("")]
 		[Test]
