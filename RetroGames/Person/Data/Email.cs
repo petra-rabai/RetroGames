@@ -4,18 +4,21 @@ namespace RetroGames.Person.Data
 {
 	public class Email : IEmail
 	{
-		private IEmailValidator _emailValidator;
+		private readonly IEmailValidator _emailValidator;
+		private readonly IPlayerInteraction _playerInteraction;
 
-		public Email(IEmailValidator emailValidation)
+		
+		public Email(IEmailValidator emailValidation, IPlayerInteraction playerInteraction)
 		{
 			_emailValidator = emailValidation;
+			_playerInteraction = playerInteraction;
 		}
 
 		public string PlayerEmail { get; set; } = "";
 
 		public string GetPlayerEmail()
 		{
-			string email = Console.ReadLine();
+			string email = _playerInteraction.GetPlayerEmailFromConsole();
 
 			_emailValidator.ValidateEmail(email);
 

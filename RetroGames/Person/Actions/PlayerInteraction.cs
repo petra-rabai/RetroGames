@@ -6,6 +6,10 @@ namespace RetroGames.Person.Actions
 	public class PlayerInteraction : IPlayerInteraction
 	{
 		public char PressedKey { get; set; }
+		public string Email { get; set; }
+		public string FirstName { get; set; } = "";
+		public string LastName { get; set; } = "";
+		public string LoginName { get; set; } = "";
 
 		public char GetPlayerKeyFromConsole()
 		{
@@ -28,6 +32,43 @@ namespace RetroGames.Person.Actions
 				PressedKey = Char.Parse(hitkey.Key.ToString());
 			}
 			return PressedKey;
+		}
+
+		public string GetPlayerEmailFromConsole()
+		{
+			string email = Console.ReadLine();
+
+			Email = email.Trim();
+
+			return Email;
+		}
+
+		public string GetPlayerFirstNameFromConsole()
+		{
+			string firstName = Console.ReadLine();
+
+			FirstName = firstName.Trim();
+
+			return FirstName;
+		}
+
+		public string GetPlayerLastNameFromConsole()
+		{
+			string lastName = Console.ReadLine();
+
+			LastName = lastName.Trim();
+
+			return LastName;
+		}
+
+		public string GetPlayerLoginNameFromConsole()
+		{
+			string loginName = Console.ReadLine();
+
+			LoginName = loginName.Trim();
+
+			return LoginName;
+			
 		}
 	}
 }

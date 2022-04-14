@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using FluentAssertions;
 using RetroGames;
 using RetroGames.Games;
 using RetroGames.Games.Actions;
@@ -14,6 +15,73 @@ namespace RetroGamesTests
 {
 	public class RegistrationTests
 	{
+
+		[Test]
+		public void CheckUserRegistrationFormInitialize()
+		{
+			string Email = "test@test.com";
+			string Password = "RpT1x46!x";
+			string firstName = "Test";
+			string lastName = "Last";
+			string loginName = "loginName";
+			bool mockIsPasswordHandling = true;
+			bool mockInstallationSuccess = true;
+			Mock<IRegistrationUI> mockRegistrationUI = new();
+			mockRegistrationUI
+				.Setup(mockSetup => mockSetup.FormTitle())
+				.Verifiable();
+			mockRegistrationUI
+				.Setup(mockSetup => mockSetup.FormFirstName())
+				.Verifiable();
+			mockRegistrationUI
+				.Setup(mockSetup => mockSetup.FormLastName())
+				.Verifiable();
+			mockRegistrationUI
+				.Setup(mockSetup => mockSetup.FormLoginName())
+				.Verifiable();
+			mockRegistrationUI
+				.Setup(mockSetup => mockSetup.FormPassword())
+				.Verifiable();
+			mockRegistrationUI
+				.Setup(mockSetup => mockSetup.FormEmail())
+				.Verifiable();
+			Mock<IEmail> mockEmail = new();
+			mockEmail
+				.Setup(mockSetup => mockSetup.GetPlayerEmail())
+				.Returns(() => { return Email; });
+			Mock<IPasswordHandler> mockPasswordHandler = new();
+			mockPasswordHandler
+				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Returns(() => { return Password; });
+			mockPasswordHandler
+				.Setup(mockSetup => mockSetup.CheckPasswordHandling(Password))
+				.Returns(() => { return mockIsPasswordHandling; });
+			Mock<IUser> mockUser = new();
+			mockUser
+				.Setup(mockSetup => mockSetup.FirstName)
+				.Returns(firstName);
+			mockUser
+				.Setup(mockSetup => mockSetup.LastName)
+				.Returns(lastName);
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerLoginName())
+				.Returns(() => { return loginName; });
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerLastName())
+				.Returns(() => { return lastName; });
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerFirstName())
+				.Returns(() => { return firstName; });
+
+			Mock<IInstallation> mockInstallation = new();
+			mockInstallation
+				.Setup(mockSetup => mockSetup.CheckInstallationSuccess())
+				.Returns(() => { return mockInstallationSuccess; });
+
+
+		}
+
+
 		[TestCase('Y')]
 		[TestCase('N')]
 		[Test]
@@ -32,10 +100,10 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, fileSystem.Object);
 			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
-			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
-			IUser user = new User();
+			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive,playerInteraction);
+			IUser user = new User(playerInteraction);
 			IEmailValidator emailValidator = new EmailValidator();
-			IEmail email = new Email(emailValidator);
+			IEmail email = new Email(emailValidator, playerInteraction);
 			IPassword password = new Password();
 			IPasswordValidator passwordValidator = new PasswordValidator();
 			IStringCryptographer IstringCryptographer = new StringCryptographer();
@@ -73,10 +141,10 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, fileSystem.Object);
 			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
-			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive);
-			IUser user = new User();
+			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive,playerInteraction);
+			IUser user = new User(playerInteraction);
 			IEmailValidator emailValidator = new EmailValidator();
-			IEmail email = new Email(emailValidator);
+			IEmail email = new Email(emailValidator, playerInteraction);
 			IPassword password = new Password();
 			IPasswordValidator passwordValidator = new PasswordValidator();
 			IStringCryptographer IstringCryptographer = new StringCryptographer();

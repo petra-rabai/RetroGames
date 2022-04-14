@@ -13,13 +13,13 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckAvailableDriveCountNotZero()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			int testAvailableDriveCount = 0;
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -35,13 +35,13 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckAvailableDriveLoadingSuccess()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			string[] testAvailableDrives;
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -56,13 +56,13 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckDriveListCountNotZero()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			int testDriveListCount = 0;
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -78,13 +78,13 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckDriveListLoadingSuccess()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			Dictionary<int, string> testDriveList = new Dictionary<int, string>();
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -100,12 +100,12 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckInstallationDriveNotNull(char testKey)
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			string testInstallationDrive = "";
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -121,19 +121,19 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckIsInstallationDriveTrue()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			bool testIsInstallationDriveTrue = false;
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
 			drive.GetDriveList();
-			drive.DriveDecesion = playerKey;
+			drive.DriveDecesion = mockPlayerKey;
 			testIsInstallationDriveTrue = drive.InstallationDriveSelectionSuccess();
 
 			testIsInstallationDriveTrue.Should().BeTrue();
@@ -143,18 +143,18 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckIsInstallationDriveSuccess(bool testIsInstallationDrive)
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
 			drive.GetDriveList();
-			drive.DriveDecesion = playerKey;
+			drive.DriveDecesion = mockPlayerKey;
 			drive.InstallationDriveSelectionSuccess();
 
 			testIsInstallationDrive.Should().Be(drive.IsInstallationDriveSelected);
@@ -163,14 +163,14 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckInstallationDriveEqualTheDefaultDrive()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			string[] testAvailableDrives = new string[1];
 			string testDefaultDrive = "";
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -188,7 +188,7 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckInstallationDriveNotEqualTheDefaultDrive()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			string[] testAvailableDrives = new string[2];
 			string testDefaultDrive = "";
 			Dictionary<int, string> testDriveList = new()
@@ -199,7 +199,7 @@ namespace RetroGamesTests
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -209,7 +209,7 @@ namespace RetroGamesTests
 			testAvailableDrives[1] = "D:\\";
 
 			drive.AvailableDrives = testAvailableDrives;
-			drive.DriveDecesion = playerKey;
+			drive.DriveDecesion = mockPlayerKey;
 			drive.DriveList = testDriveList;
 
 			drive.InstallationDriveSelectionSuccess();
@@ -224,14 +224,14 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckCompareDiskSpace(int testDriveCount)
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			long[] testAvailableFreeSpace;
 			string[] testDriveName;
 			string testDefaultDrive = "";
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -264,18 +264,18 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckDriveDecesionNotNull()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			char testDriveDecesion = ' ';
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
-			testDriveDecesion = drive.GetDriveDecesionFromPlayer(playerKey);
+			testDriveDecesion = drive.GetDriveDecesionFromPlayer(mockPlayerKey);
 
 			testDriveDecesion.Should().NotBeNull();
 		}
@@ -283,18 +283,18 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckDriveDecesionSuccess()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			char testDriveDecesion = ' ';
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
-			testDriveDecesion = drive.GetDriveDecesionFromPlayer(playerKey);
+			testDriveDecesion = drive.GetDriveDecesionFromPlayer(mockPlayerKey);
 
 			testDriveDecesion.Should().Be(drive.DriveDecesion);
 		}
@@ -302,12 +302,12 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckPlayerKeyNotNull()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			char testPlayerPressedKey = ' ';
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 
@@ -323,12 +323,12 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckGetPlayerKeySuccess()
 		{
-			char playerKey = '0';
+			char mockPlayerKey = '0';
 			char testPlayerKey = ' ';
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return playerKey; });
+				.Returns(() => { return mockPlayerKey; });
 
 			IFileSystem fileSystem = new FileSystem();
 

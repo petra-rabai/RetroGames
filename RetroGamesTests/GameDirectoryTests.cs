@@ -41,6 +41,7 @@ namespace RetroGamesTests
 			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.AtLeastOnce);
 		}
 
+		[Test]
 		public void CheckIsGameDriectoryExist()
 		{
 			bool directoriesExist;
@@ -66,7 +67,7 @@ namespace RetroGamesTests
 
 			directoriesExist.Should().BeTrue();
 
-			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.AtLeastOnce);
+			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.Never);
 		}
 
 		[Test]
