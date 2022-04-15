@@ -1,7 +1,5 @@
 ﻿using Moq;
 using NUnit.Framework;
-using FluentAssertions;
-using RetroGames;
 using RetroGames.Person.Actions;
 using RetroGames.Person.Data;
 using RetroGames.Person.Security;
@@ -19,42 +17,42 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckUserRegistrationFormInitialize()
 		{
-			string Email = "test@test.com";
-			string Password = "RpT1x46!x";
+			string email = "test@test.com";
+			string password = "RpT1x46!x";
 			string firstName = "Test";
 			string lastName = "Last";
 			string loginName = "loginName";
 			bool mockIsPasswordHandling = true;
 			bool mockInstallationSuccess = true;
-			Mock<IRegistrationUI> mockRegistrationUI = new();
-			mockRegistrationUI
+			Mock<IRegistrationUi> mockRegistrationUi = new();
+			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormTitle())
 				.Verifiable();
-			mockRegistrationUI
+			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormFirstName())
 				.Verifiable();
-			mockRegistrationUI
+			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormLastName())
 				.Verifiable();
-			mockRegistrationUI
+			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormLoginName())
 				.Verifiable();
-			mockRegistrationUI
+			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormPassword())
 				.Verifiable();
-			mockRegistrationUI
+			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormEmail())
 				.Verifiable();
 			Mock<IEmail> mockEmail = new();
 			mockEmail
 				.Setup(mockSetup => mockSetup.GetPlayerEmail())
-				.Returns(() => { return Email; });
+				.Returns(() => { return email; });
 			Mock<IPasswordHandler> mockPasswordHandler = new();
 			mockPasswordHandler
 				.Setup(mockSetup => mockSetup.GetPlayerPassword())
-				.Returns(() => { return Password; });
+				.Returns(() => { return password; });
 			mockPasswordHandler
-				.Setup(mockSetup => mockSetup.CheckPasswordHandling(Password))
+				.Setup(mockSetup => mockSetup.CheckPasswordHandling(password))
 				.Returns(() => { return mockIsPasswordHandling; });
 			Mock<IUser> mockUser = new();
 			mockUser
@@ -87,11 +85,11 @@ namespace RetroGamesTests
 		[Test]
 		public void SaveDecesionCheckSuccess(char testDecesion)
 		{
-			IRegistrationUI registrationUI = new RegistrationUI();
-			IInstallationUI installationUI = new InstallationUI();
+			IRegistrationUi registrationUi = new RegistrationUi();
+			IInstallationUi installationUi = new InstallationUi();
 			IGameMenu gameMenu = new GameMenu();
-			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
-			IMainScreen mainScreen = new MainScreen(mainScreenUI);
+			IMainScreenUi mainScreenUi = new MainScreenUi(gameMenu);
+			IMainScreen mainScreen = new MainScreen(mainScreenUi);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
 
 			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
@@ -99,18 +97,18 @@ namespace RetroGamesTests
 			Drive drive = new(playerInteraction, fileSystem.Object);
 
 			GameDirectory gameDirectory = new(drive, fileSystem.Object);
-			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
-			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive,playerInteraction);
+			GameFile gameFile = new(drive, gameDirectory, fileSystem.Object);
+			IInstallation installation = new Installation(gameFile, installationUi, mainScreen, drive,playerInteraction);
 			IUser user = new User(playerInteraction);
 			IEmailValidator emailValidator = new EmailValidator();
 			IEmail email = new Email(emailValidator, playerInteraction);
 			IPassword password = new Password();
 			IPasswordValidator passwordValidator = new PasswordValidator();
-			IStringCryptographer IstringCryptographer = new StringCryptographer();
-			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, IstringCryptographer);
+			IStringCryptographer istringCryptographer = new StringCryptographer();
+			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, istringCryptographer);
 
-			Registration registration = new Registration(registrationUI, installation, user, email, playerInteraction, passwordHandler);
-			StringCryptographer stringCryptographer = new StringCryptographer();
+			Registration registration = new(registrationUi, installation, user, email, playerInteraction, passwordHandler);
+			StringCryptographer stringCryptographer = new();
 
 			registration.Name = "Test User";
 			registration.LoginName = "test1";
@@ -129,28 +127,28 @@ namespace RetroGamesTests
 		[Test]
 		public void IsUserRegisteredSuccess(bool registred)
 		{
-			IRegistrationUI registrationUI = new RegistrationUI();
-			IInstallationUI installationUI = new InstallationUI();
+			IRegistrationUi registrationUi = new RegistrationUi();
+			IInstallationUi installationUi = new InstallationUi();
 			IGameMenu gameMenu = new GameMenu();
-			IMainScreenUI mainScreenUI = new MainScreenUI(gameMenu);
-			IMainScreen mainScreen = new MainScreen(mainScreenUI);
+			IMainScreenUi mainScreenUi = new MainScreenUi(gameMenu);
+			IMainScreen mainScreen = new MainScreen(mainScreenUi);
 			IPlayerInteraction playerInteraction = new PlayerInteraction();
 			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
 
 			Drive drive = new(playerInteraction, fileSystem.Object);
 
 			GameDirectory gameDirectory = new(drive, fileSystem.Object);
-			GameFile gameFile = new GameFile(drive, gameDirectory, fileSystem.Object);
-			IInstallation installation = new Installation(gameFile, installationUI, mainScreen, drive,playerInteraction);
+			GameFile gameFile = new(drive, gameDirectory, fileSystem.Object);
+			IInstallation installation = new Installation(gameFile, installationUi, mainScreen, drive,playerInteraction);
 			IUser user = new User(playerInteraction);
 			IEmailValidator emailValidator = new EmailValidator();
 			IEmail email = new Email(emailValidator, playerInteraction);
 			IPassword password = new Password();
 			IPasswordValidator passwordValidator = new PasswordValidator();
-			IStringCryptographer IstringCryptographer = new StringCryptographer();
-			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, IstringCryptographer);
+			IStringCryptographer istringCryptographer = new StringCryptographer();
+			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, istringCryptographer);
 
-			Registration registration = new Registration(registrationUI, installation, user, email, playerInteraction, passwordHandler);
+			Registration registration = new(registrationUi, installation, user, email, playerInteraction, passwordHandler);
 
 			registration.IsUserRegistered(registred);
 

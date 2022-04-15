@@ -23,7 +23,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 		public bool CheckGameDirectoriesExist()
 		{
-			GetInstallationDrive();
+			InstallationDrive = GetInstallationDrive();
 
 			GameDirectoryPath = InstallationDrive + GameSettings.Default.GameDirectory;
 			UserDirectoryPath = InstallationDrive + GameSettings.Default.UserDirectory;
@@ -56,11 +56,11 @@ namespace RetroGames.Game.DirectoryStructure
 
 		public void CreateGameDirectories()
 		{
-			CreateGameDirectory();
+			GameDirectoryPath = CreateGameDirectory();
 
-			CreateUserDirectory();
-			
-			CreateLogDirectory();
+			UserDirectoryPath = CreateUserDirectory();
+
+			LogDirectoryPath = CreateLogDirectory();
 		}
 
 		private string CreateGameDirectory()

@@ -5,10 +5,10 @@ namespace RetroGames
 {
 	internal class Program
 	{
-		private static void Main(string[] args)
+		private static void Main()
 		{
-			IContainer iOCContainer = ContainerConfig.Configure();
-			ILifetimeScope scope = iOCContainer.BeginLifetimeScope();
+			IContainer iOcContainer = ContainerConfig.Configure();
+			ILifetimeScope scope = iOcContainer.BeginLifetimeScope();
 
 			IApplication application = scope.Resolve<IApplication>();
 

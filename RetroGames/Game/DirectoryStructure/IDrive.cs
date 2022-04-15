@@ -22,7 +22,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 		bool InstallationDriveSelectionSuccess();
 
-		char GetDriveDecesionFromPlayer(char playerHitKey);
+		char GetDriveDecisionFromPlayer(char playerHitKey);
 
 		void GetDriveInfo();
 

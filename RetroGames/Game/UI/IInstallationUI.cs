@@ -1,9 +1,9 @@
 ﻿namespace RetroGames.Game.UI
 {
-	public interface IInstallationUI
+	public interface IInstallationUi
 	{
-		void DrivelistUI(int key, string driveName);
+		void DrivelistUi(int key, string driveName);
 
-		void InstallationUIInitialize();
+		void InstallationUiInitialize();
 	}
 }

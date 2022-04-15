@@ -1,5 +1,4 @@
-﻿using System;
-using RetroGames.Person.Actions;
+﻿using RetroGames.Person.Actions;
 
 namespace RetroGames.Person.Data
 {

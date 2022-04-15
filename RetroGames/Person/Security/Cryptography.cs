@@ -14,12 +14,9 @@ namespace RetroGames.Person.Security
 		public string EncryptResult { get; set; } = "";
 		public string DecryptResult { get; set; } = "";
 
-		private string encryptedtext = "";
-		private string decryptedtext = "";
-
 		public bool EncryptProcess(string plainText)
 		{
-			Encrypt(plainText);
+			EncryptResult = Encrypt(plainText);
 			CheckIsEncrypted(EncryptResult);
 
 			return IsEncrypted;
@@ -27,7 +24,7 @@ namespace RetroGames.Person.Security
 
 		public bool DecryptProcess(string encryptedText)
 		{
-			Decrypt(encryptedText);
+			DecryptResult = Decrypt(encryptedText);
 			CheckIsDecrypted(DecryptResult);
 
 			return IsDecrypted;
@@ -43,7 +40,7 @@ namespace RetroGames.Person.Security
 			byte[] inputbyteArray = Encoding.UTF8.GetBytes(plaintext);
 
 			MemoryStream memoryStream = new MemoryStream();
-			DESCryptoServiceProvider cryptoService = new DESCryptoServiceProvider();
+			DES cryptoService = DES.Create();
 			CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoService.CreateEncryptor(publickeybyte, secretkeyByte), CryptoStreamMode.Write);
 
 			cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
@@ -86,15 +83,15 @@ namespace RetroGames.Person.Security
 			string publickey = GameSettings.Default.CryptographyPublicKey;
 			string secretkey = GameSettings.Default.CryptographySecretKey;
 
-			byte[] privatekeyByte = { };
+			byte[] privatekeyByte;
 			privatekeyByte = Encoding.UTF8.GetBytes(secretkey);
-			byte[] publickeybyte = { };
+			byte[] publickeybyte;
 			publickeybyte = Encoding.UTF8.GetBytes(publickey);
 			MemoryStream memoryStream;
 			CryptoStream cryptoStream;
-			byte[] inputbyteArray = new byte[encryptedText.Replace(" ", "+").Length];
+			byte[] inputbyteArray;
 			inputbyteArray = Convert.FromBase64String(encryptedText.Replace(" ", "+"));
-			DESCryptoServiceProvider cryptoService = new DESCryptoServiceProvider();
+			DES cryptoService = DES.Create();
 			memoryStream = new MemoryStream();
 			cryptoStream = new CryptoStream(memoryStream, cryptoService.CreateDecryptor(publickeybyte, privatekeyByte), CryptoStreamMode.Write);
 			cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);

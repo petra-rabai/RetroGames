@@ -3,23 +3,23 @@ using System.Collections.Generic;
 
 namespace RetroGames.Game.UI
 {
-	public class MainScreenUI : IMainScreenUI
+	public class MainScreenUi : IMainScreenUi
 	{
 		private IGameMenu _gameMenu;
 
-		public MainScreenUI(IGameMenu gameMenu)
+		public MainScreenUi(IGameMenu gameMenu)
 		{
 			_gameMenu = gameMenu;
 		}
 
-		public void InitializeUI()
+		public void InitializeUi()
 		{
-			GameTitleUIToConsole();
-			GameDescriptionUIToConsole();
-			GameMenuUIToConsole();
+			GameTitleUiToConsole();
+			GameDescriptionUiToConsole();
+			GameMenuUiToConsole();
 		}
 
-		private void GameTitleUIToConsole()
+		private void GameTitleUiToConsole()
 		{
 			Console.Clear();
 			Console.WriteLine("\n");
@@ -34,7 +34,7 @@ namespace RetroGames.Game.UI
 			Console.WriteLine("\t*****************************************************************");
 		}
 
-		private void GameDescriptionUIToConsole()
+		private void GameDescriptionUiToConsole()
 		{
 			Console.WriteLine("\n");
 			Console.WriteLine("\t*****************************************************************");
@@ -44,7 +44,7 @@ namespace RetroGames.Game.UI
 			Console.WriteLine("\t*****************************************************************");
 		}
 
-		private void GameMenuUIToConsole()
+		private void GameMenuUiToConsole()
 		{
 			Console.WriteLine("\n");
 			Console.WriteLine("\t*****************************************************************");

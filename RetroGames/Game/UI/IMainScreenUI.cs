@@ -1,7 +1,7 @@
 ﻿namespace RetroGames.Game.UI
 {
-	public interface IMainScreenUI
+	public interface IMainScreenUi
 	{
-		void InitializeUI();
+		void InitializeUi();
 	}
 }

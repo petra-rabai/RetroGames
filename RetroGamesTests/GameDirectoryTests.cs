@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using RetroGames;
 using RetroGames.Person.Actions;
 using System;
 using System.IO.Abstractions;
@@ -12,7 +11,7 @@ namespace RetroGamesTests
 	public class GameDirectoryTests
 	{
 		[Test]
-		public void CheckIsGameDriectoryDoesNotExist()
+		public void CheckIsGameDirectoryDoesNotExist()
 		{
 			bool directoriesExist;
 

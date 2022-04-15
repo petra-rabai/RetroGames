@@ -21,7 +21,7 @@ namespace RetroGames.Person.Actions
 		public string LoginName { get; set; }
 		public string LoginPassword { get; set; }
 
-		public void GetLoginDataFromXML()
+		public void GetLoginDataFromXml()
 		{
 			_installation.CheckInstallationSuccess();
 
@@ -39,18 +39,27 @@ namespace RetroGames.Person.Actions
 
 			foreach (XmlNode loginNode in loginDataList)
 			{
-				for (int i = 0; i < loginNode.ChildNodes.Count; i++)
+				if (loginNode.ChildNodes.Count > 0)
 				{
-					if (loginNode.ChildNodes.Item(i).Name == "LoginName")
+					for (int i = 0; i < loginNode.ChildNodes.Count; i++)
 					{
-						LoginName = loginNode.ChildNodes.Item(i).InnerText;
-					}
-					else if (loginNode.ChildNodes.Item(i).Name == "Password")
-					{
-						_stringCryptographer.DecryptProcess(loginNode.ChildNodes.Item(i).InnerText);
-						LoginPassword = _stringCryptographer.DecryptResult;
+						if (loginNode.ChildNodes.Item(i) != null)
+						{
+							if (loginNode.ChildNodes.Item(i)!.Name == "LoginName")
+							{
+								LoginName = loginNode.ChildNodes.Item(i)!.InnerText;
+							}
+							else if (loginNode.ChildNodes.Item(i)!.Name == "Password")
+							{
+								_stringCryptographer.DecryptProcess(loginNode.ChildNodes.Item(i)!.InnerText);
+								LoginPassword = _stringCryptographer.DecryptResult;
+							}
+						}
+						
 					}
 				}
+				
+				
 			}
 		}
 	}

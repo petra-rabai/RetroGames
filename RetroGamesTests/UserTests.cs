@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using RetroGames;
 using RetroGames.Person.Actions;
 using RetroGames.Person.Data;
 
@@ -18,7 +12,7 @@ namespace RetroGamesTests
 		public void CheckGetPlayerFirstNameSuccess()
 		{
 			string mockFirstName = "TestFirstName";
-			string testFirstName = "";
+
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerFirstNameFromConsole())
@@ -26,7 +20,7 @@ namespace RetroGamesTests
 
 			User user = new(mockPlayerInteraction.Object);
 
-			testFirstName = user.GetPlayerFirstName();
+			string testFirstName = user.GetPlayerFirstName();
 
 			testFirstName.Should().Be(mockFirstName);
 		}
@@ -35,7 +29,7 @@ namespace RetroGamesTests
 		public void CheckGetPlayerLastNameSuccess()
 		{
 			string mockLastName = "TestLastName";
-			string testLastName = "";
+
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerLastNameFromConsole())
@@ -43,7 +37,7 @@ namespace RetroGamesTests
 
 			User user = new(mockPlayerInteraction.Object);
 
-			testLastName = user.GetPlayerLastName();
+			string testLastName = user.GetPlayerLastName();
 
 			testLastName.Should().Be(mockLastName);
 		}
@@ -52,7 +46,7 @@ namespace RetroGamesTests
 		public void CheckGetPlayerLoginNameSuccess()
 		{
 			string mockLoginName = "TestLoginName";
-			string testLoginName = "";
+
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerLoginNameFromConsole())
@@ -60,7 +54,7 @@ namespace RetroGamesTests
 
 			User user = new(mockPlayerInteraction.Object);
 
-			testLoginName = user.GetPlayerLoginName();
+			string testLoginName = user.GetPlayerLoginName();
 
 			testLoginName.Should().Be(mockLoginName);
 		}

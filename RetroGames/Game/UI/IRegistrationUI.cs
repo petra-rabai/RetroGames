@@ -1,6 +1,6 @@
 ﻿namespace RetroGames.Game.UI
 {
-	public interface IRegistrationUI
+	public interface IRegistrationUi
 	{
 		void FormEmail();
 

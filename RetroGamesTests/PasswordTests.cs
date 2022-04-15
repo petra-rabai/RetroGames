@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using RetroGames;
 using System.Net;
 using System.Security;
 using RetroGames.Person.Data;
@@ -14,7 +13,7 @@ namespace RetroGamesTests
 		public void GetPlayerPasswordSuccess()
 		{
 			SecureString testSecureString = new NetworkCredential("", "testPassword").SecurePassword;
-			string testPassword = "";
+
 			Mock<IPassword> mockPassword = new();
 			mockPassword
 				.Setup(mockSetup => mockSetup.ConvertPasswordToSecure())
@@ -24,47 +23,9 @@ namespace RetroGamesTests
 
 			password.GetPlayerPassword();
 
-			testPassword = password.PlayerPassword;
+			string testPassword = password.PlayerPassword;
 
 			testPassword.Should().NotBeEmpty();
 		}
-
-		//[TestCase("Rp!.12846ee")]
-		//[Test]
-		//public void CheckIsPasswordValid(string testPassword)
-		//{
-		//	bool isPasswordValid;
-
-		//	IPassword password = new Password();
-		//	IPasswordValidator passwordValidator = new PasswordValidator();
-		//	IStringCryptographer stringCryptographer = new StringCryptographer();
-
-		//	PasswordHandler passwordHandler = new(password, passwordValidator, stringCryptographer);
-
-		//	passwordHandler.CheckPasswordHandling(testPassword);
-
-		//	isPasswordValid = passwordHandler.IsPasswordValid;
-
-		//	Assert.IsTrue(isPasswordValid);
-		//}
-
-		//[TestCase("Rp!.12846ee")]
-		//[Test]
-		//public void CheckIsPasswordEncrypted(string testPassword)
-		//{
-		//	bool isPasswordEncrypted;
-
-		//	IPassword password = new Password();
-		//	IPasswordValidator passwordValidator = new PasswordValidator();
-		//	IStringCryptographer stringCryptographer = new StringCryptographer();
-
-		//	PasswordHandler passwordHandler = new(password, passwordValidator, stringCryptographer);
-
-		//	passwordHandler.CheckPasswordHandling(testPassword);
-
-		//	isPasswordEncrypted = passwordHandler.IsPasswordEncrypted;
-
-		//	Assert.IsTrue(isPasswordEncrypted);
-		//}
 	}
 }

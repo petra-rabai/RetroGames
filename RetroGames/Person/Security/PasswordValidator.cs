@@ -5,36 +5,36 @@ namespace RetroGames.Person.Security
 {
 	public class PasswordValidator : IPasswordValidator
 	{
-		private const string hasNumberPattern = @"[0-9]+";
-		private const string hasUpperCharPattern = @"[A-Z]+";
-		private const string hasMinMaxCharPattern = @".{8,15}";
-		private const string hasLowerCharPattern = @"[a-z]+";
-		private const string hasSymbolsPattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
+		private const string HasNumberPattern = @"[0-9]+";
+		private const string HasUpperCharPattern = @"[A-Z]+";
+		private const string HasMinMaxCharPattern = @".{8,15}";
+		private const string HasLowerCharPattern = @"[a-z]+";
+		private const string HasSymbolsPattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
 
-		private const string lowerCharError = "Password should contain at least one lower case letter.";
-		private const string upperCharError = "Password should contain at least one upper case letter.";
-		private const string minMaxCharError = "Password should not be lesser than 8 or should not be greater than 15 characters.";
-		private const string numberError = "Password should contain at least one numeric value.";
-		private const string symbolError = "Password should contain at least one special case character.";
+		private const string LowerCharError = "Password should contain at least one lower case letter.";
+		private const string UpperCharError = "Password should contain at least one upper case letter.";
+		private const string MinMaxCharError = "Password should not be lesser than 8 or should not be greater than 15 characters.";
+		private const string NumberError = "Password should contain at least one numeric value.";
+		private const string SymbolError = "Password should contain at least one special case character.";
 
-		public bool IsPasswordValid { get; set; } = false;
+		public bool IsPasswordValid { get; set; }
 		public string PasswordError { get; set; }
 		public string PlayerPassword { get; set; }
 
-		private Regex PasswordRegEx = new(GameSettings.Default.PasswordRegEx);
+		private Regex _passwordRegEx = new(GameSettings.Default.PasswordRegEx);
 
 		public bool ValidatePassword(string playerPassword)
 		{
-			GetPlayerPassword(playerPassword);
+			PlayerPassword = GetPlayerPassword(playerPassword);
 
-			if (PasswordRegEx.Match(PlayerPassword).Success)
+			if (_passwordRegEx.Match(PlayerPassword).Success)
 			{
 				IsPasswordValid = true;
 			}
 			else
 			{
 				IsPasswordValid = false;
-				GetPasswordError();
+				PasswordError = GetPasswordError();
 			}
 
 			return IsPasswordValid;
@@ -61,36 +61,36 @@ namespace RetroGames.Person.Security
 
 		private string GetErrorReason()
 		{
-			Regex hasNumber = new(hasNumberPattern);
-			Regex hasUpperChar = new(hasUpperCharPattern);
-			Regex hasMiniMaxChars = new(hasMinMaxCharPattern);
-			Regex hasLowerChar = new(hasLowerCharPattern);
-			Regex hasSymbols = new(hasSymbolsPattern);
+			Regex hasNumber = new(HasNumberPattern);
+			Regex hasUpperChar = new(HasUpperCharPattern);
+			Regex hasMiniMaxChars = new(HasMinMaxCharPattern);
+			Regex hasLowerChar = new(HasLowerCharPattern);
+			Regex hasSymbols = new(HasSymbolsPattern);
 
-			string Error = "";
+			string error = "";
 
 			if (!hasLowerChar.IsMatch(PlayerPassword))
 			{
-				Error = lowerCharError;
+				error = LowerCharError;
 			}
 			if (!hasUpperChar.IsMatch(PlayerPassword))
 			{
-				Error = upperCharError;
+				error = UpperCharError;
 			}
 			if (!hasMiniMaxChars.IsMatch(PlayerPassword) || PlayerPassword.Length > 15)
 			{
-				Error = minMaxCharError;
+				error = MinMaxCharError;
 			}
 			if (!hasNumber.IsMatch(PlayerPassword))
 			{
-				Error = numberError;
+				error = NumberError;
 			}
 			if (!hasSymbols.IsMatch(PlayerPassword))
 			{
-				Error = symbolError;
+				error = SymbolError;
 			}
 
-			return Error;
+			return error;
 		}
 	}
 }

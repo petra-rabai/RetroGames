@@ -8,7 +8,7 @@ namespace RetroGames.Person.Data
 	{
 		public string PlayerPassword { get; set; } = "";
 
-		private readonly SecureString securePassword = new SecureString();
+		private readonly SecureString _securePassword = new SecureString();
 
 		public string GetPlayerPassword()
 		{
@@ -32,20 +32,20 @@ namespace RetroGames.Person.Data
 				}
 				else if (hitKeyInfo.Key == ConsoleKey.Backspace)
 				{
-					if (securePassword.Length > 0)
+					if (_securePassword.Length > 0)
 					{
-						securePassword.RemoveAt(securePassword.Length - 1);
+						_securePassword.RemoveAt(_securePassword.Length - 1);
 						Console.Write("\b \b");
 					}
 				}
 				else if (hitKeyInfo.KeyChar != '\u0000')
 				{
-					securePassword.AppendChar(hitKeyInfo.KeyChar);
+					_securePassword.AppendChar(hitKeyInfo.KeyChar);
 					Console.Write("*");
 				}
 			}
 
-			return securePassword;
+			return _securePassword;
 		}
 	}
 }

@@ -7,11 +7,11 @@ namespace RetroGames.Game
 {
 	public class MainScreen : IMainScreen
 	{
-		private IMainScreenUI _mainScreenUI;
+		private readonly IMainScreenUi _mainScreenUi;
 
-		public MainScreen(IMainScreenUI mainScreenUI)
+		public MainScreen(IMainScreenUi mainScreenUi)
 		{
-			_mainScreenUI = mainScreenUI;
+			_mainScreenUi = mainScreenUi;
 		}
 
 		public bool WaitForUserPromptDisplayed { get; set; }
@@ -19,25 +19,22 @@ namespace RetroGames.Game
 		[DllImport("kernel32.dll", ExactSpelling = true)]
 		private static extern IntPtr GetConsoleWindow();
 
-		private static IntPtr ThisConsole = GetConsoleWindow();
+		private static readonly IntPtr ThisConsole = GetConsoleWindow();
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-		private const int HIDE = 0;
-		private const int MAXIMIZE = 3;
-		private const int MINIMIZE = 6;
-		private const int RESTORE = 9;
+		private const int Maximize = 3;
 
 		public void MainScreenInitialize()
 		{
-			GetMainScreenUI();
+			GetMainScreenUi();
 		}
 
-		private void GetMainScreenUI()
+		private void GetMainScreenUi()
 		{
 			MainScreenSetup();
-			_mainScreenUI.InitializeUI();
+			_mainScreenUi.InitializeUi();
 			WaitForInputSuccess();
 		}
 
@@ -45,7 +42,7 @@ namespace RetroGames.Game
 		{
 			SetScreenColor();
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-			ShowWindow(ThisConsole, MAXIMIZE);
+			ShowWindow(ThisConsole, Maximize);
 		}
 
 		private void SetScreenColor()
@@ -56,7 +53,7 @@ namespace RetroGames.Game
 		public bool WaitForInputSuccess()
 		{
 			while (FlashPrompt(" *** Wait for user input ... (Hit Enter to Continue)",
-			TimeSpan.FromMilliseconds(500)) != ConsoleKey.Enter) ;
+			TimeSpan.FromMilliseconds(500)) != ConsoleKey.Enter)
 
 			WaitForUserPromptDisplayed = true;
 
@@ -69,14 +66,14 @@ namespace RetroGames.Game
 			var colorOne = Console.ForegroundColor;
 			var colorTwo = Console.BackgroundColor;
 
-			var stopwach = Stopwatch.StartNew();
+			var stopwatch = Stopwatch.StartNew();
 			var lastValue = TimeSpan.Zero;
 
 			Console.Write(prompt);
 
 			while (!Console.KeyAvailable)
 			{
-				var currentValue = stopwach.Elapsed;
+				var currentValue = stopwatch.Elapsed;
 
 				if (currentValue - lastValue < interval) continue;
 

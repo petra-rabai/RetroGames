@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using RetroGames;
 using System;
 using System.IO.Abstractions;
 using RetroGames.Game.DirectoryStructure;
@@ -31,7 +30,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -62,7 +61,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -93,7 +92,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -124,7 +123,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -155,7 +154,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new GameFile(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 

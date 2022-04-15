@@ -5,13 +5,13 @@ namespace RetroGames.Person.Security
 {
 	public class EmailValidator : IEmailValidator
 	{
-		public bool IsEmailValid { get; set; } = false;
+		public bool IsEmailValid { get; set; }
 
-		private Regex emailRegEx = new(GameSettings.Default.EmailRegEx);
+		private Regex _emailRegEx = new(GameSettings.Default.EmailRegEx);
 
 		public bool ValidateEmail(string email)
 		{
-			if (emailRegEx.Match(email).Success)
+			if (_emailRegEx.Match(email).Success)
 			{
 				IsEmailValid = true;
 			}

@@ -1,9 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using FluentAssertions;
-using RetroGames;
 using RetroGames.Person.Actions;
-using System.IO.Abstractions;
 using System.Collections.Generic;
 using RetroGames.Game;
 using RetroGames.Game.Actions;
@@ -22,17 +20,17 @@ namespace RetroGamesTests
 			int mockDrivelistKey = 0;
 			char mockPlayerKey = '0';
 			string mockDrivelistName = "C:\\";
-			Dictionary<int, string> mockDriveList = new Dictionary<int, string>()
+			Dictionary<int, string> mockDriveList = new()
 			{
 				[0] = "C:\\"
 			}; 
 			bool mockIsGameFilesExist = true;
-			Mock<IInstallationUI> mockInstallationUI = new();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.InstallationUIInitialize())
+			Mock<IInstallationUi> mockInstallationUi = new();
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.InstallationUiInitialize())
 				.Verifiable();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.DrivelistUI(mockDrivelistKey, mockDrivelistName))
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
 			Mock<IMainScreen> mockMainScreen = new();
 			mockMainScreen
@@ -51,7 +49,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object,mockInstallationUI.Object,mockMainScreen.Object,mockDrive.Object,mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object,mockInstallationUi.Object,mockMainScreen.Object,mockDrive.Object,mockPlayerInteraction.Object);
 
 			isInstallationSuccess = installation.CheckInstallationSuccess();
 
@@ -66,17 +64,17 @@ namespace RetroGamesTests
 			int mockDrivelistKey = 0;
 			char mockPlayerKey = '0';
 			string mockDrivelistName = "C:\\";
-			Dictionary<int, string> mockDriveList = new Dictionary<int, string>()
+			Dictionary<int, string> mockDriveList = new()
 			{
 				[0] = "C:\\"
 			};
 			bool mockIsGameFilesExist = false;
-			Mock<IInstallationUI> mockInstallationUI = new();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.InstallationUIInitialize())
+			Mock<IInstallationUi> mockInstallationUi = new();
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.InstallationUiInitialize())
 				.Verifiable();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.DrivelistUI(mockDrivelistKey, mockDrivelistName))
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
 			Mock<IMainScreen> mockMainScreen = new();
 			mockMainScreen
@@ -95,7 +93,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUI.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
 
 			isInstallationSuccess = installation.CheckInstallationSuccess();
 
@@ -110,17 +108,17 @@ namespace RetroGamesTests
 			int mockDrivelistKey = 0;
 			char mockPlayerKey = '0';
 			string mockDrivelistName = "C:\\";
-			Dictionary<int, string> mockDriveList = new Dictionary<int, string>()
+			Dictionary<int, string> mockDriveList = new()
 			{
 				[0] = "C:\\"
 			};
 			bool mockIsGameFilesExist = true;
-			Mock<IInstallationUI> mockInstallationUI = new();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.InstallationUIInitialize())
+			Mock<IInstallationUi> mockInstallationUi = new();
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.InstallationUiInitialize())
 				.Verifiable();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.DrivelistUI(mockDrivelistKey, mockDrivelistName))
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
 			Mock<IMainScreen> mockMainScreen = new();
 			mockMainScreen
@@ -139,7 +137,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUI.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
 
 			installation.InstallationProcess();
 
@@ -156,17 +154,17 @@ namespace RetroGamesTests
 			int mockDrivelistKey = 0;
 			char mockPlayerKey = 'K';
 			string mockDrivelistName = "C:\\";
-			Dictionary<int, string> mockDriveList = new Dictionary<int, string>()
+			Dictionary<int, string> mockDriveList = new()
 			{
 				[0] = "C:\\"
 			};
 			bool mockIsGameFilesExist = true;
-			Mock<IInstallationUI> mockInstallationUI = new();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.InstallationUIInitialize())
+			Mock<IInstallationUi> mockInstallationUi = new();
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.InstallationUiInitialize())
 				.Verifiable();
-			mockInstallationUI
-				.Setup(mockSetup => mockSetup.DrivelistUI(mockDrivelistKey, mockDrivelistName))
+			mockInstallationUi
+				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
 			Mock<IMainScreen> mockMainScreen = new();
 			mockMainScreen
@@ -188,7 +186,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUI.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
 
 			installation.InstallationProcess();
 

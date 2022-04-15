@@ -36,19 +36,19 @@ namespace RetroGames.Person.Data
 		{
 			if (LoginName == "" || PlayerPassword == "")
 			{
-				GetPlayerLoginName();
-				GetPlayerPassword();
+				LoginName = GetPlayerLoginName();
+				PlayerPassword = GetPlayerPassword();
 			}
 		}
 
 		public void GetRegistrationIsSuccess(bool registred)
 		{
-			CheckRegistrationSuccess(registred);
+			IsRegistered = CheckRegistrationSuccess(registred);
 		}
 
 		public void GetLoginIsSuccess()
 		{
-			CheckLoginSuccess();
+			IsLoggedIn = CheckLoginSuccess();
 		}
 
 		private string GetPlayerLoginName()

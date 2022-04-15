@@ -38,7 +38,7 @@ namespace RetroGames.Person.Actions
 		{
 			string email = Console.ReadLine();
 
-			Email = email.Trim();
+			if (email != null) Email = email.Trim();
 
 			return Email;
 		}
@@ -47,7 +47,7 @@ namespace RetroGames.Person.Actions
 		{
 			string firstName = Console.ReadLine();
 
-			FirstName = firstName.Trim();
+			if (firstName != null) FirstName = firstName.Trim();
 
 			return FirstName;
 		}
@@ -56,7 +56,7 @@ namespace RetroGames.Person.Actions
 		{
 			string lastName = Console.ReadLine();
 
-			LastName = lastName.Trim();
+			if (lastName != null) LastName = lastName.Trim();
 
 			return LastName;
 		}
@@ -65,7 +65,7 @@ namespace RetroGames.Person.Actions
 		{
 			string loginName = Console.ReadLine();
 
-			LoginName = loginName.Trim();
+			if (loginName != null) LoginName = loginName.Trim();
 
 			return LoginName;
 			

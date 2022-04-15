@@ -8,21 +8,21 @@ namespace RetroGames.Person.Actions
 {
 	public class Registration : IRegistration
 	{
-		private readonly IRegistrationUI _registrationUI;
+		private readonly IRegistrationUi _registrationUi;
 		private readonly IInstallation _installation;
 		private readonly IUser _user;
 		private readonly IEmail _email;
 		private readonly IPasswordHandler _passwordHandler;
 		private readonly IPlayerInteraction _playerInteraction;
 
-		public Registration(IRegistrationUI registrationUI,
+		public Registration(IRegistrationUi registrationUi,
 					  IInstallation installation,
 					  IUser user,
 					  IEmail email,
 					  IPlayerInteraction playerInteraction,
 					  IPasswordHandler passwordHandler)
 		{
-			_registrationUI = registrationUI;
+			_registrationUi = registrationUi;
 			_installation = installation;
 			_user = user;
 			_email = email;
@@ -36,14 +36,14 @@ namespace RetroGames.Person.Actions
 		public string Password { get; set; }
 		public string Email { get; set; }
 
-		private char saveDecesion;
-		private bool isRegistrationSuccess;
+		private char _saveDecesion;
+		private bool _isRegistrationSuccess;
 
 		public void UserRegistration()
 		{
 			RegistrationForm();
 
-			IsUserRegistered(isRegistrationSuccess);
+			IsUserRegistered(_isRegistrationSuccess);
 		}
 
 		public void SaveDecesionCheck(char decesion)
@@ -82,32 +82,32 @@ namespace RetroGames.Person.Actions
 			GetPassword();
 			GetEmail();
 			GetSaveDecesion();
-			SaveDecesionCheck(saveDecesion);
+			SaveDecesionCheck(_saveDecesion);
 		}
 
 		private void GetFormTitle()
 		{
-			_registrationUI.FormTitle();
+			_registrationUi.FormTitle();
 		}
 
 		private char GetSaveDecesion()
 		{
-			_registrationUI.FromSave();
+			_registrationUi.FromSave();
 
-			saveDecesion = _playerInteraction.GetPlayerKeyFromConsole();
+			_saveDecesion = _playerInteraction.GetPlayerKeyFromConsole();
 
-			return saveDecesion;
+			return _saveDecesion;
 		}
 
 		private void GetEmail()
 		{
-			_registrationUI.FormEmail();
+			_registrationUi.FormEmail();
 			Email = _email.GetPlayerEmail();
 		}
 
 		private void GetPassword()
 		{
-			_registrationUI.FormPassword();
+			_registrationUi.FormPassword();
 
 			while (!_passwordHandler.PasswordHandlingSuccess)
 			{
@@ -125,19 +125,19 @@ namespace RetroGames.Person.Actions
 
 		private void GetLoginName()
 		{
-			_registrationUI.FormLoginName();
+			_registrationUi.FormLoginName();
 			LoginName = _user.GetPlayerLoginName();
 		}
 
 		private void GetLastName()
 		{
-			_registrationUI.FormLastName();
+			_registrationUi.FormLastName();
 			_user.GetPlayerLastName();
 		}
 
 		private void GetFirstName()
 		{
-			_registrationUI.FormFirstName();
+			_registrationUi.FormFirstName();
 			_user.GetPlayerFirstName();
 		}
 
@@ -148,9 +148,9 @@ namespace RetroGames.Person.Actions
 			Password.Remove(0, Password.Length);
 			Email.Remove(0, Email.Length);
 
-			isRegistrationSuccess = false;
+			_isRegistrationSuccess = false;
 
-			return isRegistrationSuccess;
+			return _isRegistrationSuccess;
 		}
 
 		private void GetUserSavePath()
@@ -169,19 +169,19 @@ namespace RetroGames.Person.Actions
 				Password = this.Password,
 				Email = this.Email
 			};
-			string Path = _installation.UserFilePath;
+			string path = _installation.UserFilePath;
 
-			XmlSerializer RegistrationWriteToXML = new(typeof(RegistrationData));
-			FileStream registrationXML = new(Path,
+			XmlSerializer registrationWriteToXml = new(typeof(RegistrationData));
+			FileStream registrationXml = new(path,
 									 FileMode.Open,
 									 FileAccess.Write);
 
-			RegistrationWriteToXML.Serialize(registrationXML, registrationData);
-			registrationXML.Close();
+			registrationWriteToXml.Serialize(registrationXml, registrationData);
+			registrationXml.Close();
 
-			isRegistrationSuccess = true;
+			_isRegistrationSuccess = true;
 
-			return isRegistrationSuccess;
+			return _isRegistrationSuccess;
 		}
 	}
 }

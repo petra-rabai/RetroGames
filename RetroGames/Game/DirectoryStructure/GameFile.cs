@@ -24,15 +24,15 @@ namespace RetroGames.Game.DirectoryStructure
 		public string UserDirectoryPath { get; set; }
 		public string LogDirectoryPath { get; set; }
 
-		private string installationDrive;
+		private string _installationDrive;
 
 		public bool CheckGameFilesCreated()
 		{
-			GetInstallationDrive();
+			_installationDrive = GetInstallationDrive();
 
-			UserFilePath = installationDrive + GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
-			LogFilePath = installationDrive + GameSettings.Default.LogDirectory + GameSettings.Default.LogFile;
-			GameFilePath = installationDrive + GameSettings.Default.GameDirectory + GameSettings.Default.GameFile;
+			UserFilePath = _installationDrive + GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
+			LogFilePath = _installationDrive + GameSettings.Default.LogDirectory + GameSettings.Default.LogFile;
+			GameFilePath = _installationDrive + GameSettings.Default.GameDirectory + GameSettings.Default.GameFile;
 
 			if (!_fileSystem.File.Exists(UserFilePath) && !_fileSystem.File.Exists(GameFilePath) && !_fileSystem.File.Exists(LogFilePath))
 			{
@@ -50,18 +50,18 @@ namespace RetroGames.Game.DirectoryStructure
 		{
 			_drive.GetInstallationDrive(' ');
 
-			installationDrive = _drive.InstallationDrive;
+			_installationDrive = _drive.InstallationDrive;
 			
-			return installationDrive;
+			return _installationDrive;
 		}
 
 		public void CreateGameFiles()
 		{
-			CreateGameFile();
+			GameFilePath = CreateGameFile();
 
-			CreateUserFile();
-			
-			CreateLogFile();
+			UserFilePath = CreateUserFile();
+
+			LogFilePath = CreateLogFile();
 		}
 
 		private string CreateGameFile()

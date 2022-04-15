@@ -8,19 +8,19 @@ namespace RetroGames.Game.Actions
 	public class Installation : IInstallation
 	{
 		private readonly IGameFile _gameFile;
-		private readonly IInstallationUI _installationUI;
+		private readonly IInstallationUi _installationUi;
 		private readonly IMainScreen _mainScreen;
 		private readonly IDrive _drive;
 		private readonly IPlayerInteraction _playerInteraction;
 
 		public Installation(IGameFile gameFile,
-					  IInstallationUI installationUI,
+					  IInstallationUi installationUi,
 					  IMainScreen mainScreen,
 					  IDrive drive,
 					  IPlayerInteraction playerInteraction)
 		{
 			_gameFile = gameFile;
-			_installationUI = installationUI;
+			_installationUi = installationUi;
 			_mainScreen = mainScreen;
 			_drive = drive;
 			_playerInteraction = playerInteraction;
@@ -32,24 +32,24 @@ namespace RetroGames.Game.Actions
 		public string LogFilePath { get; set; }
 		public char PlayerPressedKey { get; set; }
 
-		private bool installationCanStart;
-		private bool isWaitForUserPromptDisplayed;
-		private Dictionary<int, string> driveList = new Dictionary<int, string>();
-		private bool IsGameFilesExist;
+		private bool _installationCanStart;
+		private bool _isWaitForUserPromptDisplayed;
+		private Dictionary<int, string> _driveList = new Dictionary<int, string>();
+		private bool _isGameFilesExist;
 		public void InstallationProcess()
 		{
-			_installationUI.InstallationUIInitialize();
+			_installationUi.InstallationUiInitialize();
 			
-			WriteDriveListToUI();
+			WriteDriveListToUi();
 
-			CheckWaitForInputSuccess();
+			_isWaitForUserPromptDisplayed = CheckWaitForInputSuccess();
 
-			if (isWaitForUserPromptDisplayed)
+			if (_isWaitForUserPromptDisplayed)
 			{
-				GetPlayerPressedKey();
+				PlayerPressedKey = GetPlayerPressedKey();
 				EreaseDriveList();
-				CheckInstallationCanStart();
-				if (installationCanStart)
+				_installationCanStart = CheckInstallationCanStart();
+				if (_installationCanStart)
 				{
 					CheckInstallationSuccess();
 				}
@@ -71,60 +71,60 @@ namespace RetroGames.Game.Actions
 
 		private bool CheckWaitForInputSuccess()
 		{
-			isWaitForUserPromptDisplayed = _mainScreen.WaitForInputSuccess();
+			_isWaitForUserPromptDisplayed = _mainScreen.WaitForInputSuccess();
 
-			return isWaitForUserPromptDisplayed;
+			return _isWaitForUserPromptDisplayed;
 		}
 
 		private bool CheckInstallationCanStart()
 		{
 			if (PlayerPressedKey == 'K')
 			{
-				installationCanStart = false;
+				_installationCanStart = false;
 			}
 			else
 			{
-				installationCanStart = true;
+				_installationCanStart = true;
 			}
-			return installationCanStart;
+			return _installationCanStart;
 		}
 
-		private void WriteDriveListToUI()
+		private void WriteDriveListToUi()
 		{
 			int key;
 			string driveName;
 
-			GetDriveList();
+			_driveList = GetDriveList();
 
-			foreach (KeyValuePair<int, string> choosedisk in driveList)
+			foreach (KeyValuePair<int, string> choosedisk in _driveList)
 			{
 				key = choosedisk.Key;
 				driveName = choosedisk.Value;
-				_installationUI.DrivelistUI(key, driveName);
+				_installationUi.DrivelistUi(key, driveName);
 			}
 		}
 
 		private Dictionary<int, string> GetDriveList()
 		{
-			driveList = _drive.GetDriveList();
+			_driveList = _drive.GetDriveList();
 
-			return driveList;
+			return _driveList;
 		}
 
 		private void EreaseDriveList()
 		{
-			for (int i = driveList.Count; i >= 0; i--)
+			for (int i = _driveList.Count; i >= 0; i--)
 			{
-				driveList.Remove(i);
+				_driveList.Remove(i);
 			}
-			_drive.DriveList = driveList;
+			_drive.DriveList = _driveList;
 		}
 
 		public bool CheckInstallationSuccess()
 		{
-			CheckGameFilesExsit();
+			_isGameFilesExist = CheckGameFilesExsit();
 
-			if (IsGameFilesExist)
+			if (_isGameFilesExist)
 			{
 				IsInstallationSuccess = true;
 			}
@@ -138,13 +138,13 @@ namespace RetroGames.Game.Actions
 
 		private bool CheckGameFilesExsit()
 		{
-			IsGameFilesExist = _gameFile.CheckGameFilesCreated();
+			_isGameFilesExist = _gameFile.CheckGameFilesCreated();
 
 			GameFilePath = _gameFile.GameFilePath;
 			UserFilePath = _gameFile.UserFilePath;
 			LogFilePath = _gameFile.LogFilePath;
 
-			return IsGameFilesExist;
+			return _isGameFilesExist;
 		}
 	}
 }

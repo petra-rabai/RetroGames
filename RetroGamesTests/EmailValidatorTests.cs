@@ -15,12 +15,11 @@ namespace RetroGamesTests
 		[Test]
 		public void IsEmailValidationSuccess(string testemail)
 		{
-			bool isEmailValid;
 			EmailValidator emailValidator = new();
 
 			emailValidator.ValidateEmail(testemail);
 
-			isEmailValid = emailValidator.IsEmailValid;
+			bool isEmailValid = emailValidator.IsEmailValid;
 
 			isEmailValid.Should().BeTrue();
 		}
@@ -35,12 +34,12 @@ namespace RetroGamesTests
 		[Test]
 		public void IsEmailValidationFailed(string testemail)
 		{
-			bool isEmailValid;
+
 			EmailValidator emailValidator = new EmailValidator();
 
 			emailValidator.ValidateEmail(testemail);
 
-			isEmailValid = emailValidator.IsEmailValid;
+			bool isEmailValid = emailValidator.IsEmailValid;
 
 			isEmailValid.Should().BeFalse();
 		}

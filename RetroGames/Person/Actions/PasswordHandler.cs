@@ -24,8 +24,8 @@ namespace RetroGames.Person.Actions
 
 		public bool CheckPasswordHandling(string playerPassword)
 		{
-			CheckIsPasswordValid(playerPassword);
-			CheckIsPasswordEncrypted(playerPassword);
+			IsPasswordValid = CheckIsPasswordValid(playerPassword);
+			IsPasswordEncrypted = CheckIsPasswordEncrypted(playerPassword);
 
 			if (IsPasswordValid && IsPasswordEncrypted)
 			{

@@ -2,9 +2,9 @@
 
 namespace RetroGames.Game.UI
 {
-	public class RegistrationUI : IRegistrationUI
+	public class RegistrationUi : IRegistrationUi
 	{
-		private string formContent;
+		private string _formContent;
 
 		public void FormTitle()
 		{
@@ -17,43 +17,43 @@ namespace RetroGames.Game.UI
 
 		public void FormFirstName()
 		{
-			FirstNameUIToConsole();
-			Console.WriteLine(formContent + "\n");
+			_formContent = FirstNameUiToConsole();
+			Console.WriteLine(_formContent + "\n");
 		}
 
 		public void FormLastName()
 		{
 			Console.WriteLine("\n*****************************************************************");
-			LastNameUIToConsole();
-			Console.WriteLine(formContent + "\n");
+			_formContent = LastNameUiToConsole();
+			Console.WriteLine(_formContent + "\n");
 		}
 
 		public void FormLoginName()
 		{
 			Console.WriteLine("\n*****************************************************************");
-			LoginNameUIToConsole();
-			Console.WriteLine(formContent + "\n");
+			_formContent = LoginNameUiToConsole();
+			Console.WriteLine(_formContent + "\n");
 		}
 
 		public void FormPassword()
 		{
 			Console.WriteLine("\n*****************************************************************");
-			PasswordUIToConsole();
-			Console.WriteLine(formContent + "\n");
+			_formContent = PasswordUiToConsole();
+			Console.WriteLine(_formContent + "\n");
 		}
 
 		public void FormEmail()
 		{
 			Console.WriteLine("\n*****************************************************************");
-			EmailUIToConsole();
-			Console.WriteLine(formContent + "\n");
+			_formContent = EmailUiToConsole();
+			Console.WriteLine(_formContent + "\n");
 		}
 
 		public void FromSave()
 		{
 			Console.WriteLine("\n*****************************************************************");
-			SaveQuestionUIToConsole();
-			Console.WriteLine(formContent + "\n");
+			_formContent = SaveQuestionUiToConsole();
+			Console.WriteLine(_formContent + "\n");
 		}
 
 		private void SetScreenColor()
@@ -61,27 +61,27 @@ namespace RetroGames.Game.UI
 			Console.ForegroundColor = ConsoleColor.Green;
 		}
 
-		private string LoginNameUIToConsole()
+		private string LoginNameUiToConsole()
 		{
-			formContent = " * Login Name: * \n";
-			return formContent;
+			_formContent = " * Login Name: * \n";
+			return _formContent;
 		}
 
-		private string FirstNameUIToConsole()
+		private string FirstNameUiToConsole()
 		{
-			formContent = " * First Name: * \n";
-			return formContent;
+			_formContent = " * First Name: * \n";
+			return _formContent;
 		}
 
-		private string LastNameUIToConsole()
+		private string LastNameUiToConsole()
 		{
-			formContent = " * Last Name: * \n";
-			return formContent;
+			_formContent = " * Last Name: * \n";
+			return _formContent;
 		}
 
-		private string PasswordUIToConsole()
+		private string PasswordUiToConsole()
 		{
-			formContent = " * Password: * \n"
+			_formContent = " * Password: * \n"
 				+ "  Password requirement: \n"
 				+ " - Length: minimum 6 character \n"
 				+ " - 1 Uppercase letter \n"
@@ -89,19 +89,19 @@ namespace RetroGames.Game.UI
 				+ " - Contains number \n"
 				+ " - 1 Special character (like . or ! etc) \n";
 
-			return formContent;
+			return _formContent;
 		}
 
-		private string EmailUIToConsole()
+		private string EmailUiToConsole()
 		{
-			formContent = " * E-mail: * \n";
-			return formContent;
+			_formContent = " * E-mail: * \n";
+			return _formContent;
 		}
 
-		private string SaveQuestionUIToConsole()
+		private string SaveQuestionUiToConsole()
 		{
-			formContent = "\n Do you want to save your registration? (Y/N) \n"; ;
-			return formContent;
+			_formContent = "\n Do you want to save your registration? (Y/N) \n";
+			return _formContent;
 		}
 	}
 }

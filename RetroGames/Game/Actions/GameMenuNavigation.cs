@@ -30,10 +30,10 @@ namespace RetroGames.Game.Actions
 		public bool IsLoggedIn { get; set; }
 		public string LoginName { get; set; }
 
-		public void GetChoosedMenu()
+		private void GetChoosedMenu()
 		{
-			GetPlayerPressedKey();
-			GetMainMenu();
+			PressedKey = GetPlayerPressedKey();
+			MainMenu = GetMainMenu();
 		}
 
 		public void MenuNavigation()
@@ -44,7 +44,7 @@ namespace RetroGames.Game.Actions
 			}
 			else
 			{
-				GetChoosedMenuFromGameMenu();
+				ChoosedMenu = GetChoosedMenuFromGameMenu();
 				Navigation();
 			}
 		}
@@ -91,9 +91,6 @@ namespace RetroGames.Game.Actions
 
 				case "Quit":
 					Environment.Exit(0);
-					break;
-
-				default:
 					break;
 			}
 		}
