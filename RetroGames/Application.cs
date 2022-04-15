@@ -1,4 +1,6 @@
-﻿namespace RetroGames
+﻿using RetroGames.Game;
+
+namespace RetroGames
 {
 	public class Application : IApplication
 	{

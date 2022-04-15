@@ -1,4 +1,6 @@
-﻿namespace RetroGames.Person.Data
+﻿using RetroGames.Person.Actions;
+
+namespace RetroGames.Person.Data
 {
 	public class Player : IPlayer
 	{

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using RetroGames.Person.Actions;
 
-namespace RetroGames.Games.Actions
+namespace RetroGames.Game.Actions
 {
 	public class GameMenuNavigation : IGameMenuNavigation
 	{

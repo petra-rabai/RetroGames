@@ -4,6 +4,7 @@ using RetroGames.Person.Security;
 using RetroGames.Person.Data;
 using Moq;
 using RetroGames;
+using RetroGames.Person.Actions;
 
 namespace RetroGamesTests
 {

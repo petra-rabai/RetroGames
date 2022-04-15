@@ -2,13 +2,13 @@
 using NUnit.Framework;
 using FluentAssertions;
 using RetroGames;
-using RetroGames.Games;
-using RetroGames.Games.Actions;
-using RetroGames.Games.DirectoryStructure;
-using RetroGames.Games.UI;
 using RetroGames.Person.Actions;
 using System.IO.Abstractions;
 using System.Collections.Generic;
+using RetroGames.Game;
+using RetroGames.Game.Actions;
+using RetroGames.Game.DirectoryStructure;
+using RetroGames.Game.UI;
 
 namespace RetroGamesTests
 {

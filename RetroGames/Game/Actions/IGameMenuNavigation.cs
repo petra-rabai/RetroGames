@@ -1,4 +1,4 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Game.Actions
 {
 	public interface IGameMenuNavigation
 	{

@@ -1,6 +1,8 @@
 ﻿using RetroGames.Person.Data;
 using System.IO;
 using System.Xml.Serialization;
+using RetroGames.Game.Actions;
+using RetroGames.Game.UI;
 
 namespace RetroGames.Person.Actions
 {

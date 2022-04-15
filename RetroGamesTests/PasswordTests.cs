@@ -4,6 +4,7 @@ using NUnit.Framework;
 using RetroGames;
 using System.Net;
 using System.Security;
+using RetroGames.Person.Data;
 
 namespace RetroGamesTests
 {

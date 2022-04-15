@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RetroGames.Games.UI
+namespace RetroGames.Game.UI
 {
 	public class RegistrationUI : IRegistrationUI
 	{

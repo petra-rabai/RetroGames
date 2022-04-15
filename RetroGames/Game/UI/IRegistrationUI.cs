@@ -1,4 +1,4 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Game.UI
 {
 	public interface IRegistrationUI
 	{

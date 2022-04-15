@@ -1,7 +1,7 @@
-﻿using RetroGames.Properties;
-using System.IO.Abstractions;
+﻿using System.IO.Abstractions;
+using RetroGames.Properties;
 
-namespace RetroGames.Games.DirectoryStructure
+namespace RetroGames.Game.DirectoryStructure
 {
 	public class GameDirectory : IGameDirectory
 	{

@@ -2,9 +2,10 @@
 using Moq;
 using NUnit.Framework;
 using RetroGames;
-using RetroGames.Games.DirectoryStructure;
 using System;
 using System.IO.Abstractions;
+using RetroGames.Game.DirectoryStructure;
+using RetroGames.Person.Actions;
 
 namespace RetroGamesTests
 {

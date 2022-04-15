@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RetroGames.Games
+namespace RetroGames.Game
 {
 	public class GameMenu : IGameMenu
 	{

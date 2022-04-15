@@ -2,9 +2,10 @@
 using Moq;
 using NUnit.Framework;
 using RetroGames;
-using RetroGames.Games.DirectoryStructure;
 using System.Collections.Generic;
 using System.IO.Abstractions;
+using RetroGames.Game.DirectoryStructure;
+using RetroGames.Person.Actions;
 
 namespace RetroGamesTests
 {
@@ -79,7 +80,7 @@ namespace RetroGamesTests
 		public void CheckDriveListLoadingSuccess()
 		{
 			char mockPlayerKey = '0';
-			Dictionary<int, string> testDriveList = new Dictionary<int, string>();
+			Dictionary<int, string> testDriveList = new();
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction

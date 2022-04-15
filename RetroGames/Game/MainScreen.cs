@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using RetroGames.Game.UI;
 
-namespace RetroGames.Games
+namespace RetroGames.Game
 {
 	public class MainScreen : IMainScreen
 	{

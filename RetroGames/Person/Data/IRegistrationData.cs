@@ -1,4 +1,4 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Person.Data
 {
 	public interface IRegistrationData
 	{

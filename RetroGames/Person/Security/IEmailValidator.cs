@@ -1,4 +1,4 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Person.Security
 {
 	public interface IEmailValidator
 	{

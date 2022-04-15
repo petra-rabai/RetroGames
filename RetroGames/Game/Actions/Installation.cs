@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.IO;
+using RetroGames.Game.DirectoryStructure;
+using RetroGames.Game.UI;
+using RetroGames.Person.Actions;
 
-namespace RetroGames.Games.Actions
+namespace RetroGames.Game.Actions
 {
 	public class Installation : IInstallation
 	{

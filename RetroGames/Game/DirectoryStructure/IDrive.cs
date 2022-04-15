@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO.Abstractions;
 
-namespace RetroGames
+namespace RetroGames.Game.DirectoryStructure
 {
 	public interface IDrive
 	{

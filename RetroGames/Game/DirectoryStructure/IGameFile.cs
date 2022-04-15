@@ -1,4 +1,4 @@
-﻿namespace RetroGames
+﻿namespace RetroGames.Game.DirectoryStructure
 {
 	public interface IGameFile
 	{

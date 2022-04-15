@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RetroGames.Games.UI
+namespace RetroGames.Game.UI
 {
 	public class MainScreenUI : IMainScreenUI
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Security;
 
-namespace RetroGames
+namespace RetroGames.Person.Data
 {
 	public interface IPassword
 	{

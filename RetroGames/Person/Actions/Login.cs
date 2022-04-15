@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Text;
 using System.Xml;
+using RetroGames.Game.Actions;
+using RetroGames.Person.Security;
 
 namespace RetroGames.Person.Actions
 {

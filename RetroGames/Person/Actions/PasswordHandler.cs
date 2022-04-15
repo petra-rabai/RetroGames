@@ -1,4 +1,7 @@
-﻿namespace RetroGames.Person.Actions
+﻿using RetroGames.Person.Data;
+using RetroGames.Person.Security;
+
+namespace RetroGames.Person.Actions
 {
 	public class PasswordHandler : IPasswordHandler
 	{
