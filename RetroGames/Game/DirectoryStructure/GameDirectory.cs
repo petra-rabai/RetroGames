@@ -45,7 +45,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private string GetInstallationDrive()
 		{
-			_drive.GetInstallationDrive(_drive.PlayerPressedKey);
+			_drive.GetInstallationDrive();
 
 			InstallationDrive = _drive.InstallationDrive;
 

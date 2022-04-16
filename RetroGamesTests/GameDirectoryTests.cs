@@ -156,44 +156,5 @@ namespace RetroGamesTests
 			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()));
 		}
 
-		[Test]
-		public void CheckInstallationDriveExist()
-		{
-			string installationDrive;
-
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-
-			IFileSystem fileSystem = new FileSystem();
-
-			Drive drive = new(playerInteraction, fileSystem);
-
-			GameDirectory gameDirectory = new(drive, fileSystem);
-
-			gameDirectory.CheckGameDirectoriesExist();
-
-			installationDrive = gameDirectory.InstallationDrive;
-
-			installationDrive.Should().NotBeNull();
-		}
-
-		[Test]
-		public void CheckInstallationDriveExistSuccess()
-		{
-			bool installationDriveExist;
-
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-
-			IFileSystem fileSystem = new FileSystem();
-
-			Drive drive = new(playerInteraction, fileSystem);
-
-			GameDirectory gameDirectory = new(drive, fileSystem);
-
-			gameDirectory.CheckGameDirectoriesExist();
-
-			installationDriveExist = gameDirectory.IsInstallationDriveSelected;
-
-			installationDriveExist.Should().BeTrue();
-		}
 	}
 }

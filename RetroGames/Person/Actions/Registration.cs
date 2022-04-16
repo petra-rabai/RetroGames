@@ -112,10 +112,10 @@ namespace RetroGames.Person.Actions
 			while (!_passwordHandler.PasswordHandlingSuccess)
 			{
 				_passwordHandler.GetPlayerPassword();
-				_passwordHandler.CheckPasswordHandling(_passwordHandler.PlayerPassword);
+				Password = _passwordHandler.PlayerPassword;
+				_passwordHandler.CheckPasswordHandling(Password);
 			}
-
-			Password = _passwordHandler.PlayerPassword;
+	
 		}
 
 		private void AssignName()

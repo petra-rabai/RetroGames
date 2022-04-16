@@ -97,7 +97,7 @@ namespace RetroGamesTests
 		[Test]
 		public void CheckInstallationDriveNotNull(char testKey)
 		{
-			char mockPlayerKey = '0';
+			char mockPlayerKey = testKey;
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
@@ -108,7 +108,7 @@ namespace RetroGamesTests
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
-			drive.GetInstallationDrive(testKey);
+			drive.GetInstallationDrive();
 
 			string testInstallationDrive = drive.InstallationDrive;
 
@@ -270,7 +270,7 @@ namespace RetroGamesTests
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
-			char testDriveDecesion = drive.GetDriveDecisionFromPlayer(mockPlayerKey);
+			char testDriveDecesion = drive.GetDriveDecisionFromPlayer();
 
 			testDriveDecesion.Should().NotBeNull();
 		}
@@ -289,7 +289,7 @@ namespace RetroGamesTests
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
 
-			char testDriveDecesion = drive.GetDriveDecisionFromPlayer(mockPlayerKey);
+			char testDriveDecesion = drive.GetDriveDecisionFromPlayer();
 
 			testDriveDecesion.Should().Be(drive.DriveDecision);
 		}

@@ -12,7 +12,7 @@ namespace RetroGames.Game.DirectoryStructure
 		IDriveInfo[] DriveInfo { get; set; }
 		double[] FreeHddSpace { get; set; }
 
-		void GetInstallationDrive(char playerHitKey);
+		void GetInstallationDrive();
 
 		char GetPlayerPressedKey();
 
@@ -22,7 +22,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 		bool InstallationDriveSelectionSuccess();
 
-		char GetDriveDecisionFromPlayer(char playerHitKey);
+		char GetDriveDecisionFromPlayer();
 
 		void GetDriveInfo();
 

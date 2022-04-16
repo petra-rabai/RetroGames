@@ -45,15 +45,15 @@ namespace RetroGames.Game.DirectoryStructure
 			_fileSystem = new FileSystem();
 		}
 
-		public void GetInstallationDrive(char playerHitKey)
+		public void GetInstallationDrive()
 		{
 			FileSystemInit();
 
 			GetDriveList();
+			
+			_isPlayerPressedKeySuccess = CheckIsPlayerPressedKeySuccess();
 
-			_isPlayerPressedKeySuccess = CheckIsPlayerPressedKeySuccess(playerHitKey);
-
-			InstallationDrive = SelectInstallationDrive(_isPlayerPressedKeySuccess, playerHitKey);
+			InstallationDrive = SelectInstallationDrive(_isPlayerPressedKeySuccess);
 		}
 
 		public Dictionary<int, string> GetDriveList()
@@ -65,20 +65,22 @@ namespace RetroGames.Game.DirectoryStructure
 			return DriveList;
 		}
 
-		private bool CheckIsPlayerPressedKeySuccess(char playerHitKey)
+		private bool CheckIsPlayerPressedKeySuccess()
 		{
-			_isPlayerPressedKeySuccess = playerHitKey != '*';
-
+			PlayerPressedKey = GetPlayerPressedKey();
+			
+			_isPlayerPressedKeySuccess = PlayerPressedKey != '*';
+			
 			return _isPlayerPressedKeySuccess;
 		}
 
-		private string SelectInstallationDrive(bool hitKeySuccess, char playerHitKey)
+		private string SelectInstallationDrive(bool hitKeySuccess)
 		{
 			if (hitKeySuccess)
 			{
 				_defaultDrive = ChooseDefaultDrive();
 
-				GetDriveDecisionFromPlayer(playerHitKey);
+				GetDriveDecisionFromPlayer();
 
 				InstallationDriveSelectionSuccess();
 			}
@@ -92,9 +94,10 @@ namespace RetroGames.Game.DirectoryStructure
 			return InstallationDrive;
 		}
 
-		public char GetDriveDecisionFromPlayer(char playerHitKey)
-		{
-			DriveDecision = playerHitKey;
+		public char GetDriveDecisionFromPlayer()
+		{	
+
+			DriveDecision = PlayerPressedKey;
 
 			return DriveDecision;
 		}
