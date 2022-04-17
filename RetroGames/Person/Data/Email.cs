@@ -8,7 +8,6 @@ namespace RetroGames.Person.Data
 		private readonly IEmailValidator _emailValidator;
 		private readonly IPlayerInteraction _playerInteraction;
 
-		
 		public Email(IEmailValidator emailValidation, IPlayerInteraction playerInteraction)
 		{
 			_emailValidator = emailValidation;

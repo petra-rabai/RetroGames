@@ -68,7 +68,6 @@ namespace RetroGames.Person.Actions
 			if (loginName != null) LoginName = loginName.Trim();
 
 			return LoginName;
-			
 		}
 	}
 }

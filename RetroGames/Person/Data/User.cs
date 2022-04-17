@@ -10,6 +10,7 @@ namespace RetroGames.Person.Data
 		{
 			_playerInteraction = playerInteraction;
 		}
+
 		public string FirstName { get; set; } = "";
 		public string LastName { get; set; } = "";
 		public string LoginName { get; set; } = "";

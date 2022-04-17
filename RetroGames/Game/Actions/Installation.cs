@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using RetroGames.Game.DirectoryStructure;
+﻿using RetroGames.Game.DirectoryStructure;
 using RetroGames.Game.UI;
 using RetroGames.Person.Actions;
+using System.Collections.Generic;
 
 namespace RetroGames.Game.Actions
 {
@@ -36,10 +36,11 @@ namespace RetroGames.Game.Actions
 		private bool _isWaitForUserPromptDisplayed;
 		private Dictionary<int, string> _driveList = new Dictionary<int, string>();
 		private bool _isGameFilesExist;
+
 		public void InstallationProcess()
 		{
 			_installationUi.InstallationUiInitialize();
-			
+
 			WriteDriveListToUi();
 
 			_isWaitForUserPromptDisplayed = CheckWaitForInputSuccess();
@@ -67,7 +68,6 @@ namespace RetroGames.Game.Actions
 
 			return PlayerPressedKey;
 		}
-
 
 		private bool CheckWaitForInputSuccess()
 		{

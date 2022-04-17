@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using RetroGames.Person.Data;
 using System.Net;
 using System.Security;
-using RetroGames.Person.Data;
 
 namespace RetroGamesTests
 {

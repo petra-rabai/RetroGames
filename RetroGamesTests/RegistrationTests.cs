@@ -1,15 +1,12 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using NUnit.Framework;
+using RetroGames.Game.Actions;
+using RetroGames.Game.UI;
 using RetroGames.Person.Actions;
 using RetroGames.Person.Data;
-using RetroGames.Person.Security;
-using System.IO.Abstractions;
-using FluentAssertions;
-using RetroGames.Game;
-using RetroGames.Game.Actions;
-using RetroGames.Game.DirectoryStructure;
-using RetroGames.Game.UI;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace RetroGamesTests
 {
@@ -91,9 +88,8 @@ namespace RetroGamesTests
 
 			IFileSystem fileSystem = new FileSystem();
 
-			Registration registration = new(mockRegistrationUi.Object,mockInstallation.Object,mockUser.Object,mockEmail.Object,playerInteraction.Object, mockPasswordHandler.Object,fileSystem);
-			
-			
+			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
+
 			Stream testxml = fileSystem.File.Create(mockFilePath);
 			testxml.Dispose();
 			testxml.Close();
@@ -182,7 +178,6 @@ namespace RetroGamesTests
 			IFileSystem fileSystem = new FileSystem();
 
 			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
-
 
 			Stream testxml = fileSystem.File.Create(mockFilePath);
 			testxml.Dispose();
@@ -281,6 +276,5 @@ namespace RetroGamesTests
 
 			registration.IsRegistered.Should().BeFalse();
 		}
-		
 	}
 }

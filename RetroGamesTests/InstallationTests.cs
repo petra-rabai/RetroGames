@@ -1,12 +1,12 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using NUnit.Framework;
-using FluentAssertions;
-using RetroGames.Person.Actions;
-using System.Collections.Generic;
 using RetroGames.Game;
 using RetroGames.Game.Actions;
 using RetroGames.Game.DirectoryStructure;
 using RetroGames.Game.UI;
+using RetroGames.Person.Actions;
+using System.Collections.Generic;
 
 namespace RetroGamesTests
 {
@@ -23,7 +23,7 @@ namespace RetroGamesTests
 			Dictionary<int, string> mockDriveList = new()
 			{
 				[0] = "C:\\"
-			}; 
+			};
 			bool mockIsGameFilesExist = true;
 			Mock<IInstallationUi> mockInstallationUi = new();
 			mockInstallationUi
@@ -35,7 +35,7 @@ namespace RetroGamesTests
 			Mock<IMainScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.WaitForInputSuccess())
-				.Returns(()=> { return mockIsWaitforInput; });
+				.Returns(() => { return mockIsWaitforInput; });
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
@@ -49,7 +49,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object,mockInstallationUi.Object,mockMainScreen.Object,mockDrive.Object,mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
 
 			isInstallationSuccess = installation.CheckInstallationSuccess();
 
@@ -142,7 +142,7 @@ namespace RetroGamesTests
 			installation.InstallationProcess();
 
 			isInstallationSuccess = installation.IsInstallationSuccess;
-			
+
 			isInstallationSuccess.Should().BeTrue();
 		}
 

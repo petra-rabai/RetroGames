@@ -1,7 +1,7 @@
-﻿using System;
+﻿using RetroGames.Game.UI;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using RetroGames.Game.UI;
 
 namespace RetroGames.Game
 {
@@ -55,7 +55,7 @@ namespace RetroGames.Game
 			while (FlashPrompt(" *** Wait for user input ... (Hit Enter to Continue)",
 			TimeSpan.FromMilliseconds(500)) != ConsoleKey.Enter)
 
-			WaitForUserPromptDisplayed = true;
+				WaitForUserPromptDisplayed = true;
 
 			return WaitForUserPromptDisplayed;
 		}

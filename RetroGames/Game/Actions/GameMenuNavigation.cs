@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RetroGames.Person.Actions;
+using System;
 using System.Collections.Generic;
-using RetroGames.Person.Actions;
 
 namespace RetroGames.Game.Actions
 {

@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using RetroGames.Game.Actions;
+using RetroGames.Person.Security;
+using System.IO;
 using System.Text;
 using System.Xml;
-using RetroGames.Game.Actions;
-using RetroGames.Person.Security;
 
 namespace RetroGames.Person.Actions
 {
@@ -55,11 +55,8 @@ namespace RetroGames.Person.Actions
 								LoginPassword = _stringCryptographer.DecryptResult;
 							}
 						}
-						
 					}
 				}
-				
-				
 			}
 		}
 	}

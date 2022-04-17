@@ -1,7 +1,7 @@
-﻿using System;
+﻿using RetroGames.Person.Actions;
+using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
-using RetroGames.Person.Actions;
 
 namespace RetroGames.Game.DirectoryStructure
 {
@@ -50,7 +50,7 @@ namespace RetroGames.Game.DirectoryStructure
 			FileSystemInit();
 
 			GetDriveList();
-			
+
 			_isPlayerPressedKeySuccess = CheckIsPlayerPressedKeySuccess();
 
 			InstallationDrive = SelectInstallationDrive(_isPlayerPressedKeySuccess);
@@ -59,7 +59,7 @@ namespace RetroGames.Game.DirectoryStructure
 		public Dictionary<int, string> GetDriveList()
 		{
 			GetDriveInfo();
-			
+
 			CollectDrives();
 
 			return DriveList;
@@ -68,9 +68,9 @@ namespace RetroGames.Game.DirectoryStructure
 		private bool CheckIsPlayerPressedKeySuccess()
 		{
 			PlayerPressedKey = GetPlayerPressedKey();
-			
+
 			_isPlayerPressedKeySuccess = PlayerPressedKey != '*';
-			
+
 			return _isPlayerPressedKeySuccess;
 		}
 
@@ -87,7 +87,7 @@ namespace RetroGames.Game.DirectoryStructure
 			else
 			{
 				_defaultDrive = ChooseDefaultDrive();
-				
+
 				InstallationDrive = _defaultDrive;
 			}
 
@@ -95,8 +95,7 @@ namespace RetroGames.Game.DirectoryStructure
 		}
 
 		public char GetDriveDecisionFromPlayer()
-		{	
-
+		{
 			DriveDecision = PlayerPressedKey;
 
 			return DriveDecision;

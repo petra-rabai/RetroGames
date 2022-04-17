@@ -1,5 +1,5 @@
-﻿using System.IO.Abstractions;
-using RetroGames.Properties;
+﻿using RetroGames.Properties;
+using System.IO.Abstractions;
 
 namespace RetroGames.Game.DirectoryStructure
 {
@@ -51,7 +51,7 @@ namespace RetroGames.Game.DirectoryStructure
 			_drive.GetInstallationDrive();
 
 			_installationDrive = _drive.InstallationDrive;
-			
+
 			return _installationDrive;
 		}
 
@@ -67,18 +67,18 @@ namespace RetroGames.Game.DirectoryStructure
 		private string CreateGameFile()
 		{
 			GameDirectoryPath = _gameDirectory.GameDirectoryPath;
-			
+
 			GameFilePath = GameDirectoryPath + GameSettings.Default.GameFile;
 
 			_fileSystem.File.Create(GameFilePath);
-			
+
 			return GameFilePath;
 		}
 
 		private string CreateUserFile()
 		{
 			UserDirectoryPath = _gameDirectory.UserDirectoryPath;
-			
+
 			UserFilePath = UserDirectoryPath + GameSettings.Default.UserFile;
 
 			_fileSystem.File.Create(UserFilePath);
@@ -89,7 +89,7 @@ namespace RetroGames.Game.DirectoryStructure
 		private string CreateLogFile()
 		{
 			LogDirectoryPath = _gameDirectory.LogDirectoryPath;
-			
+
 			LogFilePath = LogDirectoryPath + GameSettings.Default.LogFile;
 
 			_fileSystem.File.Create(LogFilePath);

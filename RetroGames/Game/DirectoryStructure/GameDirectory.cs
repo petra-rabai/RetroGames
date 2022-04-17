@@ -1,5 +1,5 @@
-﻿using System.IO.Abstractions;
-using RetroGames.Properties;
+﻿using RetroGames.Properties;
+using System.IO.Abstractions;
 
 namespace RetroGames.Game.DirectoryStructure
 {
@@ -75,7 +75,7 @@ namespace RetroGames.Game.DirectoryStructure
 		private string CreateUserDirectory()
 		{
 			UserDirectoryPath = InstallationDrive + GameSettings.Default.UserDirectory;
-			
+
 			_fileSystem.Directory.CreateDirectory(UserDirectoryPath);
 
 			return UserDirectoryPath;

@@ -34,7 +34,6 @@ namespace RetroGamesTests
 		[Test]
 		public void IsEmailValidationFailed(string testemail)
 		{
-
 			EmailValidator emailValidator = new EmailValidator();
 
 			emailValidator.ValidateEmail(testemail);

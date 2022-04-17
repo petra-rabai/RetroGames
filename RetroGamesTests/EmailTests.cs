@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using NUnit.Framework;
-using RetroGames.Person.Security;
-using RetroGames.Person.Data;
 using Moq;
+using NUnit.Framework;
 using RetroGames.Person.Actions;
+using RetroGames.Person.Data;
+using RetroGames.Person.Security;
 
 namespace RetroGamesTests
 {
@@ -20,7 +20,7 @@ namespace RetroGamesTests
 				.Returns(() => { return mockEmail; });
 			IEmailValidator emailValidator = new EmailValidator();
 
-			Email email = new(emailValidator,mockPlayerInteraction.Object);
+			Email email = new(emailValidator, mockPlayerInteraction.Object);
 
 			string testEmail = email.GetPlayerEmail();
 

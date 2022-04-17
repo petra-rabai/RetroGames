@@ -1,10 +1,9 @@
-﻿using RetroGames.Person.Data;
-using System.IO;
-using System.Xml.Serialization;
-using RetroGames.Game.Actions;
+﻿using RetroGames.Game.Actions;
 using RetroGames.Game.UI;
+using RetroGames.Person.Data;
+using System.IO;
 using System.IO.Abstractions;
-
+using System.Xml.Serialization;
 
 namespace RetroGames.Person.Actions
 {
@@ -17,6 +16,7 @@ namespace RetroGames.Person.Actions
 		private readonly IPasswordHandler _passwordHandler;
 		private readonly IPlayerInteraction _playerInteraction;
 		private readonly IFileSystem _fileSystem;
+
 		public Registration(IRegistrationUi registrationUi,
 					  IInstallation installation,
 					  IUser user,
@@ -118,9 +118,8 @@ namespace RetroGames.Person.Actions
 			while (!_isPasswordValid)
 			{
 				Password = _passwordHandler.GetPlayerPassword();
-				_isPasswordValid =  _passwordHandler.CheckPasswordHandling(Password);
+				_isPasswordValid = _passwordHandler.CheckPasswordHandling(Password);
 			}
-	
 		}
 
 		private void AssignName()
