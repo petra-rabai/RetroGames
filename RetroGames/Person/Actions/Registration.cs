@@ -3,6 +3,8 @@ using System.IO;
 using System.Xml.Serialization;
 using RetroGames.Game.Actions;
 using RetroGames.Game.UI;
+using System.IO.Abstractions;
+
 
 namespace RetroGames.Person.Actions
 {
@@ -14,13 +16,14 @@ namespace RetroGames.Person.Actions
 		private readonly IEmail _email;
 		private readonly IPasswordHandler _passwordHandler;
 		private readonly IPlayerInteraction _playerInteraction;
-
+		private readonly IFileSystem _fileSystem;
 		public Registration(IRegistrationUi registrationUi,
 					  IInstallation installation,
 					  IUser user,
 					  IEmail email,
 					  IPlayerInteraction playerInteraction,
-					  IPasswordHandler passwordHandler)
+					  IPasswordHandler passwordHandler,
+					  IFileSystem fileSystem)
 		{
 			_registrationUi = registrationUi;
 			_installation = installation;
@@ -28,6 +31,7 @@ namespace RetroGames.Person.Actions
 			_email = email;
 			_playerInteraction = playerInteraction;
 			_passwordHandler = passwordHandler;
+			_fileSystem = fileSystem;
 		}
 
 		public bool IsRegistered { get; set; }
@@ -38,12 +42,14 @@ namespace RetroGames.Person.Actions
 
 		private char _saveDecesion;
 		private bool _isRegistrationSuccess;
+		private bool _isPasswordValid;
+		private string _savePath;
 
 		public void UserRegistration()
 		{
 			RegistrationForm();
 
-			IsUserRegistered(_isRegistrationSuccess);
+			IsRegistered = IsUserRegistered(_isRegistrationSuccess);
 		}
 
 		public void SaveDecesionCheck(char decesion)
@@ -109,11 +115,10 @@ namespace RetroGames.Person.Actions
 		{
 			_registrationUi.FormPassword();
 
-			while (!_passwordHandler.PasswordHandlingSuccess)
+			while (!_isPasswordValid)
 			{
-				_passwordHandler.GetPlayerPassword();
-				Password = _passwordHandler.PlayerPassword;
-				_passwordHandler.CheckPasswordHandling(Password);
+				Password = _passwordHandler.GetPlayerPassword();
+				_isPasswordValid =  _passwordHandler.CheckPasswordHandling(Password);
 			}
 	
 		}
@@ -156,6 +161,7 @@ namespace RetroGames.Person.Actions
 		private void GetUserSavePath()
 		{
 			_installation.CheckInstallationSuccess();
+			_savePath = _installation.UserFilePath;
 		}
 
 		private bool SaveDataSuccess()
@@ -169,14 +175,12 @@ namespace RetroGames.Person.Actions
 				Password = this.Password,
 				Email = this.Email
 			};
-			string path = _installation.UserFilePath;
 
 			XmlSerializer registrationWriteToXml = new(typeof(RegistrationData));
-			FileStream registrationXml = new(path,
-									 FileMode.Open,
-									 FileAccess.Write);
+			Stream registrationXml = _fileSystem.File.OpenWrite(_savePath);
 
 			registrationWriteToXml.Serialize(registrationXml, registrationData);
+			registrationXml.Dispose();
 			registrationXml.Close();
 
 			_isRegistrationSuccess = true;

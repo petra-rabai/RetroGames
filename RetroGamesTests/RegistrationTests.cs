@@ -9,13 +9,13 @@ using RetroGames.Game;
 using RetroGames.Game.Actions;
 using RetroGames.Game.DirectoryStructure;
 using RetroGames.Game.UI;
+using System.IO;
 
 namespace RetroGamesTests
 {
 	public class RegistrationTests
 	{
 		[TestCase('Y')]
-
 		[Test]
 		public void CheckUserRegistrationFormInitialize(char testkey)
 		{
@@ -27,6 +27,7 @@ namespace RetroGamesTests
 			bool mockIsPasswordHandling = true;
 			bool mockInstallationSuccess = true;
 			char mockPlayerKey = testkey;
+			string mockFilePath = "C:\\Test\\Test.xml";
 			Mock<IRegistrationUi> mockRegistrationUi = new();
 			mockRegistrationUi
 				.Setup(mockSetup => mockSetup.FormTitle())
@@ -79,94 +80,207 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckInstallationSuccess())
 				.Returns(() => { return mockInstallationSuccess; });
 
+			mockInstallation
+				.Setup(mockSetup => mockSetup.UserFilePath)
+				.Returns(mockFilePath);
+
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
+			IFileSystem fileSystem = new FileSystem();
 
+			Registration registration = new(mockRegistrationUi.Object,mockInstallation.Object,mockUser.Object,mockEmail.Object,playerInteraction.Object, mockPasswordHandler.Object,fileSystem);
+			
+			
+			Stream testxml = fileSystem.File.Create(mockFilePath);
+			testxml.Dispose();
+			testxml.Close();
 
-			Registration registration = new(mockRegistrationUi.Object,mockInstallation.Object,mockUser.Object,mockEmail.Object,playerInteraction.Object, mockPasswordHandler.Object);
 			registration.UserRegistration();
 
 			registration.IsRegistered.Should().BeTrue();
 
+			fileSystem.File.Delete(mockFilePath);
 		}
 
-
-		//[TestCase('Y')]
-		//[TestCase('N')]
-		//[Test]
-		//public void SaveDecesionCheckSuccess(char testDecesion)
-		//{
-		//	IRegistrationUi registrationUi = new RegistrationUi();
-		//	IInstallationUi installationUi = new InstallationUi();
-		//	IGameMenu gameMenu = new GameMenu();
-		//	IMainScreenUi mainScreenUi = new MainScreenUi(gameMenu);
-		//	IMainScreen mainScreen = new MainScreen(mainScreenUi);
-		//	IPlayerInteraction playerInteraction = new PlayerInteraction();
-
-		//	Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
-
-		//	Drive drive = new(playerInteraction, fileSystem.Object);
-
-		//	GameDirectory gameDirectory = new(drive, fileSystem.Object);
-		//	GameFile gameFile = new(drive, gameDirectory, fileSystem.Object);
-		//	IInstallation installation = new Installation(gameFile, installationUi, mainScreen, drive,playerInteraction);
-		//	IUser user = new User(playerInteraction);
-		//	IEmailValidator emailValidator = new EmailValidator();
-		//	IEmail email = new Email(emailValidator, playerInteraction);
-		//	IPassword password = new Password();
-		//	IPasswordValidator passwordValidator = new PasswordValidator();
-		//	IStringCryptographer istringCryptographer = new StringCryptographer();
-		//	IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, istringCryptographer);
-
-		//	Registration registration = new(registrationUi, installation, user, email, playerInteraction, passwordHandler);
-		//	StringCryptographer stringCryptographer = new();
-
-		//	registration.Name = "Test User";
-		//	registration.LoginName = "test1";
-		//	registration.Email = "test@test.com";
-		//	stringCryptographer.EncryptProcess("Rp!.19840716.!");
-
-		//	registration.Password = stringCryptographer.EncryptResult;
-
-		//	registration.SaveDecesionCheck(testDecesion);
-
-		//	Assert.NotNull(registration.IsRegistered);
-		//}
-
-		[TestCase(true)]
-		[TestCase(false)]
+		[TestCase('N')]
 		[Test]
-		public void IsUserRegisteredSuccess(bool registred)
+		public void CheckUserRegistrationFailed(char testkey)
 		{
-			IRegistrationUi registrationUi = new RegistrationUi();
-			IInstallationUi installationUi = new InstallationUi();
-			IGameMenu gameMenu = new GameMenu();
-			IMainScreenUi mainScreenUi = new MainScreenUi(gameMenu);
-			IMainScreen mainScreen = new MainScreen(mainScreenUi);
-			IPlayerInteraction playerInteraction = new PlayerInteraction();
-			Mock<IFileSystem> fileSystem = new(MockBehavior.Strict);
+			string email = "test@test.com";
+			string password = "RpT1x46!x";
+			string firstName = "Test";
+			string lastName = "Last";
+			string loginName = "loginName";
+			bool mockIsPasswordHandling = true;
+			bool mockInstallationSuccess = true;
+			char mockPlayerKey = testkey;
+			string mockFilePath = "C:\\Test\\Test.xml";
+			Mock<IRegistrationUi> mockRegistrationUi = new();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormTitle())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormFirstName())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormLastName())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormLoginName())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormPassword())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormEmail())
+				.Verifiable();
+			Mock<IEmail> mockEmail = new();
+			mockEmail
+				.Setup(mockSetup => mockSetup.GetPlayerEmail())
+				.Returns(() => { return email; });
+			Mock<IPasswordHandler> mockPasswordHandler = new();
+			mockPasswordHandler
+				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Returns(() => { return password; });
+			mockPasswordHandler
+				.Setup(mockSetup => mockSetup.CheckPasswordHandling(password))
+				.Returns(() => { return mockIsPasswordHandling; });
+			Mock<IUser> mockUser = new();
+			mockUser
+				.Setup(mockSetup => mockSetup.FirstName)
+				.Returns(firstName);
+			mockUser
+				.Setup(mockSetup => mockSetup.LastName)
+				.Returns(lastName);
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerLoginName())
+				.Returns(() => { return loginName; });
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerLastName())
+				.Returns(() => { return lastName; });
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerFirstName())
+				.Returns(() => { return firstName; });
 
-			Drive drive = new(playerInteraction, fileSystem.Object);
+			Mock<IInstallation> mockInstallation = new();
+			mockInstallation
+				.Setup(mockSetup => mockSetup.CheckInstallationSuccess())
+				.Returns(() => { return mockInstallationSuccess; });
 
-			GameDirectory gameDirectory = new(drive, fileSystem.Object);
-			GameFile gameFile = new(drive, gameDirectory, fileSystem.Object);
-			IInstallation installation = new Installation(gameFile, installationUi, mainScreen, drive,playerInteraction);
-			IUser user = new User(playerInteraction);
-			IEmailValidator emailValidator = new EmailValidator();
-			IEmail email = new Email(emailValidator, playerInteraction);
-			IPassword password = new Password();
-			IPasswordValidator passwordValidator = new PasswordValidator();
-			IStringCryptographer istringCryptographer = new StringCryptographer();
-			IPasswordHandler passwordHandler = new PasswordHandler(password, passwordValidator, istringCryptographer);
+			mockInstallation
+				.Setup(mockSetup => mockSetup.UserFilePath)
+				.Returns(mockFilePath);
 
-			Registration registration = new(registrationUi, installation, user, email, playerInteraction, passwordHandler);
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return mockPlayerKey; });
 
-			registration.IsUserRegistered(registred);
+			IFileSystem fileSystem = new FileSystem();
 
-			Assert.AreEqual(registred, registration.IsRegistered);
+			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
+
+
+			Stream testxml = fileSystem.File.Create(mockFilePath);
+			testxml.Dispose();
+			testxml.Close();
+
+			registration.UserRegistration();
+
+			registration.IsRegistered.Should().BeFalse();
+
+			fileSystem.File.Delete(mockFilePath);
 		}
+
+		[TestCase('N')]
+		[Test]
+		public void CheckUserNotWantToSaveRegistrationData(char testDecison)
+		{
+			string email = "test@test.com";
+			string password = "RpT1x46!x";
+			string firstName = "Test";
+			string lastName = "Last";
+			string loginName = "loginName";
+			bool mockIsPasswordHandling = true;
+			bool mockInstallationSuccess = true;
+			char mockPlayerKey = testDecison;
+			string mockFilePath = "C:\\Test\\Test.xml";
+			Mock<IRegistrationUi> mockRegistrationUi = new();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormTitle())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormFirstName())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormLastName())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormLoginName())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormPassword())
+				.Verifiable();
+			mockRegistrationUi
+				.Setup(mockSetup => mockSetup.FormEmail())
+				.Verifiable();
+			Mock<IEmail> mockEmail = new();
+			mockEmail
+				.Setup(mockSetup => mockSetup.GetPlayerEmail())
+				.Returns(() => { return email; });
+			Mock<IPasswordHandler> mockPasswordHandler = new();
+			mockPasswordHandler
+				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Returns(() => { return password; });
+			mockPasswordHandler
+				.Setup(mockSetup => mockSetup.CheckPasswordHandling(password))
+				.Returns(() => { return mockIsPasswordHandling; });
+			Mock<IUser> mockUser = new();
+			mockUser
+				.Setup(mockSetup => mockSetup.FirstName)
+				.Returns(firstName);
+			mockUser
+				.Setup(mockSetup => mockSetup.LastName)
+				.Returns(lastName);
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerLoginName())
+				.Returns(() => { return loginName; });
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerLastName())
+				.Returns(() => { return lastName; });
+			mockUser
+				.Setup(mockSetup => mockSetup.GetPlayerFirstName())
+				.Returns(() => { return firstName; });
+
+			Mock<IInstallation> mockInstallation = new();
+			mockInstallation
+				.Setup(mockSetup => mockSetup.CheckInstallationSuccess())
+				.Returns(() => { return mockInstallationSuccess; });
+
+			mockInstallation
+				.Setup(mockSetup => mockSetup.UserFilePath)
+				.Returns(mockFilePath);
+
+			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
+			playerInteraction
+				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Returns(() => { return mockPlayerKey; });
+
+			IFileSystem fileSystem = new FileSystem();
+
+			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
+			registration.Name = firstName + lastName;
+			registration.LoginName = loginName;
+			registration.Password = password;
+			registration.Email = email;
+
+			registration.SaveDecesionCheck(testDecison);
+
+			registration.IsRegistered.Should().BeFalse();
+		}
+		
 	}
 }
