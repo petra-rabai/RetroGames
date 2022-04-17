@@ -1,17 +1,20 @@
-﻿using RetroGames.Game.UI;
+﻿using RetroGames.Game.Actions;
+using RetroGames.Game.UI;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace RetroGames.Game
 {
-	public class MainScreen : IMainScreen
+	public class Screen : IScreen
 	{
 		private readonly IMainScreenUi _mainScreenUi;
+		private readonly IGameMenuNavigation _gameMenuNavigation;
 
-		public MainScreen(IMainScreenUi mainScreenUi)
+		public Screen(IMainScreenUi mainScreenUi, IGameMenuNavigation gameMenuNavigation)
 		{
 			_mainScreenUi = mainScreenUi;
+			_gameMenuNavigation = gameMenuNavigation;
 		}
 
 		public bool WaitForUserPromptDisplayed { get; set; }
@@ -31,6 +34,11 @@ namespace RetroGames.Game
 			GetMainScreenUi();
 		}
 
+		public void RegistrationScreenInitialize()
+		{
+			ScreenSetup();
+		}
+
 		public void MainScreenExit()
 		{
 			Environment.Exit(1);
@@ -38,12 +46,13 @@ namespace RetroGames.Game
 
 		private void GetMainScreenUi()
 		{
-			MainScreenSetup();
+			ScreenSetup();
+
 			_mainScreenUi.InitializeUi();
 			WaitForInputSuccess();
 		}
 
-		private void MainScreenSetup()
+		private void ScreenSetup()
 		{
 			SetScreenColor();
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
@@ -52,7 +61,46 @@ namespace RetroGames.Game
 
 		private void SetScreenColor()
 		{
-			Console.ForegroundColor = ConsoleColor.Yellow;
+			switch (_gameMenuNavigation.ChoosedMenu)
+			{
+				case "New Game":
+					Console.ForegroundColor = ConsoleColor.Red;
+					break;
+
+				case "Installation":
+					Console.ForegroundColor = ConsoleColor.DarkBlue;
+					break;
+
+				case "Pause Game":
+					Console.ForegroundColor = ConsoleColor.Cyan;
+					break;
+
+				case "Save Game":
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					break;
+
+				case "Load Game":
+					Console.ForegroundColor = ConsoleColor.DarkRed;
+					break;
+
+				case "Login":
+					Console.ForegroundColor = ConsoleColor.Blue;
+					break;
+
+				case "Registration":
+					Console.ForegroundColor = ConsoleColor.Green;
+
+					break;
+
+				case "Help":
+					Console.ForegroundColor = ConsoleColor.DarkGreen;
+					break;
+
+				default:
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					break;
+			}
+			
 		}
 
 		public bool WaitForInputSuccess()

@@ -7,19 +7,16 @@ namespace RetroGames.Game.Actions
 	public class GameMenuNavigation : IGameMenuNavigation
 	{
 		private readonly IPlayerInteraction _playerInteraction;
-		private readonly IMainScreen _mainScreen;
+		private readonly IScreen _mainScreen;
 		private readonly IGameMenu _gameMenu;
-		//private readonly IInstallation _installation;
 
 		public GameMenuNavigation(IPlayerInteraction playerInteraction,
-							IMainScreen mainScreen,
+							IScreen mainScreen,
 							IGameMenu gameMenu)
-							//IInstallation installation)
 		{
-			//_registration = registration;
+
 			_gameMenu = gameMenu;
 			_mainScreen = mainScreen;
-			//_installation = installation;
 			_playerInteraction = playerInteraction;
 		}
 
@@ -98,6 +95,7 @@ namespace RetroGames.Game.Actions
 				case "Registration":
 					// If Installation not success drop an error
 					isNavigationSuccess = true;
+					_mainScreen.RegistrationScreenInitialize();
 					//_registration.UserRegistration();
 
 					break;

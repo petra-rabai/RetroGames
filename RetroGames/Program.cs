@@ -14,7 +14,6 @@ namespace RetroGames
 
 			application.Run();
 
-			application.Close();
 		}
 	}
 }

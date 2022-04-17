@@ -1,12 +1,13 @@
 ﻿namespace RetroGames.Game
 {
-	public interface IMainScreen
+	public interface IScreen
 	{
 		bool WaitForUserPromptDisplayed { get; set; }
 
 		void MainScreenInitialize();
 
 		void MainScreenExit();
+		void RegistrationScreenInitialize();
 
 		bool WaitForInputSuccess();
 	}

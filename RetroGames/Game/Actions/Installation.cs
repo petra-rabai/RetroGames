@@ -9,13 +9,13 @@ namespace RetroGames.Game.Actions
 	{
 		private readonly IGameFile _gameFile;
 		private readonly IInstallationUi _installationUi;
-		private readonly IMainScreen _mainScreen;
+		private readonly IScreen _mainScreen;
 		private readonly IDrive _drive;
 		private readonly IPlayerInteraction _playerInteraction;
 
 		public Installation(IGameFile gameFile,
 					  IInstallationUi installationUi,
-					  IMainScreen mainScreen,
+					  IScreen mainScreen,
 					  IDrive drive,
 					  IPlayerInteraction playerInteraction)
 		{

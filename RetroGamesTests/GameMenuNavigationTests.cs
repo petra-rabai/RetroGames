@@ -25,7 +25,7 @@ namespace RetroGamesTests
 			_mockplayerInteraction
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
-			Mock<IMainScreen> mockMainScreen = new();
+			Mock<IScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.MainScreenExit())
 				.Verifiable();
@@ -61,7 +61,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
-			Mock<IMainScreen> mockMainScreen = new();
+			Mock<IScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.MainScreenExit())
 				.Verifiable();

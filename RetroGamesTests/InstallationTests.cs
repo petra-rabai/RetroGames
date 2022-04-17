@@ -32,7 +32,7 @@ namespace RetroGamesTests
 			mockInstallationUi
 				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
-			Mock<IMainScreen> mockMainScreen = new();
+			Mock<IScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.WaitForInputSuccess())
 				.Returns(() => { return mockIsWaitforInput; });
@@ -76,7 +76,7 @@ namespace RetroGamesTests
 			mockInstallationUi
 				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
-			Mock<IMainScreen> mockMainScreen = new();
+			Mock<IScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.WaitForInputSuccess())
 				.Returns(() => { return mockIsWaitforInput; });
@@ -120,7 +120,7 @@ namespace RetroGamesTests
 			mockInstallationUi
 				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
-			Mock<IMainScreen> mockMainScreen = new();
+			Mock<IScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.WaitForInputSuccess())
 				.Returns(() => { return mockIsWaitforInput; });
@@ -166,7 +166,7 @@ namespace RetroGamesTests
 			mockInstallationUi
 				.Setup(mockSetup => mockSetup.DrivelistUi(mockDrivelistKey, mockDrivelistName))
 				.Verifiable();
-			Mock<IMainScreen> mockMainScreen = new();
+			Mock<IScreen> mockMainScreen = new();
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.WaitForInputSuccess())
 				.Returns(() => { return mockIsWaitforInput; });

@@ -6,23 +6,19 @@ namespace RetroGames
 {
 	public class Application : IApplication
 	{
-		private IMainScreen _mainScreen;
+		private IScreen _screen;
 
-		public Application(IMainScreen mainScreen)
+		public Application(IScreen screen)
 		{
-			_mainScreen = mainScreen;
+			_screen = screen;
 			
 		}
 
 		public void Run()
 		{
-			_mainScreen.MainScreenInitialize();
+			_screen.MainScreenInitialize();
 		}
 
-		public void Close()
-		{
-			_mainScreen.MainScreenExit();
-		}
 
 	}
 }
