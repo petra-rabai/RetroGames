@@ -31,6 +31,11 @@ namespace RetroGames.Game
 			GetMainScreenUi();
 		}
 
+		public void MainScreenExit()
+		{
+			Environment.Exit(1);
+		}
+
 		private void GetMainScreenUi()
 		{
 			MainScreenSetup();

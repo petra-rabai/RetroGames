@@ -87,8 +87,14 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private bool CheckIsPlayerPressedKeySuccess()
 		{
-			_isPlayerPressedKeySuccess = PlayerPressedKey != '*';
-
+			if (PlayerPressedKey != '*')
+			{
+				_isPlayerPressedKeySuccess = true;
+			}
+			else
+			{
+				_isPlayerPressedKeySuccess = false;
+			}
 			return _isPlayerPressedKeySuccess;
 		}
 

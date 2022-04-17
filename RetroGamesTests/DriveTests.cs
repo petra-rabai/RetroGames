@@ -107,7 +107,9 @@ namespace RetroGamesTests
 			IFileSystem fileSystem = new FileSystem();
 
 			Drive drive = new(playerInteraction.Object, fileSystem);
-
+			
+			drive.GetDriveDecisionFromPlayer();
+			
 			drive.GetInstallationDrive();
 
 			string testInstallationDrive = drive.InstallationDrive;

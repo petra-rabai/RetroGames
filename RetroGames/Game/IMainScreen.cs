@@ -6,6 +6,8 @@
 
 		void MainScreenInitialize();
 
+		void MainScreenExit();
+
 		bool WaitForInputSuccess();
 	}
 }
