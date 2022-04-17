@@ -131,7 +131,7 @@ namespace RetroGamesTests
 
 			drive.GetDriveList();
 			drive.DriveDecision = mockPlayerKey;
-			bool testIsInstallationDriveTrue = drive.InstallationDriveSelectionSuccess();
+			bool testIsInstallationDriveTrue = drive.InstallationDriveSelection();
 
 			testIsInstallationDriveTrue.Should().BeTrue();
 		}
@@ -152,7 +152,7 @@ namespace RetroGamesTests
 
 			drive.GetDriveList();
 			drive.DriveDecision = mockPlayerKey;
-			drive.InstallationDriveSelectionSuccess();
+			drive.InstallationDriveSelection();
 
 			testIsInstallationDrive.Should().Be(drive.IsInstallationDriveSelected);
 		}
@@ -175,7 +175,7 @@ namespace RetroGamesTests
 			testAvailableDrives[0] = "C:\\";
 			drive.AvailableDrives = testAvailableDrives;
 
-			drive.InstallationDriveSelectionSuccess();
+			drive.InstallationDriveSelection();
 			string testDefaultDrive = drive.InstallationDrive;
 
 			testDefaultDrive.Should().NotBeEmpty();
@@ -208,7 +208,7 @@ namespace RetroGamesTests
 			drive.DriveDecision = mockPlayerKey;
 			drive.DriveList = testDriveList;
 
-			drive.InstallationDriveSelectionSuccess();
+			drive.InstallationDriveSelection();
 
 			string testDefaultDrive = drive.InstallationDrive;
 

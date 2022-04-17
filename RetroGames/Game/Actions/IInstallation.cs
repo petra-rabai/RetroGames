@@ -6,7 +6,7 @@
 		string GameFilePath { get; set; }
 		string UserFilePath { get; set; }
 		string LogFilePath { get; set; }
-		char PlayerPressedKey { get; set; }
+		char InstallationOptionKey { get; set; }
 
 		void InstallationProcess();
 

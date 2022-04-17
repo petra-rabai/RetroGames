@@ -181,6 +181,10 @@ namespace RetroGamesTests
 			mockDrive
 				.Setup(mockSetup => mockSetup.GetDriveList())
 				.Returns(mockDriveList);
+			mockDrive
+				.Setup(mockSetup => mockSetup.GetDriveDecisionFromPlayer())
+				.Returns(() => { return mockPlayerKey; });
+
 			Mock<IGameFile> mockGameFile = new();
 			mockGameFile
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())

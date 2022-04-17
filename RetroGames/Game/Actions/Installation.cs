@@ -30,7 +30,7 @@ namespace RetroGames.Game.Actions
 		public string GameFilePath { get; set; }
 		public string UserFilePath { get; set; }
 		public string LogFilePath { get; set; }
-		public char PlayerPressedKey { get; set; }
+		public char InstallationOptionKey { get; set; }
 
 		private bool _installationCanStart;
 		private bool _isWaitForUserPromptDisplayed;
@@ -47,7 +47,7 @@ namespace RetroGames.Game.Actions
 
 			if (_isWaitForUserPromptDisplayed)
 			{
-				PlayerPressedKey = GetPlayerPressedKey();
+				InstallationOptionKey = GetInstallationOptionKey();
 				EreaseDriveList();
 				_installationCanStart = CheckInstallationCanStart();
 				if (_installationCanStart)
@@ -62,11 +62,11 @@ namespace RetroGames.Game.Actions
 			}
 		}
 
-		private char GetPlayerPressedKey()
+		private char GetInstallationOptionKey()
 		{
-			PlayerPressedKey = _playerInteraction.GetPlayerKeyFromConsole();
+			InstallationOptionKey = _drive.GetDriveDecisionFromPlayer();
 
-			return PlayerPressedKey;
+			return InstallationOptionKey;
 		}
 
 		private bool CheckWaitForInputSuccess()
@@ -78,7 +78,7 @@ namespace RetroGames.Game.Actions
 
 		private bool CheckInstallationCanStart()
 		{
-			if (PlayerPressedKey == 'K')
+			if (InstallationOptionKey == 'K')
 			{
 				_installationCanStart = false;
 			}

@@ -33,11 +33,17 @@ namespace RetroGames.Game.DirectoryStructure
 		private long[] _availableFreeSpace;
 		private string[] _driveName;
 
-		public char GetPlayerPressedKey()
+		public string GetInstallationDrive()
 		{
-			PlayerPressedKey = _playerInteraction.GetPlayerKeyFromConsole();
+			FileSystemInit();
 
-			return PlayerPressedKey;
+			DriveList = GetDriveList();
+
+			_isPlayerPressedKeySuccess = CheckIsPlayerPressedKeySuccess();
+
+			InstallationDrive = SelectInstallationDrive(_isPlayerPressedKeySuccess);
+
+			return InstallationDrive;
 		}
 
 		private void FileSystemInit()
@@ -45,67 +51,22 @@ namespace RetroGames.Game.DirectoryStructure
 			_fileSystem = new FileSystem();
 		}
 
-		public void GetInstallationDrive()
-		{
-			FileSystemInit();
-
-			GetDriveList();
-
-			_isPlayerPressedKeySuccess = CheckIsPlayerPressedKeySuccess();
-
-			InstallationDrive = SelectInstallationDrive(_isPlayerPressedKeySuccess);
-		}
-
 		public Dictionary<int, string> GetDriveList()
 		{
-			GetDriveInfo();
+			DriveInfo = GetDriveInfo();
 
-			CollectDrives();
+			AvailableDrives = CollectDrives();
 
 			return DriveList;
 		}
 
-		private bool CheckIsPlayerPressedKeySuccess()
-		{
-			PlayerPressedKey = GetPlayerPressedKey();
-
-			_isPlayerPressedKeySuccess = PlayerPressedKey != '*';
-
-			return _isPlayerPressedKeySuccess;
-		}
-
-		private string SelectInstallationDrive(bool hitKeySuccess)
-		{
-			if (hitKeySuccess)
-			{
-				_defaultDrive = ChooseDefaultDrive();
-
-				GetDriveDecisionFromPlayer();
-
-				InstallationDriveSelectionSuccess();
-			}
-			else
-			{
-				_defaultDrive = ChooseDefaultDrive();
-
-				InstallationDrive = _defaultDrive;
-			}
-
-			return InstallationDrive;
-		}
-
-		public char GetDriveDecisionFromPlayer()
-		{
-			DriveDecision = PlayerPressedKey;
-
-			return DriveDecision;
-		}
-
-		public void GetDriveInfo()
+		public IDriveInfo[] GetDriveInfo()
 		{
 			_driveInfoFactory = _fileSystem.DriveInfo;
 
 			DriveInfo = _driveInfoFactory.GetDrives();
+
+			return DriveInfo;
 		}
 
 		public string[] CollectDrives()
@@ -124,27 +85,49 @@ namespace RetroGames.Game.DirectoryStructure
 			return AvailableDrives;
 		}
 
+		private bool CheckIsPlayerPressedKeySuccess()
+		{
+			_isPlayerPressedKeySuccess = PlayerPressedKey != '*';
+
+			return _isPlayerPressedKeySuccess;
+		}
+
+		public char GetPlayerPressedKey()
+		{
+			PlayerPressedKey = _playerInteraction.GetPlayerKeyFromConsole();
+
+			return PlayerPressedKey;
+		}
+
+		private string SelectInstallationDrive(bool hitKeySuccess)
+		{
+			if (hitKeySuccess)
+			{
+				_defaultDrive = ChooseDefaultDrive();
+
+				DriveDecision = GetDriveDecisionFromPlayer();
+
+				IsInstallationDriveSelected = InstallationDriveSelection();
+			}
+			else
+			{
+				_defaultDrive = ChooseDefaultDrive();
+
+				InstallationDrive = _defaultDrive;
+			}
+
+			return InstallationDrive;
+		}
+
 		private string ChooseDefaultDrive()
 		{
 			_availableFreeSpace = GetAvailableFreeSpace(DriveInfo.Length);
 
 			_driveName = GetDriveName(DriveInfo.Length);
 
-			CompareDisksSpace(DriveInfo.Length, _availableFreeSpace, _driveName);
+			_defaultDrive = CompareDisksSpace(DriveInfo.Length, _availableFreeSpace, _driveName);
 
 			return _defaultDrive;
-		}
-
-		private string[] GetDriveName(int driveCount)
-		{
-			_driveName = new string[driveCount];
-
-			for (int i = 0; i < driveCount; i++)
-			{
-				_driveName[i] = DriveInfo[i].Name;
-			}
-
-			return _driveName;
 		}
 
 		private long[] GetAvailableFreeSpace(int driveCount)
@@ -157,6 +140,17 @@ namespace RetroGames.Game.DirectoryStructure
 			}
 
 			return _availableFreeSpace;
+		}
+		private string[] GetDriveName(int driveCount)
+		{
+			_driveName = new string[driveCount];
+
+			for (int i = 0; i < driveCount; i++)
+			{
+				_driveName[i] = DriveInfo[i].Name;
+			}
+
+			return _driveName;
 		}
 
 		public string CompareDisksSpace(int driveCount, long[] availableFreeSpace, string[] driveName)
@@ -186,9 +180,17 @@ namespace RetroGames.Game.DirectoryStructure
 			return _defaultDrive;
 		}
 
-		public bool InstallationDriveSelectionSuccess()
+		public char GetDriveDecisionFromPlayer()
 		{
-			if (AvailableDrives.Length == 1)
+			DriveDecision = GetPlayerPressedKey();
+
+			return DriveDecision;
+		}
+
+
+		public bool InstallationDriveSelection()
+		{
+			if (AvailableDrives.Length == 1 || DriveDecision == '*')
 			{
 				InstallationDrive = _defaultDrive;
 			}
@@ -202,5 +204,6 @@ namespace RetroGames.Game.DirectoryStructure
 
 			return IsInstallationDriveSelected;
 		}
+	
 	}
 }
