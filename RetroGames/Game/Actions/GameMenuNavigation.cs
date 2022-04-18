@@ -7,16 +7,16 @@ namespace RetroGames.Game.Actions
 	public class GameMenuNavigation : IGameMenuNavigation
 	{
 		private readonly IPlayerInteraction _playerInteraction;
-		private readonly IScreen _mainScreen;
+		private readonly IScreen _screen;
 		private readonly IGameMenu _gameMenu;
 
 		public GameMenuNavigation(IPlayerInteraction playerInteraction,
-							IScreen mainScreen,
+							IScreen screen,
 							IGameMenu gameMenu)
 		{
 
 			_gameMenu = gameMenu;
-			_mainScreen = mainScreen;
+			_screen = screen;
 			_playerInteraction = playerInteraction;
 		}
 
@@ -27,8 +27,7 @@ namespace RetroGames.Game.Actions
 		public bool IsRegistered { get; set; }
 		public bool IsLoggedIn { get; set; }
 		public string LoginName { get; set; }
-		public bool isInstallationSelected { get; private set; }
-		public bool isNavigationSuccess { get; private set; }
+		public bool isNavigationSuccess { get; set; }
 
 		private char GetChoosedMenuKey()
 		{
@@ -61,12 +60,14 @@ namespace RetroGames.Game.Actions
 			{
 				case "New Game":
 					isNavigationSuccess = true;
+					
 					// Start a new game - If the user not registered or logged in drop an error
 					// If Installation not success drop an error
 					break;
 
 				case "Installation":
 					isNavigationSuccess = true;
+
 					// Install the game
 					//_installation.InstallationProcess();
 
@@ -75,27 +76,31 @@ namespace RetroGames.Game.Actions
 				case "Pause Game":
 					// Pause the current game
 					isNavigationSuccess = true;
+
 					break;
 
 				case "Save Game":
 					// Save the current unfinished game state
 					isNavigationSuccess = true;
+
 					break;
 
 				case "Load Game":
 					// Load the current unfinished game state
 					isNavigationSuccess = true;
+
 					break;
 
 				case "Login":
 					// Login with a registered user
 					isNavigationSuccess = true;
+
 					break;
 
 				case "Registration":
 					// If Installation not success drop an error
 					isNavigationSuccess = true;
-					_mainScreen.RegistrationScreenInitialize();
+
 					//_registration.UserRegistration();
 
 					break;
@@ -107,7 +112,7 @@ namespace RetroGames.Game.Actions
 
 				case "Quit":
 					isNavigationSuccess = true;
-					_mainScreen.MainScreenExit();
+					_screen.MainScreenExit();
 					break;
 			}
 		}

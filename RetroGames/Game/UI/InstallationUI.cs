@@ -14,13 +14,7 @@ namespace RetroGames.Game.UI
 		public void InstallationUiInitialize()
 		{
 			Console.Clear();
-			SetScreenColor();
 			Console.WriteLine(InstallationWelcomeMessage);
-		}
-
-		private void SetScreenColor()
-		{
-			Console.ForegroundColor = ConsoleColor.Cyan;
 		}
 
 		public void DrivelistUi(int key, string driveName)

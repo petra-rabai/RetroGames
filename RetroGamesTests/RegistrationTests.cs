@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using RetroGames.Game;
 using RetroGames.Game.Actions;
 using RetroGames.Game.UI;
 using RetroGames.Person.Actions;
@@ -86,9 +87,15 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
+			Mock<IScreen> mockScreen = new();
+			mockScreen
+				.Setup(mockSetup => mockSetup.ScreenInitialize())
+				.Verifiable();
+
+
 			IFileSystem fileSystem = new FileSystem();
 
-			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
+			Registration registration = new(mockRegistrationUi.Object, mockScreen.Object,mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
 
 			Stream testxml = fileSystem.File.Create(mockFilePath);
 			testxml.Dispose();
@@ -175,9 +182,14 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
+			Mock<IScreen> mockScreen = new();
+			mockScreen
+				.Setup(mockSetup => mockSetup.ScreenInitialize())
+				.Verifiable();
+
 			IFileSystem fileSystem = new FileSystem();
 
-			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
+			Registration registration = new(mockRegistrationUi.Object, mockScreen.Object,mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
 
 			Stream testxml = fileSystem.File.Create(mockFilePath);
 			testxml.Dispose();
@@ -264,9 +276,14 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
+			Mock<IScreen> mockScreen = new();
+			mockScreen
+				.Setup(mockSetup => mockSetup.ScreenInitialize())
+				.Verifiable();
+
 			IFileSystem fileSystem = new FileSystem();
 
-			Registration registration = new(mockRegistrationUi.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
+			Registration registration = new(mockRegistrationUi.Object, mockScreen.Object, mockInstallation.Object, mockUser.Object, mockEmail.Object, playerInteraction.Object, mockPasswordHandler.Object, fileSystem);
 			registration.Name = firstName + lastName;
 			registration.LoginName = loginName;
 			registration.Password = password;

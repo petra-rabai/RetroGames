@@ -34,7 +34,7 @@ namespace RetroGames.Game
 			GetMainScreenUi();
 		}
 
-		public void RegistrationScreenInitialize()
+		public void ScreenInitialize()
 		{
 			ScreenSetup();
 		}

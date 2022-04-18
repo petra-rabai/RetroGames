@@ -7,7 +7,7 @@
 		void MainScreenInitialize();
 
 		void MainScreenExit();
-		void RegistrationScreenInitialize();
+		void ScreenInitialize();
 
 		bool WaitForInputSuccess();
 	}

@@ -9,21 +9,21 @@ namespace RetroGames.Game.Actions
 	{
 		private readonly IGameFile _gameFile;
 		private readonly IInstallationUi _installationUi;
-		private readonly IScreen _mainScreen;
+		private readonly IScreen _screen;
 		private readonly IDrive _drive;
-		private readonly IPlayerInteraction _playerInteraction;
+		private readonly IGameMenuNavigation _gameMenuNavigation;
 
 		public Installation(IGameFile gameFile,
 					  IInstallationUi installationUi,
-					  IScreen mainScreen,
+					  IScreen screen,
 					  IDrive drive,
-					  IPlayerInteraction playerInteraction)
+					  IGameMenuNavigation gameMenuNavigation)
 		{
 			_gameFile = gameFile;
 			_installationUi = installationUi;
-			_mainScreen = mainScreen;
+			_screen = screen;
 			_drive = drive;
-			_playerInteraction = playerInteraction;
+			_gameMenuNavigation = gameMenuNavigation;
 		}
 
 		public bool IsInstallationSuccess { get; set; }
@@ -39,27 +39,33 @@ namespace RetroGames.Game.Actions
 
 		public void InstallationProcess()
 		{
-			_installationUi.InstallationUiInitialize();
-
-			WriteDriveListToUi();
-
-			_isWaitForUserPromptDisplayed = CheckWaitForInputSuccess();
-
-			if (_isWaitForUserPromptDisplayed)
+			if (_gameMenuNavigation.ChoosedMenu == "Installation" && _gameMenuNavigation.isNavigationSuccess)
 			{
-				InstallationOptionKey = GetInstallationOptionKey();
-				EreaseDriveList();
-				_installationCanStart = CheckInstallationCanStart();
-				if (_installationCanStart)
+				_screen.ScreenInitialize();
+
+				_installationUi.InstallationUiInitialize();
+
+				WriteDriveListToUi();
+
+				_isWaitForUserPromptDisplayed = CheckWaitForInputSuccess();
+
+				if (_isWaitForUserPromptDisplayed)
 				{
-					CheckInstallationSuccess();
-				}
-				else
-				{
-					IsInstallationSuccess = false;
-					_mainScreen.MainScreenInitialize();
+					InstallationOptionKey = GetInstallationOptionKey();
+					EreaseDriveList();
+					_installationCanStart = CheckInstallationCanStart();
+					if (_installationCanStart)
+					{
+						CheckInstallationSuccess();
+					}
+					else
+					{
+						IsInstallationSuccess = false;
+						_screen.MainScreenInitialize();
+					}
 				}
 			}
+			
 		}
 
 		private char GetInstallationOptionKey()
@@ -71,7 +77,7 @@ namespace RetroGames.Game.Actions
 
 		private bool CheckWaitForInputSuccess()
 		{
-			_isWaitForUserPromptDisplayed = _mainScreen.WaitForInputSuccess();
+			_isWaitForUserPromptDisplayed = _screen.WaitForInputSuccess();
 
 			return _isWaitForUserPromptDisplayed;
 		}

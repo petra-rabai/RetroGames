@@ -1,4 +1,5 @@
-﻿using RetroGames.Game.Actions;
+﻿using RetroGames.Game;
+using RetroGames.Game.Actions;
 using RetroGames.Game.UI;
 using RetroGames.Person.Data;
 using System.IO;
@@ -10,28 +11,34 @@ namespace RetroGames.Person.Actions
 	public class Registration : IRegistration
 	{
 		private readonly IRegistrationUi _registrationUi;
+		private readonly IScreen _screen;
 		private readonly IInstallation _installation;
 		private readonly IUser _user;
 		private readonly IEmail _email;
 		private readonly IPasswordHandler _passwordHandler;
 		private readonly IPlayerInteraction _playerInteraction;
 		private readonly IFileSystem _fileSystem;
+		private readonly IGameMenuNavigation _gameMenuNavigation;
 
 		public Registration(IRegistrationUi registrationUi,
+					  IScreen screen,
 					  IInstallation installation,
 					  IUser user,
 					  IEmail email,
 					  IPlayerInteraction playerInteraction,
 					  IPasswordHandler passwordHandler,
+					  IGameMenuNavigation gameMenuNavigation,
 					  IFileSystem fileSystem)
 		{
 			_registrationUi = registrationUi;
+			_screen = screen;
 			_installation = installation;
 			_user = user;
 			_email = email;
 			_playerInteraction = playerInteraction;
 			_passwordHandler = passwordHandler;
 			_fileSystem = fileSystem;
+			_gameMenuNavigation = gameMenuNavigation;
 		}
 
 		public bool IsRegistered { get; set; }
@@ -47,9 +54,14 @@ namespace RetroGames.Person.Actions
 
 		public void UserRegistration()
 		{
-			RegistrationForm();
+			if (_gameMenuNavigation.ChoosedMenu=="Registration" && _gameMenuNavigation.isNavigationSuccess)
+			{
+				_screen.ScreenInitialize();
 
-			IsRegistered = IsUserRegistered(_isRegistrationSuccess);
+				RegistrationForm();
+
+				IsRegistered = IsUserRegistered(_isRegistrationSuccess);
+			}	
 		}
 
 		public void SaveDecesionCheck(char decesion)
