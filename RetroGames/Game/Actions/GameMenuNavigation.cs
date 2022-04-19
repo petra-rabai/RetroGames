@@ -9,15 +9,18 @@ namespace RetroGames.Game.Actions
 		private readonly IPlayerInteraction _playerInteraction;
 		private readonly IScreen _screen;
 		private readonly IGameMenu _gameMenu;
+		private readonly IGameControl _gameControl;
 
 		public GameMenuNavigation(IPlayerInteraction playerInteraction,
 							IScreen screen,
+							IGameControl gameControl,
 							IGameMenu gameMenu)
 		{
 
 			_gameMenu = gameMenu;
 			_screen = screen;
 			_playerInteraction = playerInteraction;
+			_gameControl = gameControl;
 		}
 
 		public Dictionary<char, string> MainMenu { get; set; }
@@ -50,72 +53,9 @@ namespace RetroGames.Game.Actions
 				ChoosedMenu = GetChoosedMenuFromGameMenu();
 			}
 
-			Navigation();
-
+			_gameControl.Start();
 		}
 
-		private void Navigation()
-		{
-			switch (ChoosedMenu)
-			{
-				case "New Game":
-					isNavigationSuccess = true;
-					
-					// Start a new game - If the user not registered or logged in drop an error
-					// If Installation not success drop an error
-					break;
-
-				case "Installation":
-					isNavigationSuccess = true;
-
-					// Install the game
-					//_installation.InstallationProcess();
-
-					break;
-
-				case "Pause Game":
-					// Pause the current game
-					isNavigationSuccess = true;
-
-					break;
-
-				case "Save Game":
-					// Save the current unfinished game state
-					isNavigationSuccess = true;
-
-					break;
-
-				case "Load Game":
-					// Load the current unfinished game state
-					isNavigationSuccess = true;
-
-					break;
-
-				case "Login":
-					// Login with a registered user
-					isNavigationSuccess = true;
-
-					break;
-
-				case "Registration":
-					// If Installation not success drop an error
-					isNavigationSuccess = true;
-
-					//_registration.UserRegistration();
-
-					break;
-
-				case "Help":
-					// Open the Help section (txt? or any other structured file?)
-					isNavigationSuccess = true;
-					break;
-
-				case "Quit":
-					isNavigationSuccess = true;
-					_screen.MainScreenExit();
-					break;
-			}
-		}
 
 		private Dictionary<char, string> GetMainMenu()
 		{

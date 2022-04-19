@@ -20,6 +20,8 @@ namespace RetroGames
 			containerBuilder.RegisterType<GameDirectory>().As<IGameDirectory>();
 			containerBuilder.RegisterType<GameFile>().As<IGameFile>();
 			containerBuilder.RegisterType<GameMenu>().As<IGameMenu>();
+			containerBuilder.RegisterType<GameMenuNavigation>().As<IGameMenuNavigation>();
+			containerBuilder.RegisterType<GameControl>().As<IGameControl>();
 			containerBuilder.RegisterType<MainScreenUi>().As<IMainScreenUi>();
 			containerBuilder.RegisterType<Screen>().As<IScreen>();
 			containerBuilder.RegisterType<Installation>().As<IInstallation>();
