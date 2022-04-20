@@ -3,5 +3,7 @@
 	public interface ILogin
 	{
 		bool IsLoggedIn { get; set; }
+
+		void Start();
 	}
 }

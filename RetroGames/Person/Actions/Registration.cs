@@ -18,7 +18,7 @@ namespace RetroGames.Person.Actions
 		private readonly IPasswordHandler _passwordHandler;
 		private readonly IPlayerInteraction _playerInteraction;
 		private readonly IFileSystem _fileSystem;
-		private readonly IGameMenuNavigation _gameMenuNavigation;
+		private readonly IGameMenuSelector _gameMenuNavigation;
 
 		public Registration(IRegistrationUi registrationUi,
 					  IScreen screen,
@@ -27,7 +27,7 @@ namespace RetroGames.Person.Actions
 					  IEmail email,
 					  IPlayerInteraction playerInteraction,
 					  IPasswordHandler passwordHandler,
-					  IGameMenuNavigation gameMenuNavigation,
+					  IGameMenuSelector gameMenuNavigation,
 					  IFileSystem fileSystem)
 		{
 			_registrationUi = registrationUi;
@@ -52,16 +52,18 @@ namespace RetroGames.Person.Actions
 		private bool _isPasswordValid;
 		private string _savePath;
 
-		public void UserRegistration()
+		public void Start()
 		{
-			if (_gameMenuNavigation.ChoosedMenu=="Registration" && _gameMenuNavigation.isNavigationSuccess)
-			{
-				_screen.ScreenInitialize();
+			UserRegistration();
+		}
 
-				RegistrationForm();
+		private void UserRegistration()
+		{
+			_screen.ScreenInitialize();
 
-				IsRegistered = IsUserRegistered(_isRegistrationSuccess);
-			}	
+			RegistrationForm();
+
+			IsRegistered = IsUserRegistered(_isRegistrationSuccess);	
 		}
 
 		public void SaveDecesionCheck(char decesion)

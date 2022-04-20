@@ -1,4 +1,5 @@
 ﻿using RetroGames.Properties;
+using Serilog;
 using System.IO.Abstractions;
 
 namespace RetroGames.Game.DirectoryStructure
@@ -26,8 +27,10 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private string _installationDrive;
 
+		
 		public bool CheckGameFilesCreated()
 		{
+			
 			_installationDrive = GetInstallationDrive();
 
 			UserFilePath = _installationDrive + GameSettings.Default.UserDirectory + GameSettings.Default.UserFile;
@@ -50,6 +53,13 @@ namespace RetroGames.Game.DirectoryStructure
 		{
 			_drive.GetInstallationDrive();
 
+			if (_drive.InstallationDrive == " ")
+			{
+				Log.Logger = new LoggerConfiguration()
+					.Enrich.FromLogContext()
+					.WriteTo.File(LogFilePath)
+					.CreateLogger();
+			}
 			_installationDrive = _drive.InstallationDrive;
 
 			return _installationDrive;

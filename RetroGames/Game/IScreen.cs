@@ -6,7 +6,6 @@
 
 		void MainScreenInitialize();
 
-		void MainScreenExit();
 		void ScreenInitialize();
 
 		bool WaitForInputSuccess();

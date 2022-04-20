@@ -11,13 +11,13 @@ namespace RetroGames.Game.Actions
 		private readonly IInstallationUi _installationUi;
 		private readonly IScreen _screen;
 		private readonly IDrive _drive;
-		private readonly IGameMenuNavigation _gameMenuNavigation;
+		private readonly IGameMenuSelector _gameMenuNavigation;
 
 		public Installation(IGameFile gameFile,
 					  IInstallationUi installationUi,
 					  IScreen screen,
 					  IDrive drive,
-					  IGameMenuNavigation gameMenuNavigation)
+					  IGameMenuSelector gameMenuNavigation)
 		{
 			_gameFile = gameFile;
 			_installationUi = installationUi;
@@ -37,10 +37,13 @@ namespace RetroGames.Game.Actions
 		private Dictionary<int, string> _driveList = new Dictionary<int, string>();
 		private bool _isGameFilesExist;
 
-		public void InstallationProcess()
+		public void Start() 
 		{
-			if (_gameMenuNavigation.ChoosedMenu == "Installation" && _gameMenuNavigation.isNavigationSuccess)
-			{
+			InstallationProcess();
+		}
+
+		private void InstallationProcess()
+		{
 				_screen.ScreenInitialize();
 
 				_installationUi.InstallationUiInitialize();
@@ -64,7 +67,6 @@ namespace RetroGames.Game.Actions
 						_screen.MainScreenInitialize();
 					}
 				}
-			}
 			
 		}
 

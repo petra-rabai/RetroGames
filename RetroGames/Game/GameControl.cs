@@ -10,15 +10,17 @@ namespace RetroGames.Game
 {
 	public class GameControl : IGameControl
 	{
-		private readonly IGameMenuNavigation _gameMenuNavigation;
+		private readonly IGameMenuSelector _gameMenuSelector;
 		private readonly IInstallation _installation;
 		private readonly IRegistration _registration;
+		private readonly ILogin _login;
 
-		public GameControl(IGameMenuNavigation gameMenuNavigation, IInstallation installation, IRegistration registration)
+		public GameControl(IGameMenuSelector gameMenuSelector, IInstallation installation, IRegistration registration, ILogin login)
 		{
-			_gameMenuNavigation = gameMenuNavigation;
+			_gameMenuSelector = gameMenuSelector;
 			_installation = installation;
 			_registration = registration;
+			_login = login;
 		}
 
 		string choosedGameMenu;
@@ -33,10 +35,16 @@ namespace RetroGames.Game
 
 					break;
 				case "Installation":
-					_installation.InstallationProcess();
+					_installation.Start();
 					break;
 				case "Registration":
-					_registration.UserRegistration();
+					_registration.Start();
+					break;
+				case "Login":
+					_login.Start();
+					break;
+				case "Quit":
+					End();
 					break;
 				default:
 					break;
@@ -45,9 +53,14 @@ namespace RetroGames.Game
 
 		private string GetChoosedGameMenu()
 		{
-			choosedGameMenu = _gameMenuNavigation.ChoosedMenu;
+			choosedGameMenu = _gameMenuSelector.ChoosedMenu;
 
 			return choosedGameMenu;
+		}
+
+		private void End()
+		{
+			Environment.Exit(1);
 		}
 	}
 }

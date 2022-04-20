@@ -9,9 +9,9 @@ namespace RetroGames.Game
 	public class Screen : IScreen
 	{
 		private readonly IMainScreenUi _mainScreenUi;
-		private readonly IGameMenuNavigation _gameMenuNavigation;
+		private readonly IGameMenuSelector _gameMenuNavigation;
 
-		public Screen(IMainScreenUi mainScreenUi, IGameMenuNavigation gameMenuNavigation)
+		public Screen(IMainScreenUi mainScreenUi, IGameMenuSelector gameMenuNavigation)
 		{
 			_mainScreenUi = mainScreenUi;
 			_gameMenuNavigation = gameMenuNavigation;
@@ -37,11 +37,6 @@ namespace RetroGames.Game
 		public void ScreenInitialize()
 		{
 			ScreenSetup();
-		}
-
-		public void MainScreenExit()
-		{
-			Environment.Exit(1);
 		}
 
 		private void GetMainScreenUi()

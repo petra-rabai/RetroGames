@@ -21,7 +21,12 @@ namespace RetroGames.Person.Actions
 		public string LoginName { get; set; }
 		public string LoginPassword { get; set; }
 
-		public void GetLoginDataFromXml()
+		public void Start()
+		{
+			GetLoginDataFromXml();
+		}
+		
+		private void GetLoginDataFromXml()
 		{
 			_installation.CheckInstallationSuccess();
 

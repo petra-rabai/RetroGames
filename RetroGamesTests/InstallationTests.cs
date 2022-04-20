@@ -50,7 +50,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 			
-			Mock<IGameMenuNavigation> mockGameMenuNavigation = new();
+			Mock<IGameMenuSelector> mockGameMenuNavigation = new();
 			mockGameMenuNavigation
 				.Setup(mockSetup => mockSetup.ChoosedMenu)
 				.Returns(mockChoosedMenu);

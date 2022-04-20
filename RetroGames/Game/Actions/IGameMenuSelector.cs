@@ -1,9 +1,8 @@
 ﻿namespace RetroGames.Game.Actions
 {
-	public interface IGameMenuNavigation
+	public interface IGameMenuSelector
 	{
 		string ChoosedMenu { get; set; }
-		bool isNavigationSuccess { get; set; }
 		void MenuNavigation();
 	}
 }

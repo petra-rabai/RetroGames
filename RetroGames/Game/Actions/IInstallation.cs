@@ -8,7 +8,7 @@
 		string LogFilePath { get; set; }
 		char InstallationOptionKey { get; set; }
 
-		void InstallationProcess();
+		void Start();
 
 		bool CheckInstallationSuccess();
 	}

@@ -7,9 +7,9 @@ namespace RetroGames
 	public class Application : IApplication
 	{
 		private IScreen _screen;
-		private IGameMenuNavigation _gameMenuNavigation;
+		private IGameMenuSelector _gameMenuNavigation;
 
-		public Application(IScreen screen,IGameMenuNavigation gameMenuNavigation)
+		public Application(IScreen screen,IGameMenuSelector gameMenuNavigation)
 		{
 			_screen = screen;
 			_gameMenuNavigation = gameMenuNavigation;

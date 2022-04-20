@@ -6,6 +6,6 @@
 
 		bool IsUserRegistered(bool registrationSuccess);
 
-		void UserRegistration();
+		void Start();
 	}
 }
