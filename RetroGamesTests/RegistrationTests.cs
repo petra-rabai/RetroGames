@@ -101,7 +101,7 @@ namespace RetroGamesTests
 			testxml.Dispose();
 			testxml.Close();
 
-			registration.UserRegistration();
+			registration.Start();
 
 			registration.IsRegistered.Should().BeTrue();
 
@@ -195,7 +195,7 @@ namespace RetroGamesTests
 			testxml.Dispose();
 			testxml.Close();
 
-			registration.UserRegistration();
+			registration.Start();
 
 			registration.IsRegistered.Should().BeFalse();
 

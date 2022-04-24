@@ -50,16 +50,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 			
-			Mock<IGameMenuSelector> mockGameMenuNavigation = new();
-			mockGameMenuNavigation
-				.Setup(mockSetup => mockSetup.ChoosedMenu)
-				.Returns(mockChoosedMenu);
-			mockGameMenuNavigation
-				.Setup(mockSetup => mockSetup.isNavigationSuccess)
-				.Returns(mockIsNavigationSuccess);
 
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockScreen.Object, mockDrive.Object, mockGameMenuNavigation.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockScreen.Object, mockDrive.Object);
 
 			isInstallationSuccess = installation.CheckInstallationSuccess();
 
@@ -103,7 +96,7 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object);
 
 			isInstallationSuccess = installation.CheckInstallationSuccess();
 
@@ -147,9 +140,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object);
 
-			installation.InstallationProcess();
+			installation.Start();
 
 			isInstallationSuccess = installation.IsInstallationSuccess;
 
@@ -183,10 +176,7 @@ namespace RetroGamesTests
 			mockMainScreen
 				.Setup(mockSetup => mockSetup.MainScreenInitialize())
 				.Verifiable();
-			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
-			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
-				.Returns(() => { return mockPlayerKey; });
+			
 			Mock<IDrive> mockDrive = new();
 			mockDrive
 				.Setup(mockSetup => mockSetup.GetDriveList())
@@ -200,9 +190,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.CheckGameFilesCreated())
 				.Returns(() => { return mockIsGameFilesExist; });
 
-			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object, mockPlayerInteraction.Object);
+			Installation installation = new(mockGameFile.Object, mockInstallationUi.Object, mockMainScreen.Object, mockDrive.Object);
 
-			installation.InstallationProcess();
+			installation.Start();
 
 			isInstallationSuccess = installation.IsInstallationSuccess;
 

@@ -18,7 +18,7 @@ namespace RetroGames.Person.Actions
 		private readonly IPasswordHandler _passwordHandler;
 		private readonly IPlayerInteraction _playerInteraction;
 		private readonly IFileSystem _fileSystem;
-		private readonly IGameMenuSelector _gameMenuNavigation;
+
 
 		public Registration(IRegistrationUi registrationUi,
 					  IScreen screen,
@@ -27,7 +27,6 @@ namespace RetroGames.Person.Actions
 					  IEmail email,
 					  IPlayerInteraction playerInteraction,
 					  IPasswordHandler passwordHandler,
-					  IGameMenuSelector gameMenuNavigation,
 					  IFileSystem fileSystem)
 		{
 			_registrationUi = registrationUi;
@@ -38,7 +37,6 @@ namespace RetroGames.Person.Actions
 			_playerInteraction = playerInteraction;
 			_passwordHandler = passwordHandler;
 			_fileSystem = fileSystem;
-			_gameMenuNavigation = gameMenuNavigation;
 		}
 
 		public bool IsRegistered { get; set; }

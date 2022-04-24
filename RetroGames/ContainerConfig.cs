@@ -16,6 +16,7 @@ namespace RetroGames
 			ContainerBuilder containerBuilder = new();
 
 			containerBuilder.RegisterType<Application>().As<IApplication>();
+			containerBuilder.RegisterType<MainService>().As<IMainService>();
 			containerBuilder.RegisterType<Drive>().As<IDrive>();
 			containerBuilder.RegisterType<GameDirectory>().As<IGameDirectory>();
 			containerBuilder.RegisterType<GameFile>().As<IGameFile>();

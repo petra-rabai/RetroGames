@@ -11,19 +11,17 @@ namespace RetroGames.Game.Actions
 		private readonly IInstallationUi _installationUi;
 		private readonly IScreen _screen;
 		private readonly IDrive _drive;
-		private readonly IGameMenuSelector _gameMenuNavigation;
+
 
 		public Installation(IGameFile gameFile,
 					  IInstallationUi installationUi,
 					  IScreen screen,
-					  IDrive drive,
-					  IGameMenuSelector gameMenuNavigation)
+					  IDrive drive)
 		{
 			_gameFile = gameFile;
 			_installationUi = installationUi;
 			_screen = screen;
 			_drive = drive;
-			_gameMenuNavigation = gameMenuNavigation;
 		}
 
 		public bool IsInstallationSuccess { get; set; }

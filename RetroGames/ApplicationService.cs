@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace RetroGames
 {
-	public class ApplicationService
+	public class ApplicationService : IApplicationService
 	{
 
-		IContainer iOcContainer = ContainerConfig.Configure();
-		ILifetimeScope scope = iOcContainer.BeginLifetimeScope();
+		public void Initilaize()
+		{
+			IContainer iOcContainer = ContainerConfig.Configure();
+			ILifetimeScope scope = iOcContainer.BeginLifetimeScope();
 
-		IApplication application = scope.Resolve<IApplication>();
+			IApplication application = scope.Resolve<IApplication>();
 
-		application.Run();
+			application.Run();
+		}
+
 	}
 }
