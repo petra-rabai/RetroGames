@@ -1,5 +1,9 @@
 ﻿using Autofac;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
+using System.IO;
 
 namespace RetroGames
 {
@@ -7,13 +11,37 @@ namespace RetroGames
 	{
 		private static void Main()
 		{
-			IContainer iOcContainer = ContainerConfig.Configure();
-			ILifetimeScope scope = iOcContainer.BeginLifetimeScope();
+			ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+			BuildConfig(configurationBuilder);
 
-			IApplication application = scope.Resolve<IApplication>();
+			Log.Logger = new LoggerConfiguration()
+				.ReadFrom.Configuration(configurationBuilder.Build())
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.CreateLogger();
 
-			application.Run();
+			Log.Logger.Information("Application starting");
+
+			IHost host = Host.CreateDefaultBuilder()
+				.ConfigureServices((context, services) =>
+				{
+
+				})
+				.UseSerilog()
+				.Build();
+
+
+			
 
 		}
+
+		static void BuildConfig(IConfigurationBuilder configurationBuilder)
+		{
+			configurationBuilder.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+				.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Prodaction"}.json", optional: true)
+				.AddEnvironmentVariables();
+		}
+		
 	}
 }

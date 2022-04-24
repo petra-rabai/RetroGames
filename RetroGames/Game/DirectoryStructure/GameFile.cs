@@ -55,10 +55,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 			if (_drive.InstallationDrive == " ")
 			{
-				Log.Logger = new LoggerConfiguration()
-					.Enrich.FromLogContext()
-					.WriteTo.File(LogFilePath)
-					.CreateLogger();
+				//
 			}
 			_installationDrive = _drive.InstallationDrive;
 
