@@ -12,39 +12,16 @@ namespace RetroGames
 	{
 		private static void Main()
 		{
-			ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-			BuildConfig(configurationBuilder);
-
-			Log.Logger = new LoggerConfiguration()
-				.ReadFrom.Configuration(configurationBuilder.Build())
-				.Enrich.FromLogContext()
-				.WriteTo.Console()
-				.CreateLogger();
-
-			Log.Logger.Information("Application starting");
-
-			IHost host = Host.CreateDefaultBuilder()
-				.ConfigureServices((context, services) =>
-				{
-					services.AddTransient<IMainService, MainService>();
-				})
-				.UseSerilog()
-				.Build();
-
-			IMainService MainService = ActivatorUtilities.CreateInstance<MainService>(host.Services);
-			MainService.Initialize();
-
-			
-
+			DefineLogger();
+			ApplicationService applicationService = new();
+			applicationService.Initilaize();
 		}
 
-		static void BuildConfig(IConfigurationBuilder configurationBuilder)
+		private static void DefineLogger()
 		{
-			configurationBuilder.SetBasePath(Directory.GetCurrentDirectory())
-				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-				.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Prodaction"}.json", optional: true)
-				.AddEnvironmentVariables();
+			Log.Logger = new LoggerConfiguration()
+							.WriteTo.Console()
+							.CreateLogger();
 		}
-		
 	}
 }

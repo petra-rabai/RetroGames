@@ -23,13 +23,13 @@ namespace RetroGames.Game
 			_login = login;
 		}
 
-		string choosedGameMenu;
+		string _choosedGameMenu;
 
 		public void Start()
 		{
 			GetChoosedGameMenu();
 
-			switch (choosedGameMenu)
+			switch (_choosedGameMenu)
 			{
 				case "New Game":
 
@@ -53,9 +53,10 @@ namespace RetroGames.Game
 
 		private string GetChoosedGameMenu()
 		{
-			choosedGameMenu = _gameMenuSelector.ChoosedMenu;
+			_gameMenuSelector.SelectMenu();
+			_choosedGameMenu = _gameMenuSelector.ChoosedMenu;
 
-			return choosedGameMenu;
+			return _choosedGameMenu;
 		}
 
 		private void End()

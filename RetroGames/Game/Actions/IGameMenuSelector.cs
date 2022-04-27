@@ -3,6 +3,6 @@
 	public interface IGameMenuSelector
 	{
 		string ChoosedMenu { get; set; }
-		void MenuNavigation();
+		void SelectMenu();
 	}
 }

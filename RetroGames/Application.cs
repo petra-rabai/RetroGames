@@ -7,19 +7,18 @@ namespace RetroGames
 	public class Application : IApplication
 	{
 		private IScreen _screen;
-		private IGameMenuSelector _gameMenuNavigation;
+		private IGameControl _gameControl;
 
-		public Application(IScreen screen,IGameMenuSelector gameMenuNavigation)
+		public Application(IScreen screen, IGameControl gameControl)
 		{
 			_screen = screen;
-			_gameMenuNavigation = gameMenuNavigation;
-			
+			_gameControl = gameControl;
 		}
 
 		public void Run()
 		{
 			_screen.MainScreenInitialize();
-			_gameMenuNavigation.MenuNavigation();
+			_gameControl.Start();
 
 		}
 

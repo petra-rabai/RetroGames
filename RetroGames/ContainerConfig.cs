@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using AutofacSerilogIntegration;
 using RetroGames.Game;
 using RetroGames.Game.Actions;
 using RetroGames.Game.DirectoryStructure;
@@ -6,6 +7,7 @@ using RetroGames.Game.UI;
 using RetroGames.Person.Actions;
 using RetroGames.Person.Data;
 using RetroGames.Person.Security;
+using System.IO.Abstractions;
 
 namespace RetroGames
 {
@@ -14,34 +16,60 @@ namespace RetroGames
 		public static IContainer Configure()
 		{
 			ContainerBuilder containerBuilder = new();
-
-			containerBuilder.RegisterType<Application>().As<IApplication>();
-			containerBuilder.RegisterType<MainService>().As<IMainService>();
-			containerBuilder.RegisterType<Drive>().As<IDrive>();
-			containerBuilder.RegisterType<GameDirectory>().As<IGameDirectory>();
-			containerBuilder.RegisterType<GameFile>().As<IGameFile>();
-			containerBuilder.RegisterType<GameMenu>().As<IGameMenu>();
-			containerBuilder.RegisterType<GameMenuSelector>().As<IGameMenuSelector>();
-			containerBuilder.RegisterType<GameControl>().As<IGameControl>();
-			containerBuilder.RegisterType<MainScreenUi>().As<IMainScreenUi>();
-			containerBuilder.RegisterType<Screen>().As<IScreen>();
-			containerBuilder.RegisterType<Installation>().As<IInstallation>();
-			containerBuilder.RegisterType<InstallationUi>().As<IInstallationUi>();
-			containerBuilder.RegisterType<RegistrationUi>().As<IRegistrationUi>();
-			containerBuilder.RegisterType<Login>().As<ILogin>();
-			containerBuilder.RegisterType<Registration>().As<IRegistration>();
-			containerBuilder.RegisterType<PlayerInteraction>().As<IPlayerInteraction>();
-			containerBuilder.RegisterType<Player>().As<IPlayer>();
-			containerBuilder.RegisterType<PasswordHandler>().As<IPasswordHandler>();
-			containerBuilder.RegisterType<Password>().As<IPassword>();
-			containerBuilder.RegisterType<PasswordValidator>().As<IPasswordValidator>();
-			containerBuilder.RegisterType<Email>().As<IEmail>();
-			containerBuilder.RegisterType<EmailValidator>().As<IEmailValidator>();
-			containerBuilder.RegisterType<User>().As<IUser>();
-			containerBuilder.RegisterType<RegistrationData>().As<IRegistrationData>();
-			containerBuilder.RegisterType<StringCryptographer>().As<IStringCryptographer>();
+			containerBuilder.RegisterLogger();
+			containerBuilder.RegisterType<Application>().As<IApplication>().SingleInstance()
+							.SingleInstance();
+			containerBuilder.RegisterType<Drive>().As<IDrive>().SingleInstance()
+							.SingleInstance();
+			containerBuilder.RegisterType<GameDirectory>().As<IGameDirectory>()
+							.SingleInstance();
+			containerBuilder.RegisterType<GameFile>().As<IGameFile>()
+							.SingleInstance();
+			containerBuilder.RegisterType<FileSystem>().As<IFileSystem>()
+							.SingleInstance();
+			containerBuilder.RegisterType<GameMenu>().As<IGameMenu>()
+							.SingleInstance();
+			containerBuilder.RegisterType<GameMenuSelector>().As<IGameMenuSelector>()
+							.SingleInstance();
+			containerBuilder.RegisterType<GameControl>().As<IGameControl>()
+							.SingleInstance();
+			containerBuilder.RegisterType<MainScreenUi>().As<IMainScreenUi>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Screen>().As<IScreen>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Installation>().As<IInstallation>()
+							.SingleInstance();
+			containerBuilder.RegisterType<InstallationUi>().As<IInstallationUi>()
+							.SingleInstance();
+			containerBuilder.RegisterType<RegistrationUi>().As<IRegistrationUi>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Login>().As<ILogin>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Registration>().As<IRegistration>()
+							.SingleInstance();
+			containerBuilder.RegisterType<PlayerInteraction>().As<IPlayerInteraction>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Player>().As<IPlayer>()
+							.SingleInstance();
+			containerBuilder.RegisterType<PasswordHandler>().As<IPasswordHandler>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Password>().As<IPassword>()
+							.SingleInstance();
+			containerBuilder.RegisterType<PasswordValidator>().As<IPasswordValidator>()
+							.SingleInstance();
+			containerBuilder.RegisterType<Email>().As<IEmail>()
+							.SingleInstance();
+			containerBuilder.RegisterType<EmailValidator>().As<IEmailValidator>()
+							.SingleInstance();
+			containerBuilder.RegisterType<User>().As<IUser>()
+							.SingleInstance();
+			containerBuilder.RegisterType<RegistrationData>().As<IRegistrationData>()
+							.SingleInstance();
+			containerBuilder.RegisterType<StringCryptographer>().As<IStringCryptographer>()
+							.SingleInstance();
 
 			return containerBuilder.Build();
 		}
+
 	}
 }

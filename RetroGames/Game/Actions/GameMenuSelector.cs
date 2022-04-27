@@ -8,16 +8,13 @@ namespace RetroGames.Game.Actions
 	{
 		private readonly IPlayerInteraction _playerInteraction;
 		private readonly IGameMenu _gameMenu;
-		private readonly IGameControl _gameControl;
 
 		public GameMenuSelector(IPlayerInteraction playerInteraction,
-							IGameControl gameControl,
 							IGameMenu gameMenu)
 		{
 
 			_gameMenu = gameMenu;
 			_playerInteraction = playerInteraction;
-			_gameControl = gameControl;
 		}
 
 		public Dictionary<char, string> MainMenu { get; set; }
@@ -31,7 +28,7 @@ namespace RetroGames.Game.Actions
 			return PressedKey;
 		}
 
-		public void MenuNavigation()
+		public void SelectMenu()
 		{
 			MainMenu = GetMainMenu();
 
@@ -44,8 +41,6 @@ namespace RetroGames.Game.Actions
 			{
 				ChoosedMenu = GetChoosedMenuFromGameMenu();
 			}
-
-			_gameControl.Start();
 		}
 
 

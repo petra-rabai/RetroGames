@@ -22,12 +22,12 @@ namespace RetroGames.Game
 		[DllImport("kernel32.dll", ExactSpelling = true)]
 		private static extern IntPtr GetConsoleWindow();
 
-		private static readonly IntPtr ThisConsole = GetConsoleWindow();
+		private static readonly IntPtr _thisConsole = GetConsoleWindow();
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-		private const int Maximize = 3;
+		private const int _maximize = 3;
 
 		public void MainScreenInitialize()
 		{
@@ -51,7 +51,7 @@ namespace RetroGames.Game
 		{
 			SetScreenColor();
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-			ShowWindow(ThisConsole, Maximize);
+			ShowWindow(_thisConsole, _maximize);
 		}
 
 		private void SetScreenColor()
