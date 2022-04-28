@@ -19,7 +19,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
 			Mock<IFileSystem> mockFileSystem = new();
@@ -49,7 +49,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
 			Mock<IFileSystem> mockFileSystem = new();
@@ -78,7 +78,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
 			Mock<IFileSystem> mockFileSystem = new();
@@ -107,7 +107,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
 			Mock<IFileSystem> mockFileSystem = new();
@@ -136,7 +136,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
 			Mock<IFileSystem> mockFileSystem = new();

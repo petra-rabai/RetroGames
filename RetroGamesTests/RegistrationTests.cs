@@ -84,7 +84,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
 			Mock<IScreen> mockScreen = new();
@@ -179,7 +179,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
 			Mock<IScreen> mockScreen = new();
@@ -273,7 +273,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> playerInteraction = new(MockBehavior.Strict);
 			playerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
 			Mock<IScreen> mockScreen = new();

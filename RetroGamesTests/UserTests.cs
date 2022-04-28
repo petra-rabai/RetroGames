@@ -15,7 +15,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerFirstNameFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerFirstNameFromConsole())
 				.Returns(() => { return mockFirstName; });
 
 			User user = new(mockPlayerInteraction.Object);
@@ -32,7 +32,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerLastNameFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerLastNameFromConsole())
 				.Returns(() => { return mockLastName; });
 
 			User user = new(mockPlayerInteraction.Object);
@@ -49,7 +49,7 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerLoginNameFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerLoginNameFromConsole())
 				.Returns(() => { return mockLoginName; });
 
 			User user = new(mockPlayerInteraction.Object);

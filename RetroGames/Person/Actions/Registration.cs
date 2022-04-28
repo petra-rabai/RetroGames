@@ -112,7 +112,7 @@ namespace RetroGames.Person.Actions
 		{
 			_registrationUi.FromSave();
 
-			_saveDecesion = _playerInteraction.GetPlayerKeyFromConsole();
+			_saveDecesion = _playerInteraction.ReadPlayerKeyFromConsole();
 
 			return _saveDecesion;
 		}
@@ -136,13 +136,14 @@ namespace RetroGames.Person.Actions
 
 		private void AssignName()
 		{
+
 			Name = _user.FirstName + " " + _user.LastName;
 		}
 
 		private void GetLoginName()
 		{
 			_registrationUi.FormLoginName();
-			LoginName = _user.GetPlayerLoginName();
+			LoginName = _user.LoginName;
 		}
 
 		private void GetLastName()

@@ -21,9 +21,9 @@ namespace RetroGames.Game.Actions
 		public string ChoosedMenu { get; set; }
 		public char PressedKey { get; set; }
 
-		private char GetChoosedMenuKey()
+		private char SetChoosedMenuKey()
 		{
-			PressedKey = GetPlayerPressedKey();
+			PressedKey = SetPlayerPressedKey();
 
 			return PressedKey;
 		}
@@ -34,12 +34,12 @@ namespace RetroGames.Game.Actions
 
 			if (PressedKey == ' ')
 			{
-				PressedKey = GetChoosedMenuKey();
-				ChoosedMenu = GetChoosedMenuFromGameMenu();
+				PressedKey = SetChoosedMenuKey();
+				ChoosedMenu = SetChoosedMenuFromGameMenu();
 			}
 			else
 			{
-				ChoosedMenu = GetChoosedMenuFromGameMenu();
+				ChoosedMenu = SetChoosedMenuFromGameMenu();
 			}
 		}
 
@@ -51,14 +51,14 @@ namespace RetroGames.Game.Actions
 			return MainMenu;
 		}
 
-		private char GetPlayerPressedKey()
+		private char SetPlayerPressedKey()
 		{
-			PressedKey = _playerInteraction.GetPlayerKeyFromConsole();
+			PressedKey = _playerInteraction.ReadPlayerKeyFromConsole();
 
 			return PressedKey;
 		}
 
-		private string GetChoosedMenuFromGameMenu()
+		private string SetChoosedMenuFromGameMenu()
 		{
 			ChoosedMenu = MainMenu[PressedKey];
 

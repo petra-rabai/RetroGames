@@ -4,7 +4,7 @@ namespace RetroGames.Game.UI
 {
 	public class InstallationUi : IInstallationUi
 	{
-		private const string InstallationWelcomeMessage = "\n\tWelcome to the Installation screen."
+		private const string _installationWelcomeMessage = "\n\tWelcome to the Installation screen."
 							 + "\n\tThe installation process check the available drive space on the System."
 							 + "\n\tIf you want to install the game to the default drive hit the * key."
 							 + "\n\tIf you want to different installation location please select a drive from the list: "
@@ -14,7 +14,7 @@ namespace RetroGames.Game.UI
 		public void InstallationUiInitialize()
 		{
 			Console.Clear();
-			Console.WriteLine(InstallationWelcomeMessage);
+			Console.WriteLine(_installationWelcomeMessage);
 		}
 
 		public void DrivelistUi(int key, string driveName)

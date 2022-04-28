@@ -43,7 +43,7 @@ namespace RetroGamesTests
 				.Verifiable();
 			Mock<IDrive> mockDrive = new();
 			mockDrive
-				.Setup(mockSetup => mockSetup.GetDriveList())
+				.Setup(mockSetup => mockSetup.SetDriveList())
 				.Returns(mockDriveList);
 			Mock<IGameFile> mockGameFile = new();
 			mockGameFile
@@ -85,11 +85,11 @@ namespace RetroGamesTests
 				.Returns(() => { return mockIsWaitforInput; });
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 			Mock<IDrive> mockDrive = new();
 			mockDrive
-				.Setup(mockSetup => mockSetup.GetDriveList())
+				.Setup(mockSetup => mockSetup.SetDriveList())
 				.Returns(mockDriveList);
 			Mock<IGameFile> mockGameFile = new();
 			mockGameFile
@@ -129,11 +129,11 @@ namespace RetroGamesTests
 				.Returns(() => { return mockIsWaitforInput; });
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerKeyFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 			Mock<IDrive> mockDrive = new();
 			mockDrive
-				.Setup(mockSetup => mockSetup.GetDriveList())
+				.Setup(mockSetup => mockSetup.SetDriveList())
 				.Returns(mockDriveList);
 			Mock<IGameFile> mockGameFile = new();
 			mockGameFile
@@ -179,10 +179,10 @@ namespace RetroGamesTests
 			
 			Mock<IDrive> mockDrive = new();
 			mockDrive
-				.Setup(mockSetup => mockSetup.GetDriveList())
+				.Setup(mockSetup => mockSetup.SetDriveList())
 				.Returns(mockDriveList);
 			mockDrive
-				.Setup(mockSetup => mockSetup.GetDriveDecisionFromPlayer())
+				.Setup(mockSetup => mockSetup.SetDriveDecisionFromPlayer())
 				.Returns(() => { return mockPlayerKey; });
 
 			Mock<IGameFile> mockGameFile = new();

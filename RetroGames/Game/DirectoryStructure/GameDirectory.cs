@@ -23,7 +23,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 		public bool CheckGameDirectoriesExist()
 		{
-			InstallationDrive = GetInstallationDrive();
+			InstallationDrive = SelectInstallationDrive();
 
 			GameDirectoryPath = InstallationDrive + GameSettings.Default.GameDirectory;
 			UserDirectoryPath = InstallationDrive + GameSettings.Default.UserDirectory;
@@ -43,9 +43,9 @@ namespace RetroGames.Game.DirectoryStructure
 			return IsGameDirectoriesExist;
 		}
 
-		private string GetInstallationDrive()
+		private string SelectInstallationDrive()
 		{
-			_drive.GetInstallationDrive();
+			_drive.SetInstallationDrive();
 
 			InstallationDrive = _drive.InstallationDrive;
 

@@ -14,13 +14,13 @@ namespace RetroGames.Game.DirectoryStructure
 		bool IsInstallationDriveSelected { get; set; }
 		char PlayerPressedKey { get; set; }
 
-		string[] CollectDrives();
+		string[] CollectAvailableDrives();
 		string CompareDisksSpace(int driveCount, long[] availableFreeSpace, string[] driveName);
-		char GetDriveDecisionFromPlayer();
-		IDriveInfo[] GetDriveInfo();
-		Dictionary<int, string> GetDriveList();
-		string GetInstallationDrive();
-		char GetPlayerPressedKey();
+		char SetDriveDecisionFromPlayer();
+		IDriveInfo[] SetDriveInfo();
+		Dictionary<int, string> SetDriveList();
+		string SetInstallationDrive();
+		char SetPlayerPressedKey();
 		bool InstallationDriveSelection();
 	}
 }

@@ -52,7 +52,7 @@ namespace RetroGames.Game.Actions
 
 				if (_isWaitForUserPromptDisplayed)
 				{
-					InstallationOptionKey = GetInstallationOptionKey();
+					InstallationOptionKey = SetInstallationOptionKey();
 					EreaseDriveList();
 					_installationCanStart = CheckInstallationCanStart();
 					if (_installationCanStart)
@@ -68,9 +68,9 @@ namespace RetroGames.Game.Actions
 			
 		}
 
-		private char GetInstallationOptionKey()
+		private char SetInstallationOptionKey()
 		{
-			InstallationOptionKey = _drive.GetDriveDecisionFromPlayer();
+			InstallationOptionKey = _drive.SetDriveDecisionFromPlayer();
 
 			return InstallationOptionKey;
 		}
@@ -112,7 +112,7 @@ namespace RetroGames.Game.Actions
 
 		private Dictionary<int, string> GetDriveList()
 		{
-			_driveList = _drive.GetDriveList();
+			_driveList = _drive.SetDriveList();
 
 			return _driveList;
 		}

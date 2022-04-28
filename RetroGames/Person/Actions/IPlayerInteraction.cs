@@ -8,13 +8,13 @@
 		string LastName { get; set; }
 		string LoginName { get; set; }
 
-		char GetPlayerKeyFromConsole();
+		char ReadPlayerKeyFromConsole();
 
-		string GetPlayerFirstNameFromConsole();
+		string ReadPlayerFirstNameFromConsole();
 
-		string GetPlayerLastNameFromConsole();
+		string ReadPlayerLastNameFromConsole();
 
-		string GetPlayerLoginNameFromConsole();
+		string ReadPlayerLoginNameFromConsole();
 
 		string GetPlayerEmailFromConsole();
 	}

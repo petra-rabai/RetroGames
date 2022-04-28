@@ -11,7 +11,7 @@ namespace RetroGames.Person.Actions
 		public string LastName { get; set; } = "";
 		public string LoginName { get; set; } = "";
 
-		public char GetPlayerKeyFromConsole()
+		public char ReadPlayerKeyFromConsole()
 		{
 			ConsoleKeyInfo hitkey = Console.ReadKey();
 
@@ -43,7 +43,7 @@ namespace RetroGames.Person.Actions
 			return Email;
 		}
 
-		public string GetPlayerFirstNameFromConsole()
+		public string ReadPlayerFirstNameFromConsole()
 		{
 			string firstName = Console.ReadLine();
 
@@ -52,7 +52,7 @@ namespace RetroGames.Person.Actions
 			return FirstName;
 		}
 
-		public string GetPlayerLastNameFromConsole()
+		public string ReadPlayerLastNameFromConsole()
 		{
 			string lastName = Console.ReadLine();
 
@@ -61,7 +61,7 @@ namespace RetroGames.Person.Actions
 			return LastName;
 		}
 
-		public string GetPlayerLoginNameFromConsole()
+		public string ReadPlayerLoginNameFromConsole()
 		{
 			string loginName = Console.ReadLine();
 
