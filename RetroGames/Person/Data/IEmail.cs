@@ -4,6 +4,6 @@
 	{
 		string PlayerEmail { get; set; }
 
-		string GetPlayerEmail();
+		string SetPlayerEmail();
 	}
 }

@@ -16,7 +16,7 @@ namespace RetroGamesTests
 
 			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
 			mockPassword
-				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Setup(mockSetup => mockSetup.SetPlayerPassword())
 				.Returns(testpassword);
 
 			IPasswordValidator passwordValidator = new PasswordValidator();
@@ -28,7 +28,7 @@ namespace RetroGamesTests
 
 			testpassword = passwordHandler.PlayerPassword;
 
-			mockPassword.Verify(mockVerify => mockVerify.GetPlayerPassword(), Times.Once());
+			mockPassword.Verify(mockVerify => mockVerify.SetPlayerPassword(), Times.Once());
 
 			testpassword.Should().Be(passwordHandler.PlayerPassword);
 		}
@@ -61,7 +61,7 @@ namespace RetroGamesTests
 
 			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
 			mockPassword
-				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Setup(mockSetup => mockSetup.SetPlayerPassword())
 				.Returns(() => { return testPassword; });
 
 			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
@@ -101,7 +101,7 @@ namespace RetroGamesTests
 
 			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
 			mockPassword
-				.Setup(mockSetup => mockSetup.GetPlayerPassword())
+				.Setup(mockSetup => mockSetup.SetPlayerPassword())
 				.Returns(() => { return testPassword; });
 
 			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);

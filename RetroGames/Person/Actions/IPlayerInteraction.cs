@@ -16,6 +16,8 @@
 
 		string ReadPlayerLoginNameFromConsole();
 
-		string GetPlayerEmailFromConsole();
+		string ReadPlayerEmailFromConsole();
+
+		string ReadPlayerPasswordFromConsole();
 	}
 }

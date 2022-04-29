@@ -1,15 +1,24 @@
-﻿using System;
+﻿using RetroGames.Person.Data;
+using System;
 using System.Linq;
 
 namespace RetroGames.Person.Actions
 {
 	public class PlayerInteraction : IPlayerInteraction
 	{
+		private IPassword _password;
+
+		public PlayerInteraction(IPassword password)
+		{
+			_password = password;
+		}
+
 		public char PressedKey { get; set; }
 		public string Email { get; set; }
 		public string FirstName { get; set; } = "";
 		public string LastName { get; set; } = "";
 		public string LoginName { get; set; } = "";
+		public string Password { get; set; } = "";
 
 		public char ReadPlayerKeyFromConsole()
 		{
@@ -34,7 +43,16 @@ namespace RetroGames.Person.Actions
 			return PressedKey;
 		}
 
-		public string GetPlayerEmailFromConsole()
+		public string ReadPlayerPasswordFromConsole()
+		{
+			string password = _password.SetPlayerPassword().Trim();
+
+			Password = password;
+
+			return Password;
+		}
+
+		public string ReadPlayerEmailFromConsole()
 		{
 			string email = Console.ReadLine();
 

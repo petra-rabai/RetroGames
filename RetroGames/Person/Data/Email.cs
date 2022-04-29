@@ -16,9 +16,9 @@ namespace RetroGames.Person.Data
 
 		public string PlayerEmail { get; set; } = "";
 
-		public string GetPlayerEmail()
+		public string SetPlayerEmail()
 		{
-			string email = _playerInteraction.GetPlayerEmailFromConsole();
+			string email = _playerInteraction.ReadPlayerEmailFromConsole();
 
 			_emailValidator.ValidateEmail(email);
 

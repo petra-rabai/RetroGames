@@ -21,7 +21,7 @@ namespace RetroGamesTests
 
 			IPassword password = mockPassword.Object;
 
-			password.GetPlayerPassword();
+			password.SetPlayerPassword();
 
 			string testPassword = password.PlayerPassword;
 

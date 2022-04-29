@@ -19,6 +19,8 @@ namespace RetroGames
 			containerBuilder.RegisterLogger();
 			containerBuilder.RegisterType<Application>().As<IApplication>().SingleInstance()
 							.SingleInstance();
+			containerBuilder.RegisterType<Player>().As<IPlayer>().SingleInstance()
+							.SingleInstance();
 			containerBuilder.RegisterType<Drive>().As<IDrive>().SingleInstance()
 							.SingleInstance();
 			containerBuilder.RegisterType<GameDirectory>().As<IGameDirectory>()
@@ -49,8 +51,6 @@ namespace RetroGames
 							.SingleInstance();
 			containerBuilder.RegisterType<PlayerInteraction>().As<IPlayerInteraction>()
 							.SingleInstance();
-			containerBuilder.RegisterType<Player>().As<IPlayer>()
-							.SingleInstance();
 			containerBuilder.RegisterType<PasswordHandler>().As<IPasswordHandler>()
 							.SingleInstance();
 			containerBuilder.RegisterType<Password>().As<IPassword>()
@@ -60,8 +60,6 @@ namespace RetroGames
 			containerBuilder.RegisterType<Email>().As<IEmail>()
 							.SingleInstance();
 			containerBuilder.RegisterType<EmailValidator>().As<IEmailValidator>()
-							.SingleInstance();
-			containerBuilder.RegisterType<User>().As<IUser>()
 							.SingleInstance();
 			containerBuilder.RegisterType<RegistrationData>().As<IRegistrationData>()
 							.SingleInstance();

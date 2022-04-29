@@ -6,8 +6,7 @@ namespace RetroGames.Person.Data
 	{
 		string PlayerPassword { get; set; }
 
-		string GetPlayerPassword();
+		string SetPlayerPassword();
 
-		SecureString ConvertPasswordToSecure();
 	}
 }

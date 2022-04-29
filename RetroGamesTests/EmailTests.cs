@@ -16,13 +16,13 @@ namespace RetroGamesTests
 
 			Mock<IPlayerInteraction> mockPlayerInteraction = new(MockBehavior.Strict);
 			mockPlayerInteraction
-				.Setup(mockSetup => mockSetup.GetPlayerEmailFromConsole())
+				.Setup(mockSetup => mockSetup.ReadPlayerEmailFromConsole())
 				.Returns(() => { return mockEmail; });
 			IEmailValidator emailValidator = new EmailValidator();
 
 			Email email = new(emailValidator, mockPlayerInteraction.Object);
 
-			string testEmail = email.GetPlayerEmail();
+			string testEmail = email.SetPlayerEmail();
 
 			testEmail.Should().Be(mockEmail);
 		}

@@ -10,7 +10,7 @@ namespace RetroGames.Person.Data
 
 		private readonly SecureString _securePassword = new SecureString();
 
-		public string GetPlayerPassword()
+		public string SetPlayerPassword()
 		{
 			SecureString password = ConvertPasswordToSecure();
 			string passWordConvert = new NetworkCredential(string.Empty, password).Password;
@@ -20,7 +20,7 @@ namespace RetroGames.Person.Data
 			return PlayerPassword;
 		}
 
-		public SecureString ConvertPasswordToSecure()
+		private SecureString ConvertPasswordToSecure()
 		{
 			while (true)
 			{
