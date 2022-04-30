@@ -12,14 +12,12 @@ namespace RetroGames.Game
 	{
 		private readonly IGameMenuSelector _gameMenuSelector;
 		private readonly IInstallation _installation;
-		private readonly IRegistration _registration;
 		private readonly ILogin _login;
 
-		public GameControl(IGameMenuSelector gameMenuSelector, IInstallation installation, IRegistration registration, ILogin login)
+		public GameControl(IGameMenuSelector gameMenuSelector, IInstallation installation, ILogin login)
 		{
 			_gameMenuSelector = gameMenuSelector;
 			_installation = installation;
-			_registration = registration;
 			_login = login;
 		}
 
@@ -38,7 +36,6 @@ namespace RetroGames.Game
 					_installation.Start();
 					break;
 				case "Registration":
-					_registration.Start();
 					break;
 				case "Login":
 					_login.Start();

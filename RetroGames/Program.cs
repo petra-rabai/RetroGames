@@ -13,6 +13,12 @@ namespace RetroGames
 		private static void Main()
 		{
 			DefineLogger();
+
+			ApplicationServiceStart();
+		}
+
+		private static void ApplicationServiceStart()
+		{
 			ApplicationService applicationService = new();
 			applicationService.Initilaize();
 		}

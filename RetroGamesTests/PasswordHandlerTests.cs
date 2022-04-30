@@ -1,116 +1,116 @@
-﻿using FluentAssertions;
-using Moq;
-using NUnit.Framework;
-using RetroGames.Person.Actions;
-using RetroGames.Person.Data;
-using RetroGames.Person.Security;
+﻿//using FluentAssertions;
+//using Moq;
+//using NUnit.Framework;
+//using RetroGames.Person.Actions;
+//using RetroGames.Person.Data;
+//using RetroGames.Person.Security;
 
-namespace RetroGamesTests
-{
-	public class PasswordHandlerTests
-	{
-		[Test]
-		public void CheckGetPlayerKeySuccess()
-		{
-			string testpassword = "Rp!x123592";
+//namespace RetroGamesTests
+//{
+//	public class PasswordHandlerTests
+//	{
+//		[Test]
+//		public void CheckGetPlayerKeySuccess()
+//		{
+//			string testpassword = "Rp!x123592";
 
-			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
-			mockPassword
-				.Setup(mockSetup => mockSetup.SetPlayerPassword())
-				.Returns(testpassword);
+//			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
+//			mockPassword
+//				.Setup(mockSetup => mockSetup.SetPlayerPassword())
+//				.Returns(testpassword);
 
-			IPasswordValidator passwordValidator = new PasswordValidator();
-			IStringCryptographer stringCryptographer = new StringCryptographer();
+//			IPasswordValidator passwordValidator = new PasswordValidator();
+//			IStringCryptographer stringCryptographer = new StringCryptographer();
 
-			PasswordHandler passwordHandler = new(mockPassword.Object, passwordValidator, stringCryptographer);
+//			PasswordHandler passwordHandler = new(mockPassword.Object, passwordValidator, stringCryptographer);
 
-			passwordHandler.GetPlayerPassword();
+//			passwordHandler.GetPlayerPassword();
 
-			testpassword = passwordHandler.PlayerPassword;
+//			testpassword = passwordHandler.PlayerPassword;
 
-			mockPassword.Verify(mockVerify => mockVerify.SetPlayerPassword(), Times.Once());
+//			mockPassword.Verify(mockVerify => mockVerify.SetPlayerPassword(), Times.Once());
 
-			testpassword.Should().Be(passwordHandler.PlayerPassword);
-		}
+//			testpassword.Should().Be(passwordHandler.PlayerPassword);
+//		}
 
-		[Test]
-		public void CheckIsPasswordHandlingFailed()
-		{
-			string testPassword = "Rp!x123592";
-			bool isPasswordHandlingFailed;
-			bool mockValidation = false;
+//		[Test]
+//		public void CheckIsPasswordHandlingFailed()
+//		{
+//			string testPassword = "Rp!x123592";
+//			bool isPasswordHandlingFailed;
+//			bool mockValidation = false;
 
-			Mock<IPasswordValidator> mockPasswordValidator = new(MockBehavior.Strict);
-			mockPasswordValidator
-				.Setup(mockSetup => mockSetup.ValidatePassword(testPassword))
-				.Returns(() => { return mockValidation; });
+//			Mock<IPasswordValidator> mockPasswordValidator = new(MockBehavior.Strict);
+//			mockPasswordValidator
+//				.Setup(mockSetup => mockSetup.ValidatePassword(testPassword))
+//				.Returns(() => { return mockValidation; });
 
-			Mock<IStringCryptographer> mockStringCryptographer = new(MockBehavior.Strict);
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.EncryptProcess(testPassword))
-				.Returns(() => { return mockValidation; });
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.CheckIsEncrypted(testPassword))
-				.Returns(() => { return mockValidation; });
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.EncryptResult)
-				.Returns(() => { return testPassword; });
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.IsEncrypted)
-				.Returns(() => { return mockValidation; });
+//			Mock<IStringCryptographer> mockStringCryptographer = new(MockBehavior.Strict);
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.EncryptProcess(testPassword))
+//				.Returns(() => { return mockValidation; });
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.CheckIsEncrypted(testPassword))
+//				.Returns(() => { return mockValidation; });
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.EncryptResult)
+//				.Returns(() => { return testPassword; });
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.IsEncrypted)
+//				.Returns(() => { return mockValidation; });
 
-			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
-			mockPassword
-				.Setup(mockSetup => mockSetup.SetPlayerPassword())
-				.Returns(() => { return testPassword; });
+//			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
+//			mockPassword
+//				.Setup(mockSetup => mockSetup.SetPlayerPassword())
+//				.Returns(() => { return testPassword; });
 
-			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
+//			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
 
-			passwordHandler.CheckPasswordHandling(testPassword);
+//			passwordHandler.CheckPasswordHandling(testPassword);
 
-			isPasswordHandlingFailed = passwordHandler.PasswordHandlingSuccess;
+//			isPasswordHandlingFailed = passwordHandler.PasswordHandlingSuccess;
 
-			isPasswordHandlingFailed.Should().BeFalse();
-		}
+//			isPasswordHandlingFailed.Should().BeFalse();
+//		}
 
-		[Test]
-		public void CheckIsPasswordHandlingTrue()
-		{
-			string testPassword = "Rp!x123592";
-			bool isPasswordHandlingTrue;
-			bool mockValidation = true;
+//		[Test]
+//		public void CheckIsPasswordHandlingTrue()
+//		{
+//			string testPassword = "Rp!x123592";
+//			bool isPasswordHandlingTrue;
+//			bool mockValidation = true;
 
-			Mock<IPasswordValidator> mockPasswordValidator = new(MockBehavior.Strict);
-			mockPasswordValidator
-				.Setup(mockSetup => mockSetup.ValidatePassword(testPassword))
-				.Returns(() => { return mockValidation; });
+//			Mock<IPasswordValidator> mockPasswordValidator = new(MockBehavior.Strict);
+//			mockPasswordValidator
+//				.Setup(mockSetup => mockSetup.ValidatePassword(testPassword))
+//				.Returns(() => { return mockValidation; });
 
-			Mock<IStringCryptographer> mockStringCryptographer = new(MockBehavior.Strict);
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.EncryptProcess(testPassword))
-				.Returns(() => { return mockValidation; });
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.CheckIsEncrypted(testPassword))
-				.Returns(() => { return mockValidation; });
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.EncryptResult)
-				.Returns(() => { return testPassword; });
-			mockStringCryptographer
-				.Setup(mockSetup => mockSetup.IsEncrypted)
-				.Returns(() => { return mockValidation; });
+//			Mock<IStringCryptographer> mockStringCryptographer = new(MockBehavior.Strict);
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.EncryptProcess(testPassword))
+//				.Returns(() => { return mockValidation; });
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.CheckIsEncrypted(testPassword))
+//				.Returns(() => { return mockValidation; });
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.EncryptResult)
+//				.Returns(() => { return testPassword; });
+//			mockStringCryptographer
+//				.Setup(mockSetup => mockSetup.IsEncrypted)
+//				.Returns(() => { return mockValidation; });
 
-			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
-			mockPassword
-				.Setup(mockSetup => mockSetup.SetPlayerPassword())
-				.Returns(() => { return testPassword; });
+//			Mock<IPassword> mockPassword = new(MockBehavior.Strict);
+//			mockPassword
+//				.Setup(mockSetup => mockSetup.SetPlayerPassword())
+//				.Returns(() => { return testPassword; });
 
-			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
+//			PasswordHandler passwordHandler = new(mockPassword.Object, mockPasswordValidator.Object, mockStringCryptographer.Object);
 
-			passwordHandler.CheckPasswordHandling(testPassword);
+//			passwordHandler.CheckPasswordHandling(testPassword);
 
-			isPasswordHandlingTrue = passwordHandler.PasswordHandlingSuccess;
+//			isPasswordHandlingTrue = passwordHandler.PasswordHandlingSuccess;
 
-			isPasswordHandlingTrue.Should().BeTrue();
-		}
-	}
-}
+//			isPasswordHandlingTrue.Should().BeTrue();
+//		}
+//	}
+//}

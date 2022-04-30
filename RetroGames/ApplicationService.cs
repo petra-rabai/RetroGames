@@ -12,13 +12,28 @@ namespace RetroGames
 
 		public void Initilaize()
 		{
-			IContainer iOcContainer = ContainerConfig.Configure();
-			ILifetimeScope scope = iOcContainer.BeginLifetimeScope();
+			IContainer iOcContainer = ConfigureContainer();
 
-			IApplication application = scope.Resolve<IApplication>();
+			ILifetimeScope scope = LifetimeStart(iOcContainer);
+			
+			IApplication application = ResolveScopeStrat(scope);
 
 			application.Run();
 		}
 
+		private static IApplication ResolveScopeStrat(ILifetimeScope scope)
+		{
+			return scope.Resolve<IApplication>();
+		}
+
+		private static ILifetimeScope LifetimeStart(IContainer iOcContainer)
+		{
+			return iOcContainer.BeginLifetimeScope();
+		}
+
+		private static IContainer ConfigureContainer()
+		{
+			return ContainerConfig.Configure();
+		}
 	}
 }

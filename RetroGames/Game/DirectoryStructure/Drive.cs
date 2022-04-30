@@ -19,14 +19,14 @@ namespace RetroGames.Game.DirectoryStructure
 		private const int _gbConvert = (1024 * 1024 * 1024);
 
 		public string InstallationDrive { get; set; }
-		public bool IsInstallationDriveSelected { get; set; }
-		public string[] AvailableDrives { get; set; }
-		public char DriveDecision { get; set; }
 		public Dictionary<int, string> DriveList { get; set; } = new();
-		public char PlayerPressedKey { get; set; }
-		public IDriveInfo[] DriveInfo { get; set; }
-		public double[] FreeHddSpace { get; set; }
-
+		
+		private IDriveInfo[] _driveInfo;
+		private bool _isInstallationDriveSelected;
+		private string[] _availableDrives;
+		private char _driveDecision;
+		private char _playerPressedKey;
+		private double[] _freeHddSpace;
 		private string _defaultDrive;
 		private IDriveInfoFactory _driveInfoFactory;
 		private bool _isPlayerPressedKeySuccess;
@@ -53,41 +53,41 @@ namespace RetroGames.Game.DirectoryStructure
 
 		public Dictionary<int, string> SetDriveList()
 		{
-			DriveInfo = SetDriveInfo();
+			_driveInfo = SetDriveInfo();
 
-			AvailableDrives = CollectAvailableDrives();
+			_availableDrives = CollectAvailableDrives();
 
 			return DriveList;
 		}
 
-		public IDriveInfo[] SetDriveInfo()
+		private IDriveInfo[] SetDriveInfo()
 		{
 			_driveInfoFactory = _fileSystem.DriveInfo;
 
-			DriveInfo = _driveInfoFactory.GetDrives();
+			_driveInfo = _driveInfoFactory.GetDrives();
 
-			return DriveInfo;
+			return _driveInfo;
 		}
 
-		public string[] CollectAvailableDrives()
+		private string[] CollectAvailableDrives()
 		{
-			AvailableDrives = new string[DriveInfo.Length];
+			_availableDrives = new string[_driveInfo.Length];
 
-			for (int i = 0; i < DriveInfo.Length; i++)
+			for (int i = 0; i < _driveInfo.Length; i++)
 			{
-				AvailableDrives[i] = DriveInfo[i].Name;
+				_availableDrives[i] = _driveInfo[i].Name;
 			}
-			for (int i = 0; i < AvailableDrives.Length; i++)
+			for (int i = 0; i < _availableDrives.Length; i++)
 			{
-				DriveList.Add(i, AvailableDrives[i]);
+				DriveList.Add(i, _availableDrives[i]);
 			}
 
-			return AvailableDrives;
+			return _availableDrives;
 		}
 
 		private bool CheckIsPlayerPressedKey()
 		{
-			if (PlayerPressedKey != '*')
+			if (_playerPressedKey != '*')
 			{
 				_isPlayerPressedKeySuccess = true;
 			}
@@ -99,11 +99,11 @@ namespace RetroGames.Game.DirectoryStructure
 			return _isPlayerPressedKeySuccess;
 		}
 
-		public char SetPlayerPressedKey()
+		private char SetPlayerPressedKey()
 		{
-			PlayerPressedKey = _playerInteraction.ReadPlayerKeyFromConsole();
+			_playerPressedKey = _playerInteraction.ReadPlayerKeyFromConsole();
 
-			return PlayerPressedKey;
+			return _playerPressedKey;
 		}
 
 		private string ChooseInstallationDrive(bool hitKeySuccess)
@@ -112,9 +112,9 @@ namespace RetroGames.Game.DirectoryStructure
 			{
 				_defaultDrive = SetDefaultDrive();
 
-				DriveDecision = SetDriveDecisionFromPlayer();
+				_driveDecision = SetDriveDecisionFromPlayer();
 
-				IsInstallationDriveSelected = InstallationDriveSelection();
+				_isInstallationDriveSelected = InstallationDriveSelection();
 			}
 			else
 			{
@@ -128,11 +128,11 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private string SetDefaultDrive()
 		{
-			_availableFreeSpace = GetAvailableFreeSpace(DriveInfo.Length);
+			_availableFreeSpace = GetAvailableFreeSpace(_driveInfo.Length);
 
-			_driveName = GetDriveName(DriveInfo.Length);
+			_driveName = GetDriveName(_driveInfo.Length);
 
-			_defaultDrive = CompareDisksSpace(DriveInfo.Length, _availableFreeSpace, _driveName);
+			_defaultDrive = CompareDisksSpace(_driveInfo.Length, _availableFreeSpace, _driveName);
 
 			return _defaultDrive;
 		}
@@ -143,7 +143,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 			for (int i = 0; i < driveCount; i++)
 			{
-				_availableFreeSpace[i] = DriveInfo[i].AvailableFreeSpace / _gbConvert;
+				_availableFreeSpace[i] = _driveInfo[i].AvailableFreeSpace / _gbConvert;
 			}
 
 			return _availableFreeSpace;
@@ -154,26 +154,26 @@ namespace RetroGames.Game.DirectoryStructure
 
 			for (int i = 0; i < driveCount; i++)
 			{
-				_driveName[i] = DriveInfo[i].Name;
+				_driveName[i] = _driveInfo[i].Name;
 			}
 
 			return _driveName;
 		}
 
-		public string CompareDisksSpace(int driveCount, long[] availableFreeSpace, string[] driveName)
+		private string CompareDisksSpace(int driveCount, long[] availableFreeSpace, string[] driveName)
 		{
-			FreeHddSpace = new double[driveCount];
+			_freeHddSpace = new double[driveCount];
 
 			for (int i = 0; i < driveCount; i++)
 			{
-				FreeHddSpace[i] = Convert.ToDouble(availableFreeSpace[i]);
+				_freeHddSpace[i] = Convert.ToDouble(availableFreeSpace[i]);
 			}
 
 			for (int i = 0; i < driveCount; i++)
 			{
 				for (int j = driveCount - 1; j >= 0; j--)
 				{
-					if (FreeHddSpace[i] > FreeHddSpace[j])
+					if (_freeHddSpace[i] > _freeHddSpace[j])
 					{
 						_defaultDrive = driveName[i];
 					}
@@ -189,27 +189,27 @@ namespace RetroGames.Game.DirectoryStructure
 
 		public char SetDriveDecisionFromPlayer()
 		{
-			DriveDecision = SetPlayerPressedKey();
+			_driveDecision = SetPlayerPressedKey();
 
-			return DriveDecision;
+			return _driveDecision;
 		}
 
 
-		public bool InstallationDriveSelection()
+		private bool InstallationDriveSelection()
 		{
-			if (AvailableDrives.Length == 1 || DriveDecision == '*')
+			if (_availableDrives.Length == 1 || _driveDecision == '*')
 			{
 				InstallationDrive = _defaultDrive;
 			}
 			else
 			{
-				int drivelistKey = Convert.ToInt32(DriveDecision.ToString());
+				int drivelistKey = Convert.ToInt32(_driveDecision.ToString());
 				InstallationDrive = DriveList[drivelistKey];
 			}
 
-			IsInstallationDriveSelected = true;
+			_isInstallationDriveSelected = true;
 
-			return IsInstallationDriveSelected;
+			return _isInstallationDriveSelected;
 		}
 	
 	}
