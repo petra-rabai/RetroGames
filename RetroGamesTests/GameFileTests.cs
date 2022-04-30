@@ -30,7 +30,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -61,7 +61,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -92,7 +92,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -123,7 +123,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 
@@ -154,7 +154,7 @@ namespace RetroGamesTests
 
 			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
 
-			GameFile gameFile = new(drive, gameDirectory, mockFileSystem.Object);
+			GameFile gameFile = new(gameDirectory, mockFileSystem.Object);
 
 			gameFile.CheckGameFilesCreated();
 

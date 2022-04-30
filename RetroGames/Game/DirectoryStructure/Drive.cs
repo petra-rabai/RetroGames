@@ -33,22 +33,29 @@ namespace RetroGames.Game.DirectoryStructure
 		private long[] _availableFreeSpace;
 		private string[] _driveName;
 
-		public string SetInstallationDrive()
+		public string SetInstallationDrive(int driveCount)
 		{
 			FileSystemInit();
 
 			DriveList = SetDriveList();
-
+			
+			if (driveCount == 0)
+			{
+				driveCount = DriveList.Count;
+			}
+			
 			_isPlayerPressedKeySuccess = CheckIsPlayerPressedKey();
-
-			InstallationDrive = ChooseInstallationDrive(_isPlayerPressedKeySuccess);
+			
+			InstallationDrive = ChooseInstallationDrive(_isPlayerPressedKeySuccess, driveCount);
 
 			return InstallationDrive;
 		}
 
-		private void FileSystemInit()
+		public char SetDriveDecisionFromPlayer()
 		{
-			_fileSystem = new FileSystem();
+			_driveDecision = SetPlayerPressedKey();
+
+			return _driveDecision;
 		}
 
 		public Dictionary<int, string> SetDriveList()
@@ -58,6 +65,11 @@ namespace RetroGames.Game.DirectoryStructure
 			_availableDrives = CollectAvailableDrives();
 
 			return DriveList;
+		}
+
+		private void FileSystemInit()
+		{
+			_fileSystem = new FileSystem();
 		}
 
 		private IDriveInfo[] SetDriveInfo()
@@ -106,7 +118,7 @@ namespace RetroGames.Game.DirectoryStructure
 			return _playerPressedKey;
 		}
 
-		private string ChooseInstallationDrive(bool hitKeySuccess)
+		private string ChooseInstallationDrive(bool hitKeySuccess, int driveCount)
 		{
 			if (hitKeySuccess)
 			{
@@ -114,7 +126,7 @@ namespace RetroGames.Game.DirectoryStructure
 
 				_driveDecision = SetDriveDecisionFromPlayer();
 
-				_isInstallationDriveSelected = InstallationDriveSelection();
+				_isInstallationDriveSelected = InstallationDriveSelection(driveCount);
 			}
 			else
 			{
@@ -187,17 +199,9 @@ namespace RetroGames.Game.DirectoryStructure
 			return _defaultDrive;
 		}
 
-		public char SetDriveDecisionFromPlayer()
+		private bool InstallationDriveSelection(int driveCount)
 		{
-			_driveDecision = SetPlayerPressedKey();
-
-			return _driveDecision;
-		}
-
-
-		private bool InstallationDriveSelection()
-		{
-			if (_availableDrives.Length == 1 || _driveDecision == '*')
+			if (driveCount == 1 || _driveDecision == '*')
 			{
 				InstallationDrive = _defaultDrive;
 			}

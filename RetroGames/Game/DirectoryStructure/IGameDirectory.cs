@@ -8,6 +8,5 @@
 
 		bool CheckGameDirectoriesExist();
 
-		void CreateGameDirectories();
 	}
 }

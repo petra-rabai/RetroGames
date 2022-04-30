@@ -8,6 +8,5 @@
 
 		bool CheckGameFilesCreated();
 
-		void CreateGameFiles();
 	}
 }
