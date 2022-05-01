@@ -8,27 +8,24 @@ namespace RetroGames.Game.DirectoryStructure
 	public class Drive : IDrive
 	{
 		private readonly IPlayerInteraction _playerInteraction;
-		private IFileSystem _fileSystem;
 
-		public Drive(IPlayerInteraction playerInteraction, IFileSystem fileSystem)
+		public Drive(IPlayerInteraction playerInteraction, )
 		{
 			_playerInteraction = playerInteraction;
-			_fileSystem = fileSystem;
+			
 		}
 
-		private const int _gbConvert = (1024 * 1024 * 1024);
-
 		public string InstallationDrive { get; set; }
-		public Dictionary<int, string> DriveList { get; set; } = new();
 		
-		private IDriveInfo[] _driveInfo;
+		
+		
 		private bool _isInstallationDriveSelected;
-		private string[] _availableDrives;
+		
 		private char _driveDecision;
 		private char _playerPressedKey;
 		private double[] _freeHddSpace;
 		private string _defaultDrive;
-		private IDriveInfoFactory _driveInfoFactory;
+		
 		private bool _isPlayerPressedKeySuccess;
 		private long[] _availableFreeSpace;
 		private string[] _driveName;
@@ -69,19 +66,12 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private void FileSystemInit()
 		{
-			_fileSystem = new FileSystem();
+			_fileSystemHelper.FileSystemInit();
 		}
 
-		private IDriveInfo[] SetDriveInfo()
-		{
-			_driveInfoFactory = _fileSystem.DriveInfo;
+		
 
-			_driveInfo = _driveInfoFactory.GetDrives();
-
-			return _driveInfo;
-		}
-
-		private string[] CollectAvailableDrives()
+	private string[] CollectAvailableDrives()
 		{
 			_availableDrives = new string[_driveInfo.Length];
 
@@ -89,10 +79,7 @@ namespace RetroGames.Game.DirectoryStructure
 			{
 				_availableDrives[i] = _driveInfo[i].Name;
 			}
-			for (int i = 0; i < _availableDrives.Length; i++)
-			{
-				DriveList.Add(i, _availableDrives[i]);
-			}
+			
 
 			return _availableDrives;
 		}

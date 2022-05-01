@@ -7,12 +7,12 @@ namespace RetroGames.Game.DirectoryStructure
 	public class GameFile : IGameFile
 	{
 		private readonly IGameDirectory _gameDirectory;
-		private readonly IFileSystem _fileSystem;
+		private readonly IFileSystemHelper _fileSystemHelper;
 
-		public GameFile(IGameDirectory gameDirectory, IFileSystem fileSystem)
+		public GameFile(IGameDirectory gameDirectory, IFileSystemHelper fileSystemHelper)
 		{
 			_gameDirectory = gameDirectory;
-			_fileSystem = fileSystem;
+			_fileSystemHelper = fileSystemHelper;
 		}
 
 		public bool IsGameFilesExist { get; set; }
@@ -28,7 +28,7 @@ namespace RetroGames.Game.DirectoryStructure
 			LogFilePath = _gameDirectory.LogDirectoryPath + GameSettings.Default.LogFile;
 			GameFilePath = _gameDirectory.GameDirectoryPath + GameSettings.Default.GameFile;
 
-			if (!_fileSystem.File.Exists(UserFilePath) && !_fileSystem.File.Exists(GameFilePath) && !_fileSystem.File.Exists(LogFilePath))
+			if (!_fileSystemHelper.FileSystem.File.Exists(UserFilePath) && !_fileSystemHelper.FileSystem.File.Exists(GameFilePath) && !_fileSystemHelper.FileSystem.File.Exists(LogFilePath))
 			{
 				CreateGameFiles();
 			}
@@ -51,21 +51,21 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private string CreateGameFile()
 		{
-			_fileSystem.File.Create(GameFilePath);
+			_fileSystemHelper.FileSystem.File.Create(GameFilePath);
 
 			return GameFilePath;
 		}
 
 		private string CreateUserFile()
 		{
-			_fileSystem.File.Create(UserFilePath);
+			_fileSystemHelper.FileSystem.File.Create(UserFilePath);
 
 			return UserFilePath;
 		}
 
 		private string CreateLogFile()
 		{
-			_fileSystem.File.Create(LogFilePath);
+			_fileSystemHelper.FileSystem.File.Create(LogFilePath);
 
 			return LogFilePath;
 		}

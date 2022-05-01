@@ -6,12 +6,12 @@ namespace RetroGames.Game.DirectoryStructure
 	public class GameDirectory : IGameDirectory
 	{
 		private readonly IDrive _drive;
-		private readonly IFileSystem _fileSystem;
+		private readonly IFileSystemHelper _fileSystemHelper;
 
-		public GameDirectory(IDrive drive, IFileSystem fileSystem)
+		public GameDirectory(IDrive drive, IFileSystemHelper fileSystemHelper)
 		{
 			_drive = drive;
-			_fileSystem = fileSystem;
+			_fileSystemHelper = fileSystemHelper;
 		}
 
 		private string _installationDrive;
@@ -28,7 +28,7 @@ namespace RetroGames.Game.DirectoryStructure
 			UserDirectoryPath = _installationDrive + GameSettings.Default.UserDirectory;
 			LogDirectoryPath = _installationDrive + GameSettings.Default.LogDirectory;
 
-			if (!_fileSystem.Directory.Exists(GameDirectoryPath) && !_fileSystem.Directory.Exists(UserDirectoryPath) && !_fileSystem.Directory.Exists(LogDirectoryPath))
+			if (!_fileSystemHelper.FileSystem.Directory.Exists(GameDirectoryPath) && !_fileSystemHelper.FileSystem.Directory.Exists(UserDirectoryPath) && !_fileSystemHelper.FileSystem.Directory.Exists(LogDirectoryPath))
 			{
 				IsGameDirectoriesExist = false;
 
@@ -60,21 +60,21 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private string CreateGameDirectory()
 		{
-			_fileSystem.Directory.CreateDirectory(GameDirectoryPath);
+			_fileSystemHelper.FileSystem.Directory.CreateDirectory(GameDirectoryPath);
 
 			return GameDirectoryPath;
 		}
 
 		private string CreateUserDirectory()
 		{
-			_fileSystem.Directory.CreateDirectory(UserDirectoryPath);
+			_fileSystemHelper.FileSystem.Directory.CreateDirectory(UserDirectoryPath);
 
 			return UserDirectoryPath;
 		}
 
 		private string CreateLogDirectory()
 		{
-			_fileSystem.Directory.CreateDirectory(LogDirectoryPath);
+			_fileSystemHelper.FileSystem.Directory.CreateDirectory(LogDirectoryPath);
 
 			return LogDirectoryPath;
 		}

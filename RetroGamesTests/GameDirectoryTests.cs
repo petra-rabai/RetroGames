@@ -22,14 +22,14 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return playerKey; });
 
-			Mock<IFileSystem> mockFileSystem = new();
-			mockFileSystem.Setup(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
+			Mock<IFileSystemHelper> mockFileSystemHelper = new();
+			mockFileSystemHelper.Setup(fileSystemHelper => fileSystemHelper.FileSystem.Directory.CreateDirectory(It.IsAny<String>())).Verifiable();
 
-			mockFileSystem.Setup(fileSystem => fileSystem.Directory.Exists(It.IsAny<String>())).Returns(false);
+			mockFileSystemHelper.Setup(fileSystemHelper => fileSystemHelper.FileSystem.Directory.Exists(It.IsAny<String>())).Returns(false);
 
-			Drive drive = new(playerInteraction.Object, mockFileSystem.Object);
+			Drive drive = new(playerInteraction.Object, mockFileSystemHelper.Object);
 
-			GameDirectory gameDirectory = new(drive, mockFileSystem.Object);
+			GameDirectory gameDirectory = new(drive, mockFileSystemHelper.Object);
 
 			gameDirectory.CheckGameDirectoriesExist();
 
@@ -37,7 +37,7 @@ namespace RetroGamesTests
 
 			directoriesExist.Should().BeFalse();
 
-			mockFileSystem.Verify(fileSystem => fileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.AtLeastOnce);
+			mockFileSystemHelper.Verify(fileSystemHelper => fileSystemHelper.FileSystem.Directory.CreateDirectory(It.IsAny<String>()), Times.AtLeastOnce);
 		}
 
 		[Test]

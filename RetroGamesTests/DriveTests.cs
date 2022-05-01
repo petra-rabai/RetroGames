@@ -21,9 +21,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
-			IFileSystem fileSystem = new FileSystem();
+			IFileSystemHelper fileSystemHelper = new FileSystemHelper();
 
-			Drive drive = new(playerInteraction.Object, fileSystem);
+			Drive drive = new(playerInteraction.Object, fileSystemHelper);
 
 			drive.SetDriveList();
 
@@ -42,9 +42,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
-			IFileSystem fileSystem = new FileSystem();
+			IFileSystemHelper fileSystemHelper = new FileSystemHelper();
 
-			Drive drive = new(playerInteraction.Object, fileSystem);
+			Drive drive = new(playerInteraction.Object, fileSystemHelper);
 
 			Dictionary<int, string> testDriveList = drive.SetDriveList();
 
@@ -63,9 +63,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
-			IFileSystem fileSystem = new FileSystem();
+			IFileSystemHelper fileSystemHelper = new FileSystemHelper();
 
-			Drive drive = new(playerInteraction.Object, fileSystem);
+			Drive drive = new(playerInteraction.Object, fileSystemHelper);
 			
 			drive.SetDriveDecisionFromPlayer();
 			
@@ -87,9 +87,9 @@ namespace RetroGamesTests
 				.Setup(mockSetup => mockSetup.ReadPlayerKeyFromConsole())
 				.Returns(() => { return mockPlayerKey; });
 
-			IFileSystem fileSystem = new FileSystem();
+			IFileSystemHelper fileSystemHelper = new FileSystemHelper();
 
-			Drive drive = new(playerInteraction.Object, fileSystem);
+			Drive drive = new(playerInteraction.Object, fileSystemHelper);
 			
 			drive.SetInstallationDrive(testDriveCount);
 
