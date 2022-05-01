@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetroGames.Game.Structure
+namespace RetroGames.Game.Structure.Hdd
 {
-	public class InstallationHdd
+	public class InstallationHdd : IInstallationHdd
 	{
 		private readonly IDefaultHdd _defaultHdd;
 		private readonly IHddIdentifierHelper _hddIdentifierHelper;
 		private readonly IPlayerInteraction _playerInteraction;
 
-		public InstallationHdd(IDefaultHdd defaultHdd,IPlayerInteraction playerInteraction, IHddIdentifierHelper hddIdentifierHelper)
+		public InstallationHdd(IDefaultHdd defaultHdd, IPlayerInteraction playerInteraction, IHddIdentifierHelper hddIdentifierHelper)
 		{
 			_defaultHdd = defaultHdd;
 			_playerInteraction = playerInteraction;
@@ -27,7 +27,7 @@ namespace RetroGames.Game.Structure
 		public void GetInstallationHddName()
 		{
 			_defaultHdd.GetDefaultHddFromAvailableHdd();
-			
+
 			HddName = SelectHddNameBasedonPlayerDecesion(_defaultHdd.HddCount);
 		}
 
@@ -35,7 +35,7 @@ namespace RetroGames.Game.Structure
 		{
 			_hddIdentifierHelper.GetHddListFromAvailableHdds();
 			_playerDecision = GetPlayerDecesion();
-			
+
 			if (hddCount == 1 || _playerDecision == '*')
 			{
 				_hddName = _defaultHdd.DefaultHddName;

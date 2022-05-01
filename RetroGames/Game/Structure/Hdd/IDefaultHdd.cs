@@ -1,4 +1,4 @@
-﻿namespace RetroGames.Game.Structure
+﻿namespace RetroGames.Game.Structure.Hdd
 {
 	public interface IDefaultHdd
 	{

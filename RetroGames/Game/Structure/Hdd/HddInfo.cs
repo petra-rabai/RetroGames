@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetroGames.Game.Structure
+namespace RetroGames.Game.Structure.Hdd
 {
 	public class HddInfo : IHddInfo
 	{
@@ -16,7 +16,6 @@ namespace RetroGames.Game.Structure
 			_fileSystemHelper = fileSystemHelper;
 		}
 
-		//private const int _gbConvert = (1024 * 1024 * 1024);
 		private IDriveInfo[] _hddInfo;
 		private IDriveInfoFactory _hddInfoFactory;
 
@@ -29,16 +28,6 @@ namespace RetroGames.Game.Structure
 			return HddInformation;
 		}
 
-		//private Dictionary<int, string> LoadDriveListFromAvailableDrives()
-		//{
-		//	for (int i = 0; i < _availableDrives.Length; i++)
-		//	{
-		//		DriveList.Add(i, _availableDrives[i]);
-		//	}
-
-		//	return DriveList;
-		//}
-
 		private IDriveInfo[] SetHddInfo()
 		{
 			_hddInfoFactory = _fileSystemHelper.FileSystem.DriveInfo;
@@ -47,18 +36,6 @@ namespace RetroGames.Game.Structure
 
 			return _hddInfo;
 		}
-
-		//private string[] CollectAvailableDrives()
-		//{
-		//	_availableDrives = new string[_driveInfo.Length];
-
-		//	for (int i = 0; i < _driveInfo.Length; i++)
-		//	{
-		//		_availableDrives[i] = _driveInfo[i].Name;
-		//	}
-
-		//	return _availableDrives;
-		//}
 
 	}
 

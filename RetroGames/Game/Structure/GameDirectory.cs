@@ -1,16 +1,18 @@
-﻿using RetroGames.Properties;
+﻿using RetroGames.Game.Structure;
+using RetroGames.Game.Structure.Hdd;
+using RetroGames.Properties;
 using System.IO.Abstractions;
 
 namespace RetroGames.Game.DirectoryStructure
 {
 	public class GameDirectory : IGameDirectory
 	{
-		private readonly IDrive _drive;
+		private readonly IInstallationHdd _installationHdd;
 		private readonly IFileSystemHelper _fileSystemHelper;
 
-		public GameDirectory(IDrive drive, IFileSystemHelper fileSystemHelper)
+		public GameDirectory(IInstallationHdd installationHdd, IFileSystemHelper fileSystemHelper)
 		{
-			_drive = drive;
+			_installationHdd = installationHdd;
 			_fileSystemHelper = fileSystemHelper;
 		}
 
@@ -44,7 +46,9 @@ namespace RetroGames.Game.DirectoryStructure
 
 		private string SelectInstallationDrive()
 		{
-			_installationDrive = _drive.SetInstallationDrive(0);
+			_installationHdd.GetInstallationHddName();
+
+			_installationDrive = _installationHdd.HddName;
 
 			return _installationDrive;
 		}

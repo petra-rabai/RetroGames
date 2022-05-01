@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetroGames.Game.Structure
+namespace RetroGames.Game.Structure.Hdd
 {
 	public class HddIdentifierHelper : IHddIdentifierHelper
 	{
