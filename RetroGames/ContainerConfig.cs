@@ -1,12 +1,5 @@
 ﻿using Autofac;
 using AutofacSerilogIntegration;
-using RetroGames.Game;
-using RetroGames.Game.Actions;
-using RetroGames.Game.DirectoryStructure;
-using RetroGames.Game.UI;
-using RetroGames.Person.Actions;
-using RetroGames.Person.Data;
-using RetroGames.Person.Security;
 using System.IO.Abstractions;
 using System.Reflection;
 
