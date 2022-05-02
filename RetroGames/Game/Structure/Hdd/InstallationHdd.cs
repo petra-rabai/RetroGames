@@ -1,4 +1,5 @@
-﻿using RetroGames.Person.Actions;
+﻿using RetroGames.Game.Structure.Helper;
+using RetroGames.Person.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace RetroGames.Game.Structure.Hdd
 			_hddIdentifierHelper.GetHddListFromAvailableHdds();
 			_playerDecision = GetPlayerDecesion();
 
-			if (hddCount == 1 || _playerDecision == '*')
+			if (hddCount == 1 || _playerDecision == 'O')
 			{
 				_hddName = _defaultHdd.DefaultHddName;
 			}

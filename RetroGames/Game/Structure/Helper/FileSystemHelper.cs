@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Abstractions;
 
-namespace RetroGames.Game.Structure
+namespace RetroGames.Game.Structure.Helper
 {
 	public class FileSystemHelper : IFileSystemHelper
 	{

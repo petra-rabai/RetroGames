@@ -1,4 +1,5 @@
 ﻿using RetroGames.Game.Structure.Folders;
+using RetroGames.Game.Structure.Helper;
 using RetroGames.Properties;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace RetroGames.Game.Structure.Files
 
 		public string GameFilePath { get; set; }
 
-		public void CreateGameFolder()
+		public void CreateGameFile()
 		{
 			_gameFolder.CreateGameFolder();
 			_filePath = _gameFolder.GameFolderPath + GameSettings.Default.GameFile;

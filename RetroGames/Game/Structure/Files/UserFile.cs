@@ -1,4 +1,5 @@
 ﻿using RetroGames.Game.Structure.Folders;
+using RetroGames.Game.Structure.Helper;
 using RetroGames.Properties;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace RetroGames.Game.Structure.Files
 
 		public string UserFilePath { get; set; }
 
-		public void CreateUserFolder()
+		public void CreateUserFile()
 		{
 			_userFolder.CreateUserFolder();
 			_filePath = _userFolder.UserFolderPath + GameSettings.Default.UserFile;

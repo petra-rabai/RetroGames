@@ -1,4 +1,5 @@
 ﻿using RetroGames.Game.Structure.Hdd;
+using RetroGames.Game.Structure.Helper;
 using RetroGames.Properties;
 using System;
 using System.Collections.Generic;

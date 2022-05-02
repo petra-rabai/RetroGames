@@ -2,8 +2,10 @@
 {
 	public interface IInstallationUi
 	{
-		void DrivelistUi(int key, string driveName);
+		void HddListUi(int key, string driveName);
 
 		void InstallationUiInitialize();
+
+		void Wait();
 	}
 }

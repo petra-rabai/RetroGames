@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RetroGames.Game.Structure.Helper;
+using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace RetroGames.Game.Structure.Hdd
 
 		private IDriveInfo[] SetHddInfo()
 		{
+			_fileSystemHelper.FileSystemInit();
+
 			_hddInfoFactory = _fileSystemHelper.FileSystem.DriveInfo;
 
 			_hddInfo = _hddInfoFactory.GetDrives();

@@ -4,6 +4,6 @@
 	{
 		string GameFilePath { get; set; }
 
-		void CreateGameFolder();
+		void CreateGameFile();
 	}
 }

@@ -4,6 +4,6 @@
 	{
 		string LogFilePath { get; set; }
 
-		void CreateLogFolder();
+		void CreateLogFile();
 	}
 }

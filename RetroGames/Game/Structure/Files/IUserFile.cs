@@ -4,6 +4,6 @@
 	{
 		string UserFilePath { get; set; }
 
-		void CreateUserFolder();
+		void CreateUserFile();
 	}
 }

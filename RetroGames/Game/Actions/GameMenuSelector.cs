@@ -12,7 +12,6 @@ namespace RetroGames.Game.Actions
 		public GameMenuSelector(IPlayerInteraction playerInteraction,
 							IGameMenu gameMenu)
 		{
-
 			_gameMenu = gameMenu;
 			_playerInteraction = playerInteraction;
 		}
@@ -31,16 +30,8 @@ namespace RetroGames.Game.Actions
 		public void SelectMenu()
 		{
 			MainMenu = GetMainMenu();
-
-			if (PressedKey == ' ')
-			{
-				PressedKey = SetChoosedMenuKey();
-				ChoosedMenu = SetChoosedMenuFromGameMenu();
-			}
-			else
-			{
-				ChoosedMenu = SetChoosedMenuFromGameMenu();
-			}
+			PressedKey = SetChoosedMenuKey();
+			ChoosedMenu = SetChoosedMenuFromGameMenu();
 		}
 
 

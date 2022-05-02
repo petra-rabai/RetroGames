@@ -1,4 +1,5 @@
 ﻿using RetroGames.Game.Structure.Folders;
+using RetroGames.Game.Structure.Helper;
 using RetroGames.Properties;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace RetroGames.Game.Structure.Files
 
 		public string LogFilePath { get; set; }
 
-		public void CreateLogFolder()
+		public void CreateLogFile()
 		{
 			_logFolder.CreateLogFolder();
 			_filePath = _logFolder.LogFolderPath + GameSettings.Default.LogFile;

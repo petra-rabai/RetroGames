@@ -1,4 +1,5 @@
 ﻿using RetroGames.Game.Actions;
+using RetroGames.Game.Process;
 using RetroGames.Person.Actions;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,13 @@ namespace RetroGames.Game
 	public class GameControl : IGameControl
 	{
 		private readonly IGameMenuSelector _gameMenuSelector;
-		private readonly IInstallation _installation;
+		private readonly IInstall _install;
 		private readonly ILogin _login;
 
-		public GameControl(IGameMenuSelector gameMenuSelector, IInstallation installation, ILogin login)
+		public GameControl(IGameMenuSelector gameMenuSelector, IInstall install, ILogin login)
 		{
 			_gameMenuSelector = gameMenuSelector;
-			_installation = installation;
+			_install = install;
 			_login = login;
 		}
 
@@ -33,7 +34,7 @@ namespace RetroGames.Game
 
 					break;
 				case "Installation":
-					_installation.Start();
+					_install.Initialize();
 					break;
 				case "Registration":
 					break;
