@@ -16,6 +16,11 @@ namespace RetroGames
 			_log = log;
 		}
 
-
+		private static void DefineLogger()
+		{
+			Log.Logger = new LoggerConfiguration()
+							.WriteTo.Console()
+							.CreateLogger();
+		}
 	}
 }

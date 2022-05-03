@@ -12,8 +12,6 @@ namespace RetroGames
 	{
 		private static void Main()
 		{
-			DefineLogger();
-
 			ApplicationServiceStart();
 		}
 
@@ -23,11 +21,5 @@ namespace RetroGames
 			applicationService.Initilaize();
 		}
 
-		private static void DefineLogger()
-		{
-			Log.Logger = new LoggerConfiguration()
-							.WriteTo.Console()
-							.CreateLogger();
-		}
 	}
 }
